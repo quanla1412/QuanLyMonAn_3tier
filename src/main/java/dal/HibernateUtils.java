@@ -1,7 +1,9 @@
 package dal;
 
 import dal.entity.Ban;
+import dal.entity.KhachHang;
 import dal.entity.LoaiBan;
+import dal.entity.LoaiKhachHang;
 import dal.entity.LoaiMonAn;
 import dal.entity.MonAn;
 import dal.entity.TinhTrangBan;
@@ -41,6 +43,8 @@ public class HibernateUtils {
         conf.addAnnotatedClass(LoaiMonAn.class);        
         conf.addAnnotatedClass(TinhTrangMonAn.class);
         conf.addAnnotatedClass(MonAn.class);
+        conf.addAnnotatedClass(LoaiKhachHang.class);
+        conf.addAnnotatedClass(KhachHang.class);
         
         ServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .applySettings(conf.getProperties()).build();
