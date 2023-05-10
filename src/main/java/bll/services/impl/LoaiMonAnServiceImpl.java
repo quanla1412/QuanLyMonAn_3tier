@@ -36,8 +36,11 @@ public class LoaiMonAnServiceImpl implements ILoaiMonAnService{
     }
 
     @Override
-    public boolean create(CreateLoaiMonAnModel createLoaiMonAnModel) {
+    public boolean create(CreateLoaiMonAnModel createLoaiMonAnModel){ 
+        if(!validateCreate(createLoaiMonAnModel))
+            return false;
         LoaiMonAn loaiMonAn = LoaiMonAnMapper.toLoaiMonAn(createLoaiMonAnModel);
+        
         LoaiMonAn createdLoaiMonAn = loaiMonAnRepository.create(loaiMonAn);
         
         if(createdLoaiMonAn.getId() > 0)
@@ -54,9 +57,22 @@ public class LoaiMonAnServiceImpl implements ILoaiMonAnService{
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(int id) {     
+        LoaiMonAn loaiMonAn = loaiMonAnRepository.getById(id);
+        if(loaiMonAn == null)
+            return false;
+        
+        if (!loaiMonAn.getListMonAn().isEmpty()) {
+            return false;
+        }
+        
         loaiMonAnRepository.delete(id);
+        return true;
     }
     
-    
+    private boolean validateCreate(CreateLoaiMonAnModel createLoaiMonAnModel){
+        LoaiMonAn loaiMonAn = loaiMonAnRepository.getByName(createLoaiMonAnModel.getTen());
+        
+        return loaiMonAn == null;
+    }
 }

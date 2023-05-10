@@ -1,35 +1,18 @@
 
 package gui.views;
 
-import BUS.LoaiMonAn_BUS;
-import BUS.MonAn_BUS;
-import Constraints.TinhTrangMonAnConstraints;
-import DTO.MonAn.CreateMonAn_DTO;
-import DTO.MonAn.LoaiMonAn_DTO;
-import DTO.MonAn.MonAnFull_DTO;
-import DTO.MonAn.MonAn_DTO;
-import DTO.MonAn.TinhTrangMonAn_DTO;
-import DTO.MonAn.UpdateMonAn_DTO;
-import DTO.Search.SearchMonAn_DTO;
-import GUI.QuanLyLoaiMonAn_GUI;
 import com.mycompany.quanlynhahang.Price;
+import gui.constraints.TinhTrangMonAnConstraints;
+import gui.models.LoaiMonAn.LoaiMonAnModel;
 import gui.models.MonAn.MonAnModel;
+import gui.models.MonAn.TinhTrangMonAnModel;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.io.File;
 import java.util.ArrayList;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-import javax.swing.border.TitledBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 
 public class QuanLyMonAn_GUI extends javax.swing.JPanel {
@@ -72,102 +55,36 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         }
     }
     
-    private void loadLoaiMonAnSearchBox(){
-        loaiMonAnSearchBox = loaiMonAn_BUS.getAllLoaiMonAn();        
+    public void loadComboBoxLoaiMonAn(ArrayList<LoaiMonAnModel> listLoaiMonAnModel){
+        cmbLoaiMonAnSearch.removeAllItems();
+        cmbLoaiMonAnForm.removeAllItems();
         
-        for(LoaiMonAn_DTO loaiBan : loaiMonAnSearchBox){
-            cmbLMASearchBox.addItem(loaiBan.getTen());
+        cmbLoaiMonAnSearch.addItem("Tất cả");
+        
+        for(LoaiMonAnModel loaiMonAnModel : listLoaiMonAnModel){
+            cmbLoaiMonAnSearch.addItem(loaiMonAnModel.getTen());
+            cmbLoaiMonAnForm.addItem(loaiMonAnModel.getTen());
         }      
         
-        cmbLMASearchBox.setSelectedIndex(0);
+        cmbLoaiMonAnSearch.setSelectedIndex(0);
+        cmbLoaiMonAnForm.setSelectedIndex(-1);
     }
     
-    private void loadLoaiMonAnUpdate(){
-        loaiMonAnUpdate = loaiMonAn_BUS.getAllLoaiMonAn();        
+    public void loadComboBoxTinhTrangMonAn(ArrayList<TinhTrangMonAnModel> listTinhTrangMonAnModel){  
+        cmbTinhTrangMonAnSearch.removeAllItems();
+        cmbTinhTrangMonAnForm.removeAllItems();
         
-        for(LoaiMonAn_DTO loaiBan : loaiMonAnUpdate){
-            cmbLMAForm.addItem(loaiBan.getTen());
-        }      
+        cmbTinhTrangMonAnSearch.addItem("Tất cả");
         
-        cmbLMAForm.setSelectedIndex(-1);
-    }
-    
-    private void loadTTMASearch(){      
-        listTTMA = monAn_BUS.getAllTinhTrangMA();
-        
-        cmbTTMASearch.addItem("Tất cả");
-        for(TinhTrangMonAn_DTO value : listTTMA){           
-            if (value.getId() != TinhTrangMonAnConstraints.DA_XOA) {
-                cmbTTMASearch.addItem(value.getTen());
-                cmbTTMAForm.addItem(value.getTen());                
+        for(TinhTrangMonAnModel tinhTrangMonAnModel : listTinhTrangMonAnModel){           
+            if (tinhTrangMonAnModel.getId() != TinhTrangMonAnConstraints.DA_XOA) {
+                cmbTinhTrangMonAnSearch.addItem(tinhTrangMonAnModel.getTen());
+                cmbTinhTrangMonAnForm.addItem(tinhTrangMonAnModel.getTen());                
             }
         } 
         
-        cmbTTMASearch.setSelectedIndex(0);
-        cmbTTMAForm.setSelectedIndex(0);
-    }
-    
-    private void resetTable(){
-        loadTableMonAn();
-        txtSearchIdName.setText("");
-        cmbLMASearchBox.setSelectedIndex(0);
-        
-        sldMinPrice.setValue(sldMinPrice.getMinimum());
-        lblMinPrice.setText(Price.formatPrice(sldMinPrice.getValue()));
-        sldMaxPrice.setValue(sldMaxPrice.getMaximum());
-        lblMaxPrice.setText(Price.formatPrice(sldMaxPrice.getValue()));
-        
-        cmbTTMASearch.setSelectedIndex(0);
-    }
-    
-    private void resetForm(){
-        if(dangThemMonAn){
-            clearForm();
-        } else {
-            int idMonAn = Integer.parseInt(txtIdMonAn.getText());
-            loadFormWithMonAn(idMonAn);
-        }
-    }
-    
-    private void clearForm(){
-        txtIdMonAn.setText("");
-            txtTenMonAn.setText("");
-            cmbLMAForm.setSelectedIndex(-1);
-            linkHinhAnh = "";
-            lblTenHinhAnh.setText("Chưa chọn file");
-            txtGia.setText("");
-            txtGiaKhuyenMai.setText("");
-            cmbTTMAForm.setSelectedIndex(0);
-            txaNoiDung.setText("");
-    }
-    
-    private void loadFormWithMonAn(int idMonAn){
-        MonAnFull_DTO result = monAn_BUS.getMonAnFullById(idMonAn);
-        if (result == null) {
-            JOptionPane.showMessageDialog(this, "Lỗi hệ thống","Error", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        txtIdMonAn.setText(Integer.toString(result.getId()));
-        txtTenMonAn.setText(result.getTen());
-        cmbLMAForm.setSelectedIndex(result.getLoaiMonAn().getId()-1);
-        if(result.getHinhAnh() != null && !result.getHinhAnh().isBlank()){
-            linkHinhAnh = result.getHinhAnh();
-            lblTenHinhAnh.setText(new File(linkHinhAnh).getName());
-        } else {
-            linkHinhAnh = "";
-            lblTenHinhAnh.setText("");
-        }
-        txtGia.setText(Integer.toString(result.getGia()));
-        if(result.getGiaKhuyenMai() != 0)
-            txtGiaKhuyenMai.setText(Integer.toString(result.getGiaKhuyenMai()));
-        else
-            txtGiaKhuyenMai.setText("");
-        if(result.getNoiDung()!= null)
-            txaNoiDung.setText(result.getNoiDung());
-        else 
-            txaNoiDung.setText("");
-        
-        cmbTTMAForm.setSelectedIndex(result.getTinhTrangMonAn().getId() - 1);
+        cmbTinhTrangMonAnSearch.setSelectedIndex(0);
+        cmbTinhTrangMonAnForm.setSelectedIndex(-1);
     }
 
     @SuppressWarnings("unchecked")
@@ -181,18 +98,18 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtSearchIdName = new javax.swing.JTextField();
         btnTimKiem = new javax.swing.JButton();
-        cmbLMASearchBox = new javax.swing.JComboBox<>();
+        cmbLoaiMonAnSearch = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         sldMinPrice = new javax.swing.JSlider();
         jLabel16 = new javax.swing.JLabel();
         sldMaxPrice = new javax.swing.JSlider();
         jLabel17 = new javax.swing.JLabel();
-        cmbTTMASearch = new javax.swing.JComboBox<>();
+        cmbTinhTrangMonAnSearch = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
         lblMaxPrice = new javax.swing.JLabel();
         lblMinPrice = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        resetTableButton = new javax.swing.JButton();
+        btnResetTable = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMonAn = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
@@ -208,14 +125,14 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txtIdMonAn = new javax.swing.JTextField();
         txtTenMonAn = new javax.swing.JTextField();
-        cmbLMAForm = new javax.swing.JComboBox<>();
+        cmbLoaiMonAnForm = new javax.swing.JComboBox<>();
         btnResetForm = new javax.swing.JButton();
         btnLuu = new javax.swing.JButton();
         btnHinhAnh = new javax.swing.JButton();
         lblTenHinhAnh = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         txtGiaKhuyenMai = new javax.swing.JTextField();
-        cmbTTMAForm = new javax.swing.JComboBox<>();
+        cmbTinhTrangMonAnForm = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -264,11 +181,6 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         jPanel4.add(jLabel2, gridBagConstraints);
 
         txtSearchIdName.setPreferredSize(new java.awt.Dimension(150, 22));
-        txtSearchIdName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchIdNameActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -283,16 +195,6 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         btnTimKiem.setMaximumSize(new java.awt.Dimension(88, 24));
         btnTimKiem.setMinimumSize(new java.awt.Dimension(88, 24));
         btnTimKiem.setPreferredSize(new java.awt.Dimension(88, 24));
-        btnTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnTimKiemMouseClicked(evt);
-            }
-        });
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -303,9 +205,9 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         jPanel4.add(btnTimKiem, gridBagConstraints);
 
-        cmbLMASearchBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
-        cmbLMASearchBox.setMinimumSize(new java.awt.Dimension(140, 24));
-        cmbLMASearchBox.setPreferredSize(new java.awt.Dimension(140, 24));
+        cmbLoaiMonAnSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        cmbLoaiMonAnSearch.setMinimumSize(new java.awt.Dimension(140, 24));
+        cmbLoaiMonAnSearch.setPreferredSize(new java.awt.Dimension(140, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 1;
@@ -313,7 +215,7 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 20);
-        jPanel4.add(cmbLMASearchBox, gridBagConstraints);
+        jPanel4.add(cmbLoaiMonAnSearch, gridBagConstraints);
 
         jLabel10.setText("Khoảng giá:");
         jLabel10.setMaximumSize(new java.awt.Dimension(88, 24));
@@ -332,11 +234,6 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         sldMinPrice.setValue(0);
         sldMinPrice.setMinimumSize(new java.awt.Dimension(80, 24));
         sldMinPrice.setPreferredSize(new java.awt.Dimension(80, 24));
-        sldMinPrice.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                sldMinPriceMouseDragged(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -361,11 +258,6 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         sldMaxPrice.setValue(500000);
         sldMaxPrice.setMinimumSize(new java.awt.Dimension(80, 24));
         sldMaxPrice.setPreferredSize(new java.awt.Dimension(80, 24));
-        sldMaxPrice.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                sldMaxPriceMouseDragged(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
@@ -387,19 +279,10 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 12, 4, 0);
         jPanel4.add(jLabel17, gridBagConstraints);
 
-        cmbTTMASearch.setMaximumSize(new java.awt.Dimension(120, 24));
-        cmbTTMASearch.setMinimumSize(new java.awt.Dimension(140, 24));
-        cmbTTMASearch.setPreferredSize(new java.awt.Dimension(140, 24));
-        cmbTTMASearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cmbTTMASearchMouseClicked(evt);
-            }
-        });
-        cmbTTMASearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTTMASearchActionPerformed(evt);
-            }
-        });
+        cmbTinhTrangMonAnSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        cmbTinhTrangMonAnSearch.setMaximumSize(new java.awt.Dimension(120, 24));
+        cmbTinhTrangMonAnSearch.setMinimumSize(new java.awt.Dimension(140, 24));
+        cmbTinhTrangMonAnSearch.setPreferredSize(new java.awt.Dimension(140, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 2;
@@ -407,7 +290,7 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 20);
-        jPanel4.add(cmbTTMASearch, gridBagConstraints);
+        jPanel4.add(cmbTinhTrangMonAnSearch, gridBagConstraints);
 
         jLabel18.setText("~");
         jLabel18.setMaximumSize(new java.awt.Dimension(20, 20));
@@ -449,19 +332,14 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh sách món ăn"));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        resetTableButton.setText("Reset bảng");
-        resetTableButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                resetTableButtonMouseClicked(evt);
-            }
-        });
+        btnResetTable.setText("Reset bảng");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(5, 20, 10, 20);
-        jPanel1.add(resetTableButton, gridBagConstraints);
+        jPanel1.add(btnResetTable, gridBagConstraints);
 
         jScrollPane1.setMaximumSize(new java.awt.Dimension(452, 300));
         jScrollPane1.setMinimumSize(new java.awt.Dimension(452, 200));
@@ -487,11 +365,7 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
             }
         });
         tblMonAn.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        tblMonAn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblMonAnMouseClicked(evt);
-            }
-        });
+        tblMonAn.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblMonAn);
         if (tblMonAn.getColumnModel().getColumnCount() > 0) {
             tblMonAn.getColumnModel().getColumn(0).setMinWidth(0);
@@ -520,41 +394,21 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
 
         btnThem.setText("Thêm");
         btnThem.setEnabled(false);
-        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnThemMouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
         jPanel6.add(btnThem, gridBagConstraints);
 
         btnSua.setText("Sửa");
-        btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSuaMouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
         jPanel6.add(btnSua, gridBagConstraints);
 
         btnXoa.setText("Xóa");
-        btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnXoaMouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
         jPanel6.add(btnXoa, gridBagConstraints);
 
         btnChuyenTinhTrang.setText("Chuyển tình trạng");
-        btnChuyenTinhTrang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnChuyenTinhTrangMouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -628,23 +482,18 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 20);
         pnlThemSuaMonAn.add(txtTenMonAn, gridBagConstraints);
 
-        cmbLMAForm.setMaximumSize(null);
-        cmbLMAForm.setMinimumSize(new java.awt.Dimension(100, 22));
-        cmbLMAForm.setPreferredSize(new java.awt.Dimension(100, 22));
+        cmbLoaiMonAnForm.setMaximumSize(null);
+        cmbLoaiMonAnForm.setMinimumSize(new java.awt.Dimension(100, 22));
+        cmbLoaiMonAnForm.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 20);
-        pnlThemSuaMonAn.add(cmbLMAForm, gridBagConstraints);
+        pnlThemSuaMonAn.add(cmbLoaiMonAnForm, gridBagConstraints);
 
         btnResetForm.setText("Reset");
-        btnResetForm.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnResetFormMouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 9;
@@ -654,11 +503,6 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         pnlThemSuaMonAn.add(btnResetForm, gridBagConstraints);
 
         btnLuu.setText("Lưu");
-        btnLuu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnLuuMouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 9;
@@ -671,11 +515,6 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         btnHinhAnh.setMaximumSize(null);
         btnHinhAnh.setMinimumSize(new java.awt.Dimension(100, 22));
         btnHinhAnh.setPreferredSize(new java.awt.Dimension(100, 22));
-        btnHinhAnh.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnHinhAnhMouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -715,16 +554,16 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 20);
         pnlThemSuaMonAn.add(txtGiaKhuyenMai, gridBagConstraints);
 
-        cmbTTMAForm.setMaximumSize(null);
-        cmbTTMAForm.setMinimumSize(new java.awt.Dimension(100, 22));
-        cmbTTMAForm.setPreferredSize(new java.awt.Dimension(100, 22));
+        cmbTinhTrangMonAnForm.setMaximumSize(null);
+        cmbTinhTrangMonAnForm.setMinimumSize(new java.awt.Dimension(100, 22));
+        cmbTinhTrangMonAnForm.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 20);
-        pnlThemSuaMonAn.add(cmbTTMAForm, gridBagConstraints);
+        pnlThemSuaMonAn.add(cmbTinhTrangMonAnForm, gridBagConstraints);
 
         jLabel11.setText("Tình trạng");
         jLabel11.setMaximumSize(new java.awt.Dimension(84, 20));
@@ -787,11 +626,6 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         jPanel3.setPreferredSize(new java.awt.Dimension(157, 60));
 
         btnQuanLyLoaiMonAn.setText("Quản lý loại món ăn");
-        btnQuanLyLoaiMonAn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnQuanLyLoaiMonAnMouseClicked(evt);
-            }
-        });
         jPanel3.add(btnQuanLyLoaiMonAn);
 
         jPanel5.add(jPanel3);
@@ -799,360 +633,22 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         add(jPanel5);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
-        // TODO add your handling code here:
-        dangThemMonAn = true;
-        btnSua.setEnabled(true);
-        btnThem.setEnabled(false);
-        pnlThemSuaMonAn.setBorder(new TitledBorder("Thêm món ăn"));
-        clearForm();
-        btnLuu.setEnabled(true);
-    }//GEN-LAST:event_btnThemMouseClicked
-
-    private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
-        // TODO add your handling code here:
-        dangThemMonAn = false;
-        btnSua.setEnabled(false);
-        btnThem.setEnabled(true);
-        pnlThemSuaMonAn.setBorder(new TitledBorder("Sửa món ăn"));
-        btnLuu.setEnabled(false);
-    }//GEN-LAST:event_btnSuaMouseClicked
-
-    private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
-        // TODO add your handling code here:
-        int total = tblMonAn.getSelectedRowCount();
-        TableModel model = tblMonAn.getModel();
-        if(total < 0){
-            JOptionPane.showMessageDialog(this, "Chưa có món ăn nào được chọn","Error", JOptionPane.ERROR_MESSAGE);
-        } else if (total == 1){
-            int indexRow = tblMonAn.getSelectedRow();
-            int idMonAn =Integer.parseInt( model.getValueAt(indexRow, 0).toString());
-
-            boolean result = monAn_BUS.deleteMonAn(idMonAn);
-
-            if(result){
-                JOptionPane.showMessageDialog(this, "Xóa món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                resetTable();
-                clearForm();
-            } else {
-                JOptionPane.showMessageDialog(this, "Xóa món ăn thất bại","Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            int[] listIndex = tblMonAn.getSelectedRows();
-            ArrayList<Integer> listID = new ArrayList<>();
-            for(int id : listIndex){
-                listID.add(Integer.valueOf(model.getValueAt(id, 0).toString()));
-            }
-            int result = monAn_BUS.deleteNhieuMonAn(listID);
-
-            if(result > 0){
-                JOptionPane.showMessageDialog(this, "Xóa " + result + " món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                resetTable();
-                clearForm();
-            } else {
-                JOptionPane.showMessageDialog(this, "Xóa các món ăn thất bại","Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_btnXoaMouseClicked
-
-    private void btnChuyenTinhTrangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChuyenTinhTrangMouseClicked
-        // TODO add your handling code here:int total = tblMonAn.getSelectedRowCount();
-        int total = tblMonAn.getSelectedRowCount();
-        TableModel model = tblMonAn.getModel();
-        if(total < 0){
-            JOptionPane.showMessageDialog(this, "Chưa có món ăn nào được chọn","Error", JOptionPane.ERROR_MESSAGE);
-        } else if (total == 1){
-            int indexRow = tblMonAn.getSelectedRow();
-            int idMonAn =Integer.parseInt( model.getValueAt(indexRow, 0).toString());
-
-            int tinhTrangMonAn = monAn_BUS.getMonAnFullById(idMonAn).getTinhTrangMonAn().getId();
-            if(tinhTrangMonAn == TinhTrangMonAnConstraints.CON_PHUC_VU)
-            tinhTrangMonAn = TinhTrangMonAnConstraints.HET;
-            else
-            tinhTrangMonAn = TinhTrangMonAnConstraints.CON_PHUC_VU;
-            boolean result = monAn_BUS.chuyenTinhTrangMonAn(idMonAn, tinhTrangMonAn);
-
-            if(result){
-                JOptionPane.showMessageDialog(this, "Chuyển tình trạng món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                resetTable();
-                clearForm();
-            } else {
-                JOptionPane.showMessageDialog(this, "Chuyển tình trạng món ăn thất bại","Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chỉ chọn 1 món ăn 1 lần","Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-    }//GEN-LAST:event_btnChuyenTinhTrangMouseClicked
-
-    private void btnResetFormMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetFormMouseClicked
-        // TODO add your handling code here:
-        resetForm();
-    }//GEN-LAST:event_btnResetFormMouseClicked
-
-    private void btnLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseClicked
-        // TODO add your handling code here:
-        if (dangThemMonAn) {
-            CreateMonAn_DTO createMonAn_DTO = new CreateMonAn_DTO();
-
-            int indexLoaiMonAn = cmbLMAForm.getSelectedIndex();
-            if(indexLoaiMonAn < 0){
-                JOptionPane.showMessageDialog(this, "Chưa chọn loại món ăn","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            } else
-            createMonAn_DTO.setIdLoaiMonAn(loaiMonAnUpdate.get(indexLoaiMonAn).getId());
-
-            String tenMonAn = txtTenMonAn.getText().trim();
-            if(tenMonAn.isBlank()){
-                JOptionPane.showMessageDialog(this, "Chưa nhập tên món ăn","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            } else
-            createMonAn_DTO.setTen(tenMonAn);
-
-            if (!linkHinhAnh.isEmpty()) {
-                createMonAn_DTO.setHinhAnh(linkHinhAnh);
-            }
-
-            String giaString = txtGia.getText();
-            if(giaString.isEmpty()){
-                JOptionPane.showMessageDialog(this, "Chưa nhập giá","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            try {
-                int gia = Integer.parseInt(giaString);
-                if (gia < 1000 || gia % 100 != 0)
-                throw new NumberFormatException();
-                else
-                createMonAn_DTO.setGia(gia);
-            } catch (NumberFormatException ex){
-                JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên và chia hết cho 100 ","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            String giaKhuyenMaiString = txtGiaKhuyenMai.getText();
-            if(!giaKhuyenMaiString.isEmpty()){
-                try {
-                    int giaKhuyenMai = Integer.parseInt(giaKhuyenMaiString);
-                    if (giaKhuyenMai < 1000 || giaKhuyenMai % 100 != 0 || giaKhuyenMai > createMonAn_DTO.getGia())
-                    throw new NumberFormatException();
-                    else
-                    createMonAn_DTO.setGiaKhuyenMai(giaKhuyenMai);
-                } catch (NumberFormatException ex){
-                    JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên, nhỏ hơn giá gốc và chia hết cho 100 hoặc giá khuyến mãi phải nhỏ hơn giá mặc định","Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
-
-            int idTinhTrang = cmbTTMAForm.getSelectedIndex();
-            createMonAn_DTO.setIdTtinhTrangMonAn(listTTMA.get(idTinhTrang).getId());
-
-            String noidung = txaNoiDung.getText();
-            if(!noidung.isBlank())
-            createMonAn_DTO.setNoiDung(noidung);
-
-            boolean result = monAn_BUS.createMonAn(createMonAn_DTO);
-            if(result){
-                JOptionPane.showMessageDialog(this, "Thêm món ăn mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                loadTableMonAn();
-                resetTable();
-                resetForm();
-            }
-            else
-            JOptionPane.showMessageDialog(this, "Thêm món ăn mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            UpdateMonAn_DTO updateMonAn_DTO = new UpdateMonAn_DTO();
-
-            updateMonAn_DTO.setId(Integer.parseInt(txtIdMonAn.getText()));
-            int indexLoaiMonAn = cmbLMAForm.getSelectedIndex();
-            if(indexLoaiMonAn < 0){
-                JOptionPane.showMessageDialog(this, "Chưa chọn loại món ăn","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            } else
-            updateMonAn_DTO.setIdLoaiMonAn(loaiMonAnUpdate.get(indexLoaiMonAn).getId());
-
-            String tenMonAn = txtTenMonAn.getText().trim();
-            if(tenMonAn.isBlank()){
-                JOptionPane.showMessageDialog(this, "Chưa nhập tên món ăn","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            } else
-            updateMonAn_DTO.setTen(tenMonAn);
-
-            if (!linkHinhAnh.isEmpty()) {
-                updateMonAn_DTO.setHinhAnh(linkHinhAnh);
-            }
-
-            String giaString = txtGia.getText();
-            if(giaString.isEmpty()){
-                JOptionPane.showMessageDialog(this, "Chưa nhập giá","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            try {
-                int gia = Integer.parseInt(giaString);
-                if (gia < 1000 || gia % 100 != 0)
-                throw new NumberFormatException();
-                else
-                updateMonAn_DTO.setGia(gia);
-            } catch (NumberFormatException ex){
-                JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên và chia hết cho 100","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            String giaKhuyenMaiString = txtGiaKhuyenMai.getText();
-            if(!giaKhuyenMaiString.isEmpty()){
-                try {
-                    int giaKhuyenMai = Integer.parseInt(giaKhuyenMaiString);
-                    if (giaKhuyenMai < 1000 || giaKhuyenMai % 100 != 0 || giaKhuyenMai > updateMonAn_DTO.getGia())
-                    throw new NumberFormatException();
-                    else
-                    updateMonAn_DTO.setGiaKhuyenMai(giaKhuyenMai);
-                } catch (NumberFormatException ex){
-                    JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên, nhỏ hơn giá gốc và chia hết cho 100,  hoặc giá khuyến mãi phải nhỏ hơn giá mặc định","Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
-
-            int idTinhTrang = cmbTTMAForm.getSelectedIndex();
-            updateMonAn_DTO.setIdTtinhTrangMonAn(listTTMA.get(idTinhTrang).getId());
-
-            String noidung = txaNoiDung.getText();
-            if(!noidung.isBlank())
-            updateMonAn_DTO.setNoiDung(noidung);
-
-            boolean result = monAn_BUS.updateMonAn(updateMonAn_DTO);
-            if(result){
-                JOptionPane.showMessageDialog(this, "Sửa món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                loadTableMonAn();
-                resetTable();
-                resetForm();
-            }
-            else
-            JOptionPane.showMessageDialog(this, "Sửa món ăn thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnLuuMouseClicked
-
-    private void btnHinhAnhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHinhAnhMouseClicked
-        // TODO add your handling code here:
-        JFileChooser fc = new JFileChooser("D:\\");
-            FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Image", "jpg", "png");
-            fc.setFileFilter(imageFilter);
-            fc.setMultiSelectionEnabled(false);
-
-            int returnVal = fc.showOpenDialog(QuanLyMonAn_GUI.this);
-
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fc.getSelectedFile();
-                //This is where a real application would open the file.
-                lblTenHinhAnh.setText(file.getName());
-                linkHinhAnh = file.getAbsolutePath();
-            } else {
-                lblTenHinhAnh.setText("Lỗi khi chọn file");
-            }
-    }//GEN-LAST:event_btnHinhAnhMouseClicked
-
-    private void btnTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseClicked
-        // TODO add your handling code here:
-        SearchMonAn_DTO searchMonAn_DTO = new SearchMonAn_DTO();
-
-        String idOrName = txtSearchIdName.getText();
-        if(!idOrName.isBlank()){
-            searchMonAn_DTO.setIdOrName(idOrName.trim());
-        }
-
-        int idLoaiMonAn = cmbLMASearchBox.getSelectedIndex();
-        if(idLoaiMonAn > 0){
-            searchMonAn_DTO.setIdLoaiMonAn(loaiMonAnSearchBox.get(idLoaiMonAn - 1).getId());
-        }
-
-        int minPrice = sldMinPrice.getValue();
-        int maxPrice = sldMaxPrice.getValue();
-        if(minPrice > maxPrice){
-            JOptionPane.showMessageDialog(this, "Giá tối thiểu phải nhỏ hơn giá tối đa","Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        } else {
-            searchMonAn_DTO.setMinPrice(minPrice);
-            searchMonAn_DTO.setMaxPrice(maxPrice);
-        }
-
-        int idTTMA = cmbTTMASearch.getSelectedIndex();
-        if(idTTMA > 0){
-            searchMonAn_DTO.setIdTTMA(listTTMA.get(idTTMA - 1).getId());
-        }
-
-        ArrayList<MonAn_DTO> result = monAn_BUS.searchMonAn(searchMonAn_DTO);
-        loadTableMonAn(result);
-    }//GEN-LAST:event_btnTimKiemMouseClicked
-
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTimKiemActionPerformed
-
-    private void sldMinPriceMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sldMinPriceMouseDragged
-        // TODO add your handling code here:
-        lblMinPrice.setText(Price.formatPrice(sldMinPrice.getValue()));
-    }//GEN-LAST:event_sldMinPriceMouseDragged
-
-    private void sldMaxPriceMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sldMaxPriceMouseDragged
-        // TODO add your handling code here:
-        lblMaxPrice.setText(Price.formatPrice(sldMaxPrice.getValue()));
-    }//GEN-LAST:event_sldMaxPriceMouseDragged
-
-    private void cmbTTMASearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbTTMASearchMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_cmbTTMASearchMouseClicked
-
-    private void cmbTTMASearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTTMASearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbTTMASearchActionPerformed
-
-    private void tblMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMonAnMouseClicked
-        // TODO add your handling code here:
-        if(dangThemMonAn)
-        return;
-
-        int indexRow = tblMonAn.getSelectedRow();
-        TableModel model = tblMonAn.getModel();
-
-        int idMonAn = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
-        loadFormWithMonAn(idMonAn);
-        btnLuu.setEnabled(true);
-    }//GEN-LAST:event_tblMonAnMouseClicked
-
-    private void btnQuanLyLoaiMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyLoaiMonAnMouseClicked
-        // TODO add your handling code here:
-        if(quanLyLoaiMonAn_GUI == null || !quanLyLoaiMonAn_GUI.isDisplayable()){
-            quanLyLoaiMonAn_GUI = new QuanLyLoaiMonAn_GUI();
-            quanLyLoaiMonAn_GUI.setVisible(true);
-        } else {
-            quanLyLoaiMonAn_GUI.setState(JFrame.NORMAL);
-            quanLyLoaiMonAn_GUI.toFront();
-        }
-    }//GEN-LAST:event_btnQuanLyLoaiMonAnMouseClicked
-
-    private void resetTableButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetTableButtonMouseClicked
-        // TODO add your handling code here:
-        resetTable();
-    }//GEN-LAST:event_resetTableButtonMouseClicked
-
-    private void txtSearchIdNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchIdNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchIdNameActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChuyenTinhTrang;
-    private javax.swing.JButton btnHinhAnh;
-    private javax.swing.JButton btnLuu;
-    private javax.swing.JButton btnQuanLyLoaiMonAn;
-    private javax.swing.JButton btnResetForm;
-    private javax.swing.JButton btnSua;
-    private javax.swing.JButton btnThem;
-    private javax.swing.JButton btnTimKiem;
-    private javax.swing.JButton btnXoa;
-    private javax.swing.JComboBox<String> cmbLMAForm;
-    private javax.swing.JComboBox<String> cmbLMASearchBox;
-    private javax.swing.JComboBox<String> cmbTTMAForm;
-    private javax.swing.JComboBox<String> cmbTTMASearch;
+    public javax.swing.JButton btnChuyenTinhTrang;
+    public javax.swing.JButton btnHinhAnh;
+    public javax.swing.JButton btnLuu;
+    public javax.swing.JButton btnQuanLyLoaiMonAn;
+    public javax.swing.JButton btnResetForm;
+    public javax.swing.JButton btnResetTable;
+    public javax.swing.JButton btnSua;
+    public javax.swing.JButton btnThem;
+    public javax.swing.JButton btnTimKiem;
+    public javax.swing.JButton btnXoa;
+    public javax.swing.JComboBox<String> cmbLoaiMonAnForm;
+    public javax.swing.JComboBox<String> cmbLoaiMonAnSearch;
+    public javax.swing.JComboBox<String> cmbTinhTrangMonAnForm;
+    public javax.swing.JComboBox<String> cmbTinhTrangMonAnSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1175,19 +671,18 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblMaxPrice;
-    private javax.swing.JLabel lblMinPrice;
-    private javax.swing.JLabel lblTenHinhAnh;
-    private javax.swing.JPanel pnlThemSuaMonAn;
-    private javax.swing.JButton resetTableButton;
-    private javax.swing.JSlider sldMaxPrice;
-    private javax.swing.JSlider sldMinPrice;
-    private javax.swing.JTable tblMonAn;
-    private javax.swing.JTextArea txaNoiDung;
-    private javax.swing.JTextField txtGia;
-    private javax.swing.JTextField txtGiaKhuyenMai;
-    private javax.swing.JTextField txtIdMonAn;
-    private javax.swing.JTextField txtSearchIdName;
-    private javax.swing.JTextField txtTenMonAn;
+    public javax.swing.JLabel lblMaxPrice;
+    public javax.swing.JLabel lblMinPrice;
+    public javax.swing.JLabel lblTenHinhAnh;
+    public javax.swing.JPanel pnlThemSuaMonAn;
+    public javax.swing.JSlider sldMaxPrice;
+    public javax.swing.JSlider sldMinPrice;
+    public javax.swing.JTable tblMonAn;
+    public javax.swing.JTextArea txaNoiDung;
+    public javax.swing.JTextField txtGia;
+    public javax.swing.JTextField txtGiaKhuyenMai;
+    public javax.swing.JTextField txtIdMonAn;
+    public javax.swing.JTextField txtSearchIdName;
+    public javax.swing.JTextField txtTenMonAn;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,5 +18,5 @@ public interface ILoaiMonAnService {
     
     LoaiMonAn update(LoaiMonAn loaiMonAn);
     
-    void delete(int id);
+    boolean delete(int id);
 }
