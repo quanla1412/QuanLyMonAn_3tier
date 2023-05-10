@@ -5,7 +5,9 @@
 package gui.views;
 
 
+import gui.controllers.QuanLyKhachHangController;
 import gui.controllers.QuanLyLoaiBanVaBanController;
+import gui.controllers.QuanLyLoaiKhachHangController;
 import gui.controllers.QuanLyMonAnController;
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -22,7 +24,7 @@ import org.kordamp.ikonli.swing.FontIcon;
  * @author tanph
  */
 public class TrangChuNew_GUI extends javax.swing.JFrame {
-    QuanLyLoaiBanVaBanController quanLyLoaiBanVaBanController;
+    QuanLyKhachHangController quanLyLoaiBanVaBanController;
     
     boolean over;
     
@@ -30,7 +32,7 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
         initComponents();
         prepareIcon();
         btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new QuanLyMonAnController().getView());
+        showForm(new QuanLyKhachHangController().getView());
     }
 
     class jPanelGradient extends JPanel {
