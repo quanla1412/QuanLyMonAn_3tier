@@ -92,12 +92,10 @@ public class NhanVien implements Serializable{
     public boolean isGioiTinhNam() {
         return gioiTinhNam;
     }
-
+    
     public void setGioiTinhNam(boolean gioiTinhNam) {
         this.gioiTinhNam = gioiTinhNam;
     }
-
-  
 
     public String getEmail() {
         return email;

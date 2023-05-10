@@ -5,18 +5,30 @@
 package bll.services.impl;
 
 import bll.mappers.NhanVienMapper;
-import bll.services.IChucVuService;
 import bll.services.INhanVienSerivice;
-import bll.services.ITinhTrangNhanVienService;
+import com.mycompany.quanlynhahang.OpenFile;
 import dal.entity.NhanVien;
-import dal.repository.ChucVuRepository;
 import dal.repository.NhanVienRepository;
-import dal.repository.TinhTrangNhanVienRepository;
 import gui.models.NhanVien.CreateNhanVienModel;
 import gui.models.NhanVien.NhanVienFullModel;
 import gui.models.NhanVien.NhanVienModel;
+import gui.models.NhanVien.SearchNhanVienModel;
 import gui.models.NhanVien.UpdateNhanVienModel;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.jfree.ui.HorizontalAlignment;
 
 /**
  *
@@ -50,6 +62,7 @@ public class NhanVienServiceImpl implements INhanVienSerivice{
     @Override
     public boolean createNhanVien(CreateNhanVienModel createNhanVienModel) {
        NhanVien nhanVien = NhanVienMapper.toNhanVien(createNhanVienModel);
+       nhanVien.setPassWord(nhanVien.getMa());
        NhanVien createNhanVien = nhanVienRepository.createNhanVien(nhanVien);
        
        return true;
@@ -71,6 +84,26 @@ public class NhanVienServiceImpl implements INhanVienSerivice{
        
        return true;
     }
+
+    @Override
+    public List<NhanVienModel> search(SearchNhanVienModel searchNhanVienModel) {
+       List<NhanVien> listNhanVien = nhanVienRepository.search(searchNhanVienModel);
+       
+       List<NhanVienModel> listNhanVienModel = NhanVienMapper.toListNhanVienModel(listNhanVien);
+       
+       return listNhanVienModel;
+       
+    }
+
+    
+    
+    
+   
+    
+    
+ 
+    
+    
     
     
 }

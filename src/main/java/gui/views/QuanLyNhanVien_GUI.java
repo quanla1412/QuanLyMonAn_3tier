@@ -2,10 +2,12 @@
 package gui.views;
 
 
+import gui.controllers.QuanLyChucVuController;
 import gui.models.NhanVien.ChucVuModel;
 import gui.models.NhanVien.NhanVienModel;
 import gui.models.NhanVien.TinhTrangNhanVienModel;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -13,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 public class QuanLyNhanVien_GUI extends javax.swing.JPanel {
-    private QuanLyChucVu_GUI quanLyChucVu_GUI;
+    private QuanLyChucVuController quanLyChucVuController;
    
     
     public QuanLyNhanVien_GUI() {
@@ -22,7 +24,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JPanel {
   
     }
 
-   public void loadTableNhanVien (ArrayList<NhanVienModel> listNhanVienModel){
+   public void loadTableNhanVien (List<NhanVienModel> listNhanVienModel){
         String col[] = {"Mã nhân viên", "Tên nhân viên", "SDT", "Chức Vụ", "Tình trạng"};
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
         tblDanhSachNV.setModel(tableModel);
@@ -34,10 +36,9 @@ public class QuanLyNhanVien_GUI extends javax.swing.JPanel {
     
   
     
-    
     public void loadComboBoxChucVu(ArrayList<ChucVuModel> listChucVu){
         cmbThemChucVu.removeAllItems();
-        cmbTimKiemChucVu.removeAllItems();
+    
         for (ChucVuModel cv : listChucVu)
         {
             cmbThemChucVu.addItem(cv.getTen());
@@ -621,7 +622,9 @@ public class QuanLyNhanVien_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSDTNVActionPerformed
 
     private void btnQuanLyChucVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyChucVuMouseClicked
-        // TODO add your handling code here:
+        if(quanLyChucVuController == null ){
+            quanLyChucVuController = new QuanLyChucVuController();
+        }
         
     }//GEN-LAST:event_btnQuanLyChucVuMouseClicked
 

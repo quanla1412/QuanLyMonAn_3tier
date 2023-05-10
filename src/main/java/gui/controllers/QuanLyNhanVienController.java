@@ -11,10 +11,13 @@ import bll.services.impl.ChucVuServiceImpl;
 import bll.services.impl.NhanVienServiceImpl;
 import bll.services.impl.TinhTrangNhanVienServiceImpl;
 import com.mycompany.quanlynhahang.CheckHopLe;
+import gui.constraint.GioiTinhConstraints;
+import gui.constraint.TinhTrangNhanVienConstraint;
 import gui.models.NhanVien.ChucVuModel;
 import gui.models.NhanVien.CreateNhanVienModel;
 import gui.models.NhanVien.NhanVienFullModel;
 import gui.models.NhanVien.NhanVienModel;
+import gui.models.NhanVien.SearchNhanVienModel;
 import gui.models.NhanVien.TinhTrangNhanVienModel;
 import gui.models.NhanVien.UpdateNhanVienModel;
 import gui.views.QuanLyNhanVien_GUI;
@@ -25,6 +28,7 @@ import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 
@@ -33,7 +37,7 @@ import javax.swing.JOptionPane;
  * @author dinhn
  */
 public class QuanLyNhanVienController {
-    private final INhanVienSerivice nhanVienSerivice;
+    private final INhanVienSerivice nhanVienService;
     private final IChucVuService chucVuService;
     private final ITinhTrangNhanVienService tinhTrangNhanVienService;
     
@@ -52,7 +56,7 @@ public class QuanLyNhanVienController {
     private boolean dangThemNhanVien = true;
     
     public QuanLyNhanVienController(){
-        nhanVienSerivice = new NhanVienServiceImpl();
+        nhanVienService = new NhanVienServiceImpl();
         chucVuService = new ChucVuServiceImpl();
         tinhTrangNhanVienService = new TinhTrangNhanVienServiceImpl();
         
@@ -72,6 +76,7 @@ public class QuanLyNhanVienController {
         view.loadComboBoxChucVu(listChucVuModel);
         view.loadComboBoxTinhTrangNhanVien(listTinhTrangNhanVienModel);
         
+        view.btnTimKiemNhanVien.addActionListener(e -> search());
         view.btnThemNV.addActionListener(e -> changeModeNhanVien(true));
         view.btnSuaNV.addActionListener(e -> changeModeNhanVien(false));
         view.btnLuu.addActionListener(e -> saveNhanVien());
@@ -86,7 +91,7 @@ public class QuanLyNhanVienController {
                 int selectedRow = view.tblDanhSachNV.getSelectedRow();
                 String selectedNhanVienMa = view.tblDanhSachNV.getValueAt(selectedRow, 0).toString();
                 
-                nhanVienSelected = nhanVienSerivice.getByMa(selectedNhanVienMa);
+                nhanVienSelected = nhanVienService.getByMa(selectedNhanVienMa);
 
                 if(!dangThemNhanVien)
                     loadDetailNhanVien();  
@@ -97,7 +102,7 @@ public class QuanLyNhanVienController {
     
     private void loadData(){
         listChucVuModel = (ArrayList<ChucVuModel>) chucVuService.getAll();
-        listNhanVienModel = (ArrayList<NhanVienModel>) nhanVienSerivice.getAll();       
+        listNhanVienModel = (ArrayList<NhanVienModel>) nhanVienService.getAll();       
         listTinhTrangNhanVienModel = (ArrayList<TinhTrangNhanVienModel>) tinhTrangNhanVienService.getAll();
     }
     
@@ -154,6 +159,10 @@ public class QuanLyNhanVienController {
         
         view.btnThemNV.setEnabled(!dangThemNhanVien);
         view.btnSuaNV.setEnabled(dangThemNhanVien);
+        view.txtMaNV.setEnabled(dangThemNhanVien);
+        view.jdcNgaySinh.setEnabled(dangThemNhanVien);
+        view.cmbGioiTinhNVThemSua.setEnabled(dangThemNhanVien);
+        view.txtCCCD.setEnabled(dangThemNhanVien);
         
         String titlePanel = dangThemNhanVien ? "Thêm nhân viên mới" : "Sửa nhân viên";
         view.pnlThemNhanVien.setBorder(BorderFactory.createTitledBorder(titlePanel));
@@ -182,9 +191,10 @@ public class QuanLyNhanVienController {
         if(dangThemNhanVien){
             CreateNhanVienModel createNhanVienModel = new CreateNhanVienModel(ma, idTinhTrangNhanVien, idChucVu, hoTen, ngaySinh, gioiTinhNam, email, sdt, diaChi, CCCD);
 
-            boolean result = nhanVienSerivice.createNhanVien(createNhanVienModel);
+            boolean result = nhanVienService.createNhanVien(createNhanVienModel);
             if(result){
                 JOptionPane.showMessageDialog(view, "Thêm nhân viên mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                loadData();
             }
             else{
                 JOptionPane.showMessageDialog(view, "Thêm nhân viên mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
@@ -194,10 +204,11 @@ public class QuanLyNhanVienController {
         else {
             UpdateNhanVienModel updateNhanVienModel = new UpdateNhanVienModel (nhanVienSelected.getMa(), idTinhTrangNhanVien, idChucVu, hoTen, email, sdt, diaChi);
 
-            boolean result = nhanVienSerivice.updateNhanVien(updateNhanVienModel);
+            boolean result = nhanVienService.updateNhanVien(updateNhanVienModel);
             if(result){
                 JOptionPane.showMessageDialog(view, "Sửa nhân viên thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                nhanVienSelected = nhanVienSerivice.getByMa(nhanVienSelected.getMa());
+                nhanVienSelected = nhanVienService.getByMa(nhanVienSelected.getMa());
+                loadData();
             }
             else{
                 JOptionPane.showMessageDialog(view, "Sửa nhân viên thất bại","Error", JOptionPane.ERROR_MESSAGE);
@@ -266,12 +277,12 @@ public class QuanLyNhanVienController {
         if(nhanVienSelected == null)
             JOptionPane.showMessageDialog(view, "Bạn chưa chọn nhân viên muốn xóa","Error", JOptionPane.ERROR_MESSAGE);
         
-        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa nhân viên \"" + nhanVienSelected.getMa()+ "\" không ?", "Xóa dữ liệu nhân viên!", JOptionPane.OK_CANCEL_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa nhân viên \"" + nhanVienSelected.getMa().trim()+ "\" không ?", "Xóa dữ liệu nhân viên!", JOptionPane.OK_CANCEL_OPTION);
 
         if(confirm == JOptionPane.CANCEL_OPTION)
             return;
         
-        boolean result = nhanVienSerivice.delete(nhanVienSelected.getMa());
+        boolean result = nhanVienService.delete(nhanVienSelected.getMa());
         if(result){
                 JOptionPane.showMessageDialog(view, "Xóa nhân viên thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 nhanVienSelected = null;
@@ -279,9 +290,57 @@ public class QuanLyNhanVienController {
             JOptionPane.showMessageDialog(view, "Xóa thất bại","Error", JOptionPane.ERROR_MESSAGE);
         resetNhanVien();
     }
+    private void clearSearchBox(){
+        view.txtMaOrTen.setText("");
+        view.cmbTimKiemGioiTinhNhanVien.setSelectedIndex(0);
+        view.cmbTimKiemChucVu.setSelectedIndex(0);    
+    }
     
     private void resetTable(){
         view.loadTableNhanVien(listNhanVienModel);
+        clearSearchBox();
+    }
+    
+    
+    private void search(){
+        SearchNhanVienModel searchNhanVienModel = new SearchNhanVienModel();
+
+        String maOrName = view.txtMaOrTen.getText();
+        if(!maOrName.isBlank()){
+            searchNhanVienModel.setMaOrhoTen(maOrName.trim());
+        }
+
+        int idChucVu = view.cmbTimKiemChucVu.getSelectedIndex();
+        if(idChucVu > 0){
+            searchNhanVienModel.setChucVu(listChucVuModel.get(idChucVu -1).getId());
+        }
+
+        int gioiTinh = view.cmbTimKiemGioiTinhNhanVien.getSelectedIndex();
+        switch (gioiTinh) {
+            case 1 -> searchNhanVienModel.setGioiTinh(GioiTinhConstraints.NAM);
+            case 2 -> searchNhanVienModel.setGioiTinh(GioiTinhConstraints.NU);
+            default -> searchNhanVienModel.setGioiTinh(-1);
+        }
+
+        int tinhTrangNhanVien = view.cmbTinhTrangNhanVienSearch.getSelectedIndex();
+        switch (tinhTrangNhanVien) {
+            case 0 -> searchNhanVienModel.setTinhTrang(new int[]{
+                TinhTrangNhanVienConstraint.DANG_HOAT_DONG,
+                TinhTrangNhanVienConstraint.TAM_NGHI});
+
+            case 1 -> searchNhanVienModel.setTinhTrang(new int[]{
+            TinhTrangNhanVienConstraint.DANG_HOAT_DONG});
+
+            case 2 -> searchNhanVienModel.setTinhTrang(new int[]{
+            TinhTrangNhanVienConstraint.TAM_NGHI});
+
+            case 3 -> searchNhanVienModel.setTinhTrang(new int[]{
+                TinhTrangNhanVienConstraint.DA_NGHI});
+        }
+
+        List<NhanVienModel> result = nhanVienService.search(searchNhanVienModel);
+        
+        view.loadTableNhanVien(result);
     }
     
 }
