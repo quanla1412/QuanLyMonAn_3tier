@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -38,6 +39,7 @@ public class KhachHang implements Serializable {
     @Column(name="KH_Email")
     private String email;
     @Column(name="KH_NgaySinh")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date ngaySinh;
     @Column(name="KH_GioiTinhNam")
     private boolean gioiTinhNam;
