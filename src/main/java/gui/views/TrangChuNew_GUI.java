@@ -5,7 +5,9 @@
 package gui.views;
 
 
+import gui.controllers.QuanLyKhachHangController;
 import gui.controllers.QuanLyLoaiBanVaBanController;
+import gui.controllers.QuanLyLoaiKhachHangController;
 import gui.controllers.QuanLyMonAnController;
 import gui.controllers.QuanLyPhucVuController;
 import java.awt.Color;
@@ -23,7 +25,7 @@ import org.kordamp.ikonli.swing.FontIcon;
  * @author tanph
  */
 public class TrangChuNew_GUI extends javax.swing.JFrame {
-    QuanLyLoaiBanVaBanController quanLyLoaiBanVaBanController;
+    QuanLyKhachHangController quanLyLoaiBanVaBanController;
     
     boolean over;
     
