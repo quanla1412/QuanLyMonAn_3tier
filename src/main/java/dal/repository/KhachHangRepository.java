@@ -20,11 +20,9 @@ import org.hibernate.query.Query;
  * @author tuant
  */
 public class KhachHangRepository {
-    private KhachHangRepository khachHangRepository;
     private LoaiKhachHangRepository loaiKhachHangRepository;
     
     public KhachHangRepository() {
-        khachHangRepository = new KhachHangRepository();
         loaiKhachHangRepository = new LoaiKhachHangRepository();
     }
     
@@ -50,9 +48,13 @@ public class KhachHangRepository {
     }
     public KhachHang createKhachHang(KhachHang khachHang){
         Session session = HibernateUtils.getFACTORY().openSession();
+        LoaiKhachHang loaiKhachHang = loaiKhachHangRepository.getById(1);
+        khachHang.setLoaiKhachHang(loaiKhachHang);
+        khachHang.setDiemTichLuy(0);
         
         int idKhachHang = (int) session.save(khachHang);
         khachHang.setId(idKhachHang);
+        
         
         session.close();
         
@@ -63,17 +65,16 @@ public class KhachHangRepository {
     public KhachHang updateKhachHang (KhachHang khachHangUpdate){
         Session session = HibernateUtils.getFACTORY().openSession();
         KhachHang khachHang= session.get(KhachHang.class, khachHangUpdate.getId());
-        LoaiKhachHang loaiKhachHang = loaiKhachHangRepository.getById(khachHangUpdate.getLoaiKhachHang().getId());
+        LoaiKhachHang loaiKhachHang = loaiKhachHangRepository.getById(1);
         session.getTransaction().begin();
         
-        khachHang.setTen(khachHangUpdate.getTen());
         khachHang.setLoaiKhachHang(loaiKhachHang);
-        khachHang.setTen(khachHang.getTen());
-        khachHang.setSdt(khachHang.getSdt());
-        khachHang.setDiemTichLuy(khachHang.getDiemTichLuy());
-        khachHang.setEmail(khachHang.getEmail());
-        khachHang.setNgaySinh(khachHang.getNgaySinh());
-        khachHang.setGioiTinhNam(khachHang.getGioiTinhNam());
+        khachHang.setTen(khachHangUpdate.getTen());
+        khachHang.setSdt(khachHangUpdate.getSdt());
+        khachHang.setDiemTichLuy(0);
+        khachHang.setEmail(khachHangUpdate.getEmail());
+        khachHang.setNgaySinh(khachHangUpdate.getNgaySinh());
+        khachHang.setGioiTinhNam(khachHangUpdate.getGioiTinhNam());
         
         session.save(khachHang);
         session.getTransaction().commit();

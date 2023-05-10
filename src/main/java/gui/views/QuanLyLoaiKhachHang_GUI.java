@@ -317,68 +317,31 @@ public class QuanLyLoaiKhachHang_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_tblLoaiKHMouseClicked
 
     private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
-        // TODO add your handling code here:        
-        int index = tblLoaiKH.getSelectedRow();
-        TableModel model = tblLoaiKH.getModel();
-        
-        int id = Integer.parseInt(model.getValueAt(index, 0).toString());
-        if(id == LoaiKhachHangConstraints.LOAI_KHACH_HANG_LOCKED){
-            JOptionPane.showMessageDialog(this, "Loại khách hàng này không thể xóa","Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-         
-        boolean result = loaiKhachHang_BUS.deleteLoaiKhachHang(id);
-        if(result){
-            JOptionPane.showMessageDialog(this, "Xóa loại khách hàng thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            clearTextViewLoaiKH();            
-        }            
-        else
-            JOptionPane.showMessageDialog(this, "Xóa loại khách hàng thất bại","Error", JOptionPane.ERROR_MESSAGE);            
-        
-        loadTableLoaiKhachHang();
+//        // TODO add your handling code here:        
+//        int index = tblLoaiKH.getSelectedRow();
+//        TableModel model = tblLoaiKH.getModel();
+//        
+//        int id = Integer.parseInt(model.getValueAt(index, 0).toString());
+//        if(id == LoaiKhachHangConstraints.LOAI_KHACH_HANG_LOCKED){
+//            JOptionPane.showMessageDialog(this, "Loại khách hàng này không thể xóa","Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//         
+//        boolean result = loaiKhachHang_BUS.deleteLoaiKhachHang(id);
+//        if(result){
+//            JOptionPane.showMessageDialog(this, "Xóa loại khách hàng thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//            clearTextViewLoaiKH();            
+//        }            
+//        else
+//            JOptionPane.showMessageDialog(this, "Xóa loại khách hàng thất bại","Error", JOptionPane.ERROR_MESSAGE);            
+//        
+//        loadTableLoaiKhachHang();
     }//GEN-LAST:event_btnXoaMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXoaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuanLyLoaiKhachHang_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuanLyLoaiKhachHang_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuanLyLoaiKhachHang_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QuanLyLoaiKhachHang_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new QuanLyLoaiKhachHangController().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnLuu;

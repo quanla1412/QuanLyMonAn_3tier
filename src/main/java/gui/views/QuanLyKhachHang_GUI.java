@@ -3,16 +3,7 @@
 package gui.views;
 
 
-import BUS.KhachHang_BUS;
-import BUS.LoaiKhachHang_BUS;
-import Constraints.GioiTinhConstraints;
-import DTO.KhachHang.CreateKhachHang_DTO;
-import DTO.KhachHang.KhachHangFull_DTO;
-import DTO.KhachHang.KhachHang_DTO;
-import DTO.KhachHang.LoaiKhachHang_DTO;
-import DTO.KhachHang.UpdateKhachHang_DTO;
-import DTO.KhachHang.SearchKhachHang_DTO;
-import GUI.QuanLyLoaiKhachHang_GUI;
+
 import com.mycompany.quanlynhahang.CheckHopLe;
 import gui.models.KhachHang.KhachHangModel;
 import gui.models.LoaiKhachHang.LoaiKhachHangModel;
@@ -49,17 +40,16 @@ public class QuanLyKhachHang_GUI extends javax.swing.JPanel {
     }
     
     public void loadComboBoxTimKiemLoaiKH(ArrayList<LoaiKhachHangModel> loaiKhachHang){
-        cmbTimKiemLoaiKH.removeAllItems();
         for(LoaiKhachHangModel loaiKH : loaiKhachHang){
             cmbTimKiemLoaiKH.addItem(loaiKH.getTen());
         }
-        cmbTimKiemLoaiKH.setSelectedIndex(-1);
+        cmbTimKiemLoaiKH.setSelectedIndex(0);
 
     }
     public void loadComboBoxThemSuaLoaiKH(ArrayList<LoaiKhachHangModel> loaiKhachHang){       
         cmbThemSuaLoaiKH.removeAllItems();
         for(LoaiKhachHangModel loaiKH : loaiKhachHang){
-            cmbTimKiemLoaiKH.addItem(loaiKH.getTen());
+            cmbThemSuaLoaiKH.addItem(loaiKH.getTen());
         }     
         cmbThemSuaLoaiKH.setSelectedIndex(-1);
     }
@@ -570,6 +560,8 @@ public class QuanLyKhachHang_GUI extends javax.swing.JPanel {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 20);
         pnlThemSuaKhachHang.add(jdcNgaySinh, gridBagConstraints);
 
@@ -737,80 +729,80 @@ public class QuanLyKhachHang_GUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnQLLKHMouseClicked
 
     private void btnImportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnImportMouseClicked
-        // TODO add your handling code here:
-        int totalSuccess = 0;
-
-        JFileChooser jFileChooser = new JFileChooser("D:");
-        if (jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            totalSuccess = khachHang_BUS.importKhachHang(jFileChooser.getSelectedFile().getAbsolutePath());
-
-            JOptionPane.showMessageDialog(this, "Cập nhật " + totalSuccess + " khách hàng","Import danh sách nhân viên", JOptionPane.INFORMATION_MESSAGE);
-
-            loadTableKhachHang();
-        }else {
-            JOptionPane.showMessageDialog(this, "Import file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        // TODO add your handling code here:
+//        int totalSuccess = 0;
+//
+//        JFileChooser jFileChooser = new JFileChooser("D:");
+//        if (jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+//            totalSuccess = khachHang_BUS.importKhachHang(jFileChooser.getSelectedFile().getAbsolutePath());
+//
+//            JOptionPane.showMessageDialog(this, "Cập nhật " + totalSuccess + " khách hàng","Import danh sách nhân viên", JOptionPane.INFORMATION_MESSAGE);
+//
+//            loadTableKhachHang();
+//        }else {
+//            JOptionPane.showMessageDialog(this, "Import file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_btnImportMouseClicked
 
     private void btnExportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportMouseClicked
         // TODO add your handling code here:
-        boolean result = false;
-        JFileChooser jFileChooser = new JFileChooser("D:");
-        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            result = khachHang_BUS.exportKhachHang(listKhachHang, jFileChooser.getSelectedFile().getAbsolutePath());
-        }
-
-        if (!result) {
-            JOptionPane.showMessageDialog(this, "Xuất file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        boolean result = false;
+//        JFileChooser jFileChooser = new JFileChooser("D:");
+//        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//
+//        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+//            result = khachHang_BUS.exportKhachHang(listKhachHang, jFileChooser.getSelectedFile().getAbsolutePath());
+//        }
+//
+//        if (!result) {
+//            JOptionPane.showMessageDialog(this, "Xuất file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_btnExportMouseClicked
 
     private void btnExportMauImportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportMauImportMouseClicked
         // TODO add your handling code here:
-        boolean result = false;
-
-        JFileChooser jFileChooser = new JFileChooser("D:");
-        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            result = khachHang_BUS.exportAllKhachHangTheoMauImport(jFileChooser.getSelectedFile().getAbsolutePath());
-        }
-
-        if (!result) {
-            JOptionPane.showMessageDialog(this, "Export file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        boolean result = false;
+//
+//        JFileChooser jFileChooser = new JFileChooser("D:");
+//        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//
+//        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+//            result = khachHang_BUS.exportAllKhachHangTheoMauImport(jFileChooser.getSelectedFile().getAbsolutePath());
+//        }
+//
+//        if (!result) {
+//            JOptionPane.showMessageDialog(this, "Export file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_btnExportMauImportMouseClicked
 
     private void btnTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseClicked
         // TODO add your handling code here:
-        SearchKhachHang_DTO searchKhachHang_DTO = new SearchKhachHang_DTO();
-
-        String idOrName = txtSearchIdName.getText();
-        if(!idOrName.isBlank()){
-            searchKhachHang_DTO.setIdOrName(idOrName.trim());
-        }
-
-        int idLoaiKhach = cmbTimKiemLoaiKH.getSelectedIndex();
-        if(idLoaiKhach > 0){
-            searchKhachHang_DTO.setLoaiKhachHang(listLoaiKhach.get(idLoaiKhach -1).getId());
-        }
-
-        int gioiTinh = cmbTimKiemGioiTinh.getSelectedIndex();
-        switch (gioiTinh) {
-            case 1 -> searchKhachHang_DTO.setGioiTinh(GioiTinhConstraints.NAM);
-            case 2 -> searchKhachHang_DTO.setGioiTinh(GioiTinhConstraints.NU);
-            default -> searchKhachHang_DTO.setGioiTinh(-1);
-        }
-
-        String SDT = txtTimKiemSDT.getText().trim();
-        if(!SDT.isBlank()){
-            searchKhachHang_DTO.setSdt(SDT);
-        }
-
-        ArrayList<KhachHang_DTO> result = khachHang_BUS.searchKhachHang(searchKhachHang_DTO);
-        loadTableKhachHang(result);
+//        SearchKhachHang_DTO searchKhachHang_DTO = new SearchKhachHang_DTO();
+//
+//        String idOrName = txtSearchIdName.getText();
+//        if(!idOrName.isBlank()){
+//            searchKhachHang_DTO.setIdOrName(idOrName.trim());
+//        }
+//
+//        int idLoaiKhach = cmbTimKiemLoaiKH.getSelectedIndex();
+//        if(idLoaiKhach > 0){
+//            searchKhachHang_DTO.setLoaiKhachHang(listLoaiKhach.get(idLoaiKhach -1).getId());
+//        }
+//
+//        int gioiTinh = cmbTimKiemGioiTinh.getSelectedIndex();
+//        switch (gioiTinh) {
+//            case 1 -> searchKhachHang_DTO.setGioiTinh(GioiTinhConstraints.NAM);
+//            case 2 -> searchKhachHang_DTO.setGioiTinh(GioiTinhConstraints.NU);
+//            default -> searchKhachHang_DTO.setGioiTinh(-1);
+//        }
+//
+//        String SDT = txtTimKiemSDT.getText().trim();
+//        if(!SDT.isBlank()){
+//            searchKhachHang_DTO.setSdt(SDT);
+//        }
+//
+//        ArrayList<KhachHang_DTO> result = khachHang_BUS.searchKhachHang(searchKhachHang_DTO);
+//        loadTableKhachHang(result);
     }//GEN-LAST:event_btnTimKiemMouseClicked
 
     private void txtTimKiemSDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemSDTActionPerformed
@@ -850,9 +842,9 @@ public class QuanLyKhachHang_GUI extends javax.swing.JPanel {
 
     private void btnResetTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetTableMouseClicked
         // TODO add your handling code here:
-        khachHang_BUS.capNhatLoaiKhachHang();
-        loadTableKhachHang();
-        clearSearchBox();
+//        khachHang_BUS.capNhatLoaiKhachHang();
+//        loadTableKhachHang();
+//        clearSearchBox();
     }//GEN-LAST:event_btnResetTableMouseClicked
 
 

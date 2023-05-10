@@ -1,17 +1,7 @@
 
 package gui.views;
 
-import BUS.LoaiMonAn_BUS;
-import BUS.MonAn_BUS;
-import Constraints.TinhTrangMonAnConstraints;
-import DTO.MonAn.CreateMonAn_DTO;
-import DTO.MonAn.LoaiMonAn_DTO;
-import DTO.MonAn.MonAnFull_DTO;
-import DTO.MonAn.MonAn_DTO;
-import DTO.MonAn.TinhTrangMonAn_DTO;
-import DTO.MonAn.UpdateMonAn_DTO;
-import DTO.Search.SearchMonAn_DTO;
-import GUI.QuanLyLoaiMonAn_GUI;
+
 import com.mycompany.quanlynhahang.Price;
 import gui.models.MonAn.MonAnModel;
 import java.awt.Component;
@@ -73,101 +63,101 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
     }
     
     private void loadLoaiMonAnSearchBox(){
-        loaiMonAnSearchBox = loaiMonAn_BUS.getAllLoaiMonAn();        
-        
-        for(LoaiMonAn_DTO loaiBan : loaiMonAnSearchBox){
-            cmbLMASearchBox.addItem(loaiBan.getTen());
-        }      
-        
-        cmbLMASearchBox.setSelectedIndex(0);
-    }
+//        loaiMonAnSearchBox = loaiMonAn_BUS.getAllLoaiMonAn();        
+//        
+//        for(LoaiMonAn_DTO loaiBan : loaiMonAnSearchBox){
+//            cmbLMASearchBox.addItem(loaiBan.getTen());
+//        }      
+//        
+//        cmbLMASearchBox.setSelectedIndex(0);
+//    }
+//    
+//    private void loadLoaiMonAnUpdate(){
+//        loaiMonAnUpdate = loaiMonAn_BUS.getAllLoaiMonAn();        
+//        
+//        for(LoaiMonAn_DTO loaiBan : loaiMonAnUpdate){
+//            cmbLMAForm.addItem(loaiBan.getTen());
+//        }      
+//        
+//        cmbLMAForm.setSelectedIndex(-1);
+//    }
     
-    private void loadLoaiMonAnUpdate(){
-        loaiMonAnUpdate = loaiMonAn_BUS.getAllLoaiMonAn();        
-        
-        for(LoaiMonAn_DTO loaiBan : loaiMonAnUpdate){
-            cmbLMAForm.addItem(loaiBan.getTen());
-        }      
-        
-        cmbLMAForm.setSelectedIndex(-1);
-    }
-    
-    private void loadTTMASearch(){      
-        listTTMA = monAn_BUS.getAllTinhTrangMA();
-        
-        cmbTTMASearch.addItem("Tất cả");
-        for(TinhTrangMonAn_DTO value : listTTMA){           
-            if (value.getId() != TinhTrangMonAnConstraints.DA_XOA) {
-                cmbTTMASearch.addItem(value.getTen());
-                cmbTTMAForm.addItem(value.getTen());                
-            }
-        } 
-        
-        cmbTTMASearch.setSelectedIndex(0);
-        cmbTTMAForm.setSelectedIndex(0);
-    }
-    
-    private void resetTable(){
-        loadTableMonAn();
-        txtSearchIdName.setText("");
-        cmbLMASearchBox.setSelectedIndex(0);
-        
-        sldMinPrice.setValue(sldMinPrice.getMinimum());
-        lblMinPrice.setText(Price.formatPrice(sldMinPrice.getValue()));
-        sldMaxPrice.setValue(sldMaxPrice.getMaximum());
-        lblMaxPrice.setText(Price.formatPrice(sldMaxPrice.getValue()));
-        
-        cmbTTMASearch.setSelectedIndex(0);
-    }
-    
-    private void resetForm(){
-        if(dangThemMonAn){
-            clearForm();
-        } else {
-            int idMonAn = Integer.parseInt(txtIdMonAn.getText());
-            loadFormWithMonAn(idMonAn);
-        }
-    }
-    
-    private void clearForm(){
-        txtIdMonAn.setText("");
-            txtTenMonAn.setText("");
-            cmbLMAForm.setSelectedIndex(-1);
-            linkHinhAnh = "";
-            lblTenHinhAnh.setText("Chưa chọn file");
-            txtGia.setText("");
-            txtGiaKhuyenMai.setText("");
-            cmbTTMAForm.setSelectedIndex(0);
-            txaNoiDung.setText("");
-    }
-    
-    private void loadFormWithMonAn(int idMonAn){
-        MonAnFull_DTO result = monAn_BUS.getMonAnFullById(idMonAn);
-        if (result == null) {
-            JOptionPane.showMessageDialog(this, "Lỗi hệ thống","Error", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        txtIdMonAn.setText(Integer.toString(result.getId()));
-        txtTenMonAn.setText(result.getTen());
-        cmbLMAForm.setSelectedIndex(result.getLoaiMonAn().getId()-1);
-        if(result.getHinhAnh() != null && !result.getHinhAnh().isBlank()){
-            linkHinhAnh = result.getHinhAnh();
-            lblTenHinhAnh.setText(new File(linkHinhAnh).getName());
-        } else {
-            linkHinhAnh = "";
-            lblTenHinhAnh.setText("");
-        }
-        txtGia.setText(Integer.toString(result.getGia()));
-        if(result.getGiaKhuyenMai() != 0)
-            txtGiaKhuyenMai.setText(Integer.toString(result.getGiaKhuyenMai()));
-        else
-            txtGiaKhuyenMai.setText("");
-        if(result.getNoiDung()!= null)
-            txaNoiDung.setText(result.getNoiDung());
-        else 
-            txaNoiDung.setText("");
-        
-        cmbTTMAForm.setSelectedIndex(result.getTinhTrangMonAn().getId() - 1);
+//    private void loadTTMASearch(){      
+//        listTTMA = monAn_BUS.getAllTinhTrangMA();
+//        
+//        cmbTTMASearch.addItem("Tất cả");
+//        for(TinhTrangMonAn_DTO value : listTTMA){           
+//            if (value.getId() != TinhTrangMonAnConstraints.DA_XOA) {
+//                cmbTTMASearch.addItem(value.getTen());
+//                cmbTTMAForm.addItem(value.getTen());                
+//            }
+//        } 
+//        
+//        cmbTTMASearch.setSelectedIndex(0);
+//        cmbTTMAForm.setSelectedIndex(0);
+//    }
+//    
+//    private void resetTable(){
+//        loadTableMonAn();
+//        txtSearchIdName.setText("");
+//        cmbLMASearchBox.setSelectedIndex(0);
+//        
+//        sldMinPrice.setValue(sldMinPrice.getMinimum());
+//        lblMinPrice.setText(Price.formatPrice(sldMinPrice.getValue()));
+//        sldMaxPrice.setValue(sldMaxPrice.getMaximum());
+//        lblMaxPrice.setText(Price.formatPrice(sldMaxPrice.getValue()));
+//        
+//        cmbTTMASearch.setSelectedIndex(0);
+//    }
+//    
+//    private void resetForm(){
+//        if(dangThemMonAn){
+//            clearForm();
+//        } else {
+//            int idMonAn = Integer.parseInt(txtIdMonAn.getText());
+//            loadFormWithMonAn(idMonAn);
+//        }
+//    }
+//    
+//    private void clearForm(){
+//        txtIdMonAn.setText("");
+//            txtTenMonAn.setText("");
+//            cmbLMAForm.setSelectedIndex(-1);
+//            linkHinhAnh = "";
+//            lblTenHinhAnh.setText("Chưa chọn file");
+//            txtGia.setText("");
+//            txtGiaKhuyenMai.setText("");
+//            cmbTTMAForm.setSelectedIndex(0);
+//            txaNoiDung.setText("");
+//    }
+//    
+//    private void loadFormWithMonAn(int idMonAn){
+//        MonAnFull_DTO result = monAn_BUS.getMonAnFullById(idMonAn);
+//        if (result == null) {
+//            JOptionPane.showMessageDialog(this, "Lỗi hệ thống","Error", JOptionPane.ERROR_MESSAGE);
+//        }
+//        
+//        txtIdMonAn.setText(Integer.toString(result.getId()));
+//        txtTenMonAn.setText(result.getTen());
+//        cmbLMAForm.setSelectedIndex(result.getLoaiMonAn().getId()-1);
+//        if(result.getHinhAnh() != null && !result.getHinhAnh().isBlank()){
+//            linkHinhAnh = result.getHinhAnh();
+//            lblTenHinhAnh.setText(new File(linkHinhAnh).getName());
+//        } else {
+//            linkHinhAnh = "";
+//            lblTenHinhAnh.setText("");
+//        }
+//        txtGia.setText(Integer.toString(result.getGia()));
+//        if(result.getGiaKhuyenMai() != 0)
+//            txtGiaKhuyenMai.setText(Integer.toString(result.getGiaKhuyenMai()));
+//        else
+//            txtGiaKhuyenMai.setText("");
+//        if(result.getNoiDung()!= null)
+//            txaNoiDung.setText(result.getNoiDung());
+//        else 
+//            txaNoiDung.setText("");
+//        
+//        cmbTTMAForm.setSelectedIndex(result.getTinhTrangMonAn().getId() - 1);
     }
 
     @SuppressWarnings("unchecked")
@@ -801,285 +791,285 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
 
     private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         // TODO add your handling code here:
-        dangThemMonAn = true;
-        btnSua.setEnabled(true);
-        btnThem.setEnabled(false);
-        pnlThemSuaMonAn.setBorder(new TitledBorder("Thêm món ăn"));
-        clearForm();
-        btnLuu.setEnabled(true);
+//        dangThemMonAn = true;
+//        btnSua.setEnabled(true);
+//        btnThem.setEnabled(false);
+//        pnlThemSuaMonAn.setBorder(new TitledBorder("Thêm món ăn"));
+//        clearForm();
+//        btnLuu.setEnabled(true);
     }//GEN-LAST:event_btnThemMouseClicked
 
     private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
         // TODO add your handling code here:
-        dangThemMonAn = false;
-        btnSua.setEnabled(false);
-        btnThem.setEnabled(true);
-        pnlThemSuaMonAn.setBorder(new TitledBorder("Sửa món ăn"));
-        btnLuu.setEnabled(false);
+//        dangThemMonAn = false;
+//        btnSua.setEnabled(false);
+//        btnThem.setEnabled(true);
+//        pnlThemSuaMonAn.setBorder(new TitledBorder("Sửa món ăn"));
+//        btnLuu.setEnabled(false);
     }//GEN-LAST:event_btnSuaMouseClicked
 
     private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
         // TODO add your handling code here:
-        int total = tblMonAn.getSelectedRowCount();
-        TableModel model = tblMonAn.getModel();
-        if(total < 0){
-            JOptionPane.showMessageDialog(this, "Chưa có món ăn nào được chọn","Error", JOptionPane.ERROR_MESSAGE);
-        } else if (total == 1){
-            int indexRow = tblMonAn.getSelectedRow();
-            int idMonAn =Integer.parseInt( model.getValueAt(indexRow, 0).toString());
-
-            boolean result = monAn_BUS.deleteMonAn(idMonAn);
-
-            if(result){
-                JOptionPane.showMessageDialog(this, "Xóa món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                resetTable();
-                clearForm();
-            } else {
-                JOptionPane.showMessageDialog(this, "Xóa món ăn thất bại","Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            int[] listIndex = tblMonAn.getSelectedRows();
-            ArrayList<Integer> listID = new ArrayList<>();
-            for(int id : listIndex){
-                listID.add(Integer.valueOf(model.getValueAt(id, 0).toString()));
-            }
-            int result = monAn_BUS.deleteNhieuMonAn(listID);
-
-            if(result > 0){
-                JOptionPane.showMessageDialog(this, "Xóa " + result + " món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                resetTable();
-                clearForm();
-            } else {
-                JOptionPane.showMessageDialog(this, "Xóa các món ăn thất bại","Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+//        int total = tblMonAn.getSelectedRowCount();
+//        TableModel model = tblMonAn.getModel();
+//        if(total < 0){
+//            JOptionPane.showMessageDialog(this, "Chưa có món ăn nào được chọn","Error", JOptionPane.ERROR_MESSAGE);
+//        } else if (total == 1){
+//            int indexRow = tblMonAn.getSelectedRow();
+//            int idMonAn =Integer.parseInt( model.getValueAt(indexRow, 0).toString());
+//
+//            boolean result = monAn_BUS.deleteMonAn(idMonAn);
+//
+//            if(result){
+//                JOptionPane.showMessageDialog(this, "Xóa món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//                resetTable();
+//                clearForm();
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Xóa món ăn thất bại","Error", JOptionPane.ERROR_MESSAGE);
+//            }
+//        } else {
+//            int[] listIndex = tblMonAn.getSelectedRows();
+//            ArrayList<Integer> listID = new ArrayList<>();
+//            for(int id : listIndex){
+//                listID.add(Integer.valueOf(model.getValueAt(id, 0).toString()));
+//            }
+//            int result = monAn_BUS.deleteNhieuMonAn(listID);
+//
+//            if(result > 0){
+//                JOptionPane.showMessageDialog(this, "Xóa " + result + " món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//                resetTable();
+//                clearForm();
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Xóa các món ăn thất bại","Error", JOptionPane.ERROR_MESSAGE);
+//            }
+//        }
     }//GEN-LAST:event_btnXoaMouseClicked
 
     private void btnChuyenTinhTrangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChuyenTinhTrangMouseClicked
         // TODO add your handling code here:int total = tblMonAn.getSelectedRowCount();
-        int total = tblMonAn.getSelectedRowCount();
-        TableModel model = tblMonAn.getModel();
-        if(total < 0){
-            JOptionPane.showMessageDialog(this, "Chưa có món ăn nào được chọn","Error", JOptionPane.ERROR_MESSAGE);
-        } else if (total == 1){
-            int indexRow = tblMonAn.getSelectedRow();
-            int idMonAn =Integer.parseInt( model.getValueAt(indexRow, 0).toString());
-
-            int tinhTrangMonAn = monAn_BUS.getMonAnFullById(idMonAn).getTinhTrangMonAn().getId();
-            if(tinhTrangMonAn == TinhTrangMonAnConstraints.CON_PHUC_VU)
-            tinhTrangMonAn = TinhTrangMonAnConstraints.HET;
-            else
-            tinhTrangMonAn = TinhTrangMonAnConstraints.CON_PHUC_VU;
-            boolean result = monAn_BUS.chuyenTinhTrangMonAn(idMonAn, tinhTrangMonAn);
-
-            if(result){
-                JOptionPane.showMessageDialog(this, "Chuyển tình trạng món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                resetTable();
-                clearForm();
-            } else {
-                JOptionPane.showMessageDialog(this, "Chuyển tình trạng món ăn thất bại","Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chỉ chọn 1 món ăn 1 lần","Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        int total = tblMonAn.getSelectedRowCount();
+//        TableModel model = tblMonAn.getModel();
+//        if(total < 0){
+//            JOptionPane.showMessageDialog(this, "Chưa có món ăn nào được chọn","Error", JOptionPane.ERROR_MESSAGE);
+//        } else if (total == 1){
+//            int indexRow = tblMonAn.getSelectedRow();
+//            int idMonAn =Integer.parseInt( model.getValueAt(indexRow, 0).toString());
+//
+//            int tinhTrangMonAn = monAn_BUS.getMonAnFullById(idMonAn).getTinhTrangMonAn().getId();
+//            if(tinhTrangMonAn == TinhTrangMonAnConstraints.CON_PHUC_VU)
+//            tinhTrangMonAn = TinhTrangMonAnConstraints.HET;
+//            else
+//            tinhTrangMonAn = TinhTrangMonAnConstraints.CON_PHUC_VU;
+//            boolean result = monAn_BUS.chuyenTinhTrangMonAn(idMonAn, tinhTrangMonAn);
+//
+//            if(result){
+//                JOptionPane.showMessageDialog(this, "Chuyển tình trạng món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//                resetTable();
+//                clearForm();
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Chuyển tình trạng món ăn thất bại","Error", JOptionPane.ERROR_MESSAGE);
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Vui lòng chỉ chọn 1 món ăn 1 lần","Error", JOptionPane.ERROR_MESSAGE);
+//        }
 
     }//GEN-LAST:event_btnChuyenTinhTrangMouseClicked
 
     private void btnResetFormMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetFormMouseClicked
         // TODO add your handling code here:
-        resetForm();
+//        resetForm();
     }//GEN-LAST:event_btnResetFormMouseClicked
 
     private void btnLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseClicked
         // TODO add your handling code here:
-        if (dangThemMonAn) {
-            CreateMonAn_DTO createMonAn_DTO = new CreateMonAn_DTO();
-
-            int indexLoaiMonAn = cmbLMAForm.getSelectedIndex();
-            if(indexLoaiMonAn < 0){
-                JOptionPane.showMessageDialog(this, "Chưa chọn loại món ăn","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            } else
-            createMonAn_DTO.setIdLoaiMonAn(loaiMonAnUpdate.get(indexLoaiMonAn).getId());
-
-            String tenMonAn = txtTenMonAn.getText().trim();
-            if(tenMonAn.isBlank()){
-                JOptionPane.showMessageDialog(this, "Chưa nhập tên món ăn","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            } else
-            createMonAn_DTO.setTen(tenMonAn);
-
-            if (!linkHinhAnh.isEmpty()) {
-                createMonAn_DTO.setHinhAnh(linkHinhAnh);
-            }
-
-            String giaString = txtGia.getText();
-            if(giaString.isEmpty()){
-                JOptionPane.showMessageDialog(this, "Chưa nhập giá","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            try {
-                int gia = Integer.parseInt(giaString);
-                if (gia < 1000 || gia % 100 != 0)
-                throw new NumberFormatException();
-                else
-                createMonAn_DTO.setGia(gia);
-            } catch (NumberFormatException ex){
-                JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên và chia hết cho 100 ","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            String giaKhuyenMaiString = txtGiaKhuyenMai.getText();
-            if(!giaKhuyenMaiString.isEmpty()){
-                try {
-                    int giaKhuyenMai = Integer.parseInt(giaKhuyenMaiString);
-                    if (giaKhuyenMai < 1000 || giaKhuyenMai % 100 != 0 || giaKhuyenMai > createMonAn_DTO.getGia())
-                    throw new NumberFormatException();
-                    else
-                    createMonAn_DTO.setGiaKhuyenMai(giaKhuyenMai);
-                } catch (NumberFormatException ex){
-                    JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên, nhỏ hơn giá gốc và chia hết cho 100 hoặc giá khuyến mãi phải nhỏ hơn giá mặc định","Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
-
-            int idTinhTrang = cmbTTMAForm.getSelectedIndex();
-            createMonAn_DTO.setIdTtinhTrangMonAn(listTTMA.get(idTinhTrang).getId());
-
-            String noidung = txaNoiDung.getText();
-            if(!noidung.isBlank())
-            createMonAn_DTO.setNoiDung(noidung);
-
-            boolean result = monAn_BUS.createMonAn(createMonAn_DTO);
-            if(result){
-                JOptionPane.showMessageDialog(this, "Thêm món ăn mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                loadTableMonAn();
-                resetTable();
-                resetForm();
-            }
-            else
-            JOptionPane.showMessageDialog(this, "Thêm món ăn mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            UpdateMonAn_DTO updateMonAn_DTO = new UpdateMonAn_DTO();
-
-            updateMonAn_DTO.setId(Integer.parseInt(txtIdMonAn.getText()));
-            int indexLoaiMonAn = cmbLMAForm.getSelectedIndex();
-            if(indexLoaiMonAn < 0){
-                JOptionPane.showMessageDialog(this, "Chưa chọn loại món ăn","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            } else
-            updateMonAn_DTO.setIdLoaiMonAn(loaiMonAnUpdate.get(indexLoaiMonAn).getId());
-
-            String tenMonAn = txtTenMonAn.getText().trim();
-            if(tenMonAn.isBlank()){
-                JOptionPane.showMessageDialog(this, "Chưa nhập tên món ăn","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            } else
-            updateMonAn_DTO.setTen(tenMonAn);
-
-            if (!linkHinhAnh.isEmpty()) {
-                updateMonAn_DTO.setHinhAnh(linkHinhAnh);
-            }
-
-            String giaString = txtGia.getText();
-            if(giaString.isEmpty()){
-                JOptionPane.showMessageDialog(this, "Chưa nhập giá","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            try {
-                int gia = Integer.parseInt(giaString);
-                if (gia < 1000 || gia % 100 != 0)
-                throw new NumberFormatException();
-                else
-                updateMonAn_DTO.setGia(gia);
-            } catch (NumberFormatException ex){
-                JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên và chia hết cho 100","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            String giaKhuyenMaiString = txtGiaKhuyenMai.getText();
-            if(!giaKhuyenMaiString.isEmpty()){
-                try {
-                    int giaKhuyenMai = Integer.parseInt(giaKhuyenMaiString);
-                    if (giaKhuyenMai < 1000 || giaKhuyenMai % 100 != 0 || giaKhuyenMai > updateMonAn_DTO.getGia())
-                    throw new NumberFormatException();
-                    else
-                    updateMonAn_DTO.setGiaKhuyenMai(giaKhuyenMai);
-                } catch (NumberFormatException ex){
-                    JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên, nhỏ hơn giá gốc và chia hết cho 100,  hoặc giá khuyến mãi phải nhỏ hơn giá mặc định","Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
-
-            int idTinhTrang = cmbTTMAForm.getSelectedIndex();
-            updateMonAn_DTO.setIdTtinhTrangMonAn(listTTMA.get(idTinhTrang).getId());
-
-            String noidung = txaNoiDung.getText();
-            if(!noidung.isBlank())
-            updateMonAn_DTO.setNoiDung(noidung);
-
-            boolean result = monAn_BUS.updateMonAn(updateMonAn_DTO);
-            if(result){
-                JOptionPane.showMessageDialog(this, "Sửa món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                loadTableMonAn();
-                resetTable();
-                resetForm();
-            }
-            else
-            JOptionPane.showMessageDialog(this, "Sửa món ăn thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        if (dangThemMonAn) {
+//            CreateMonAn_DTO createMonAn_DTO = new CreateMonAn_DTO();
+//
+//            int indexLoaiMonAn = cmbLMAForm.getSelectedIndex();
+//            if(indexLoaiMonAn < 0){
+//                JOptionPane.showMessageDialog(this, "Chưa chọn loại món ăn","Error", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            } else
+//            createMonAn_DTO.setIdLoaiMonAn(loaiMonAnUpdate.get(indexLoaiMonAn).getId());
+//
+//            String tenMonAn = txtTenMonAn.getText().trim();
+//            if(tenMonAn.isBlank()){
+//                JOptionPane.showMessageDialog(this, "Chưa nhập tên món ăn","Error", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            } else
+//            createMonAn_DTO.setTen(tenMonAn);
+//
+//            if (!linkHinhAnh.isEmpty()) {
+//                createMonAn_DTO.setHinhAnh(linkHinhAnh);
+//            }
+//
+//            String giaString = txtGia.getText();
+//            if(giaString.isEmpty()){
+//                JOptionPane.showMessageDialog(this, "Chưa nhập giá","Error", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            }
+//            try {
+//                int gia = Integer.parseInt(giaString);
+//                if (gia < 1000 || gia % 100 != 0)
+//                throw new NumberFormatException();
+//                else
+//                createMonAn_DTO.setGia(gia);
+//            } catch (NumberFormatException ex){
+//                JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên và chia hết cho 100 ","Error", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            }
+//
+//            String giaKhuyenMaiString = txtGiaKhuyenMai.getText();
+//            if(!giaKhuyenMaiString.isEmpty()){
+//                try {
+//                    int giaKhuyenMai = Integer.parseInt(giaKhuyenMaiString);
+//                    if (giaKhuyenMai < 1000 || giaKhuyenMai % 100 != 0 || giaKhuyenMai > createMonAn_DTO.getGia())
+//                    throw new NumberFormatException();
+//                    else
+//                    createMonAn_DTO.setGiaKhuyenMai(giaKhuyenMai);
+//                } catch (NumberFormatException ex){
+//                    JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên, nhỏ hơn giá gốc và chia hết cho 100 hoặc giá khuyến mãi phải nhỏ hơn giá mặc định","Error", JOptionPane.ERROR_MESSAGE);
+//                    return;
+//                }
+//            }
+//
+//            int idTinhTrang = cmbTTMAForm.getSelectedIndex();
+//            createMonAn_DTO.setIdTtinhTrangMonAn(listTTMA.get(idTinhTrang).getId());
+//
+//            String noidung = txaNoiDung.getText();
+//            if(!noidung.isBlank())
+//            createMonAn_DTO.setNoiDung(noidung);
+//
+//            boolean result = monAn_BUS.createMonAn(createMonAn_DTO);
+//            if(result){
+//                JOptionPane.showMessageDialog(this, "Thêm món ăn mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//                loadTableMonAn();
+//                resetTable();
+//                resetForm();
+//            }
+//            else
+//            JOptionPane.showMessageDialog(this, "Thêm món ăn mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
+//        } else {
+//            UpdateMonAn_DTO updateMonAn_DTO = new UpdateMonAn_DTO();
+//
+//            updateMonAn_DTO.setId(Integer.parseInt(txtIdMonAn.getText()));
+//            int indexLoaiMonAn = cmbLMAForm.getSelectedIndex();
+//            if(indexLoaiMonAn < 0){
+//                JOptionPane.showMessageDialog(this, "Chưa chọn loại món ăn","Error", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            } else
+//            updateMonAn_DTO.setIdLoaiMonAn(loaiMonAnUpdate.get(indexLoaiMonAn).getId());
+//
+//            String tenMonAn = txtTenMonAn.getText().trim();
+//            if(tenMonAn.isBlank()){
+//                JOptionPane.showMessageDialog(this, "Chưa nhập tên món ăn","Error", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            } else
+//            updateMonAn_DTO.setTen(tenMonAn);
+//
+//            if (!linkHinhAnh.isEmpty()) {
+//                updateMonAn_DTO.setHinhAnh(linkHinhAnh);
+//            }
+//
+//            String giaString = txtGia.getText();
+//            if(giaString.isEmpty()){
+//                JOptionPane.showMessageDialog(this, "Chưa nhập giá","Error", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            }
+//            try {
+//                int gia = Integer.parseInt(giaString);
+//                if (gia < 1000 || gia % 100 != 0)
+//                throw new NumberFormatException();
+//                else
+//                updateMonAn_DTO.setGia(gia);
+//            } catch (NumberFormatException ex){
+//                JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên và chia hết cho 100","Error", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            }
+//
+//            String giaKhuyenMaiString = txtGiaKhuyenMai.getText();
+//            if(!giaKhuyenMaiString.isEmpty()){
+//                try {
+//                    int giaKhuyenMai = Integer.parseInt(giaKhuyenMaiString);
+//                    if (giaKhuyenMai < 1000 || giaKhuyenMai % 100 != 0 || giaKhuyenMai > updateMonAn_DTO.getGia())
+//                    throw new NumberFormatException();
+//                    else
+//                    updateMonAn_DTO.setGiaKhuyenMai(giaKhuyenMai);
+//                } catch (NumberFormatException ex){
+//                    JOptionPane.showMessageDialog(this, "Nhập giá không đúng định dạng, giá phải từ 1000đ trở lên, nhỏ hơn giá gốc và chia hết cho 100,  hoặc giá khuyến mãi phải nhỏ hơn giá mặc định","Error", JOptionPane.ERROR_MESSAGE);
+//                    return;
+//                }
+//            }
+//
+//            int idTinhTrang = cmbTTMAForm.getSelectedIndex();
+//            updateMonAn_DTO.setIdTtinhTrangMonAn(listTTMA.get(idTinhTrang).getId());
+//
+//            String noidung = txaNoiDung.getText();
+//            if(!noidung.isBlank())
+//            updateMonAn_DTO.setNoiDung(noidung);
+//
+//            boolean result = monAn_BUS.updateMonAn(updateMonAn_DTO);
+//            if(result){
+//                JOptionPane.showMessageDialog(this, "Sửa món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//                loadTableMonAn();
+//                resetTable();
+//                resetForm();
+//            }
+//            else
+//            JOptionPane.showMessageDialog(this, "Sửa món ăn thất bại","Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_btnLuuMouseClicked
 
     private void btnHinhAnhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHinhAnhMouseClicked
         // TODO add your handling code here:
-        JFileChooser fc = new JFileChooser("D:\\");
-            FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Image", "jpg", "png");
-            fc.setFileFilter(imageFilter);
-            fc.setMultiSelectionEnabled(false);
-
-            int returnVal = fc.showOpenDialog(QuanLyMonAn_GUI.this);
-
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fc.getSelectedFile();
-                //This is where a real application would open the file.
-                lblTenHinhAnh.setText(file.getName());
-                linkHinhAnh = file.getAbsolutePath();
-            } else {
-                lblTenHinhAnh.setText("Lỗi khi chọn file");
-            }
+//        JFileChooser fc = new JFileChooser("D:\\");
+//            FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("Image", "jpg", "png");
+//            fc.setFileFilter(imageFilter);
+//            fc.setMultiSelectionEnabled(false);
+//
+//            int returnVal = fc.showOpenDialog(QuanLyMonAn_GUI.this);
+//
+//            if (returnVal == JFileChooser.APPROVE_OPTION) {
+//                File file = fc.getSelectedFile();
+//                //This is where a real application would open the file.
+//                lblTenHinhAnh.setText(file.getName());
+//                linkHinhAnh = file.getAbsolutePath();
+//            } else {
+//                lblTenHinhAnh.setText("Lỗi khi chọn file");
+//            }
     }//GEN-LAST:event_btnHinhAnhMouseClicked
 
     private void btnTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseClicked
         // TODO add your handling code here:
-        SearchMonAn_DTO searchMonAn_DTO = new SearchMonAn_DTO();
-
-        String idOrName = txtSearchIdName.getText();
-        if(!idOrName.isBlank()){
-            searchMonAn_DTO.setIdOrName(idOrName.trim());
-        }
-
-        int idLoaiMonAn = cmbLMASearchBox.getSelectedIndex();
-        if(idLoaiMonAn > 0){
-            searchMonAn_DTO.setIdLoaiMonAn(loaiMonAnSearchBox.get(idLoaiMonAn - 1).getId());
-        }
-
-        int minPrice = sldMinPrice.getValue();
-        int maxPrice = sldMaxPrice.getValue();
-        if(minPrice > maxPrice){
-            JOptionPane.showMessageDialog(this, "Giá tối thiểu phải nhỏ hơn giá tối đa","Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        } else {
-            searchMonAn_DTO.setMinPrice(minPrice);
-            searchMonAn_DTO.setMaxPrice(maxPrice);
-        }
-
-        int idTTMA = cmbTTMASearch.getSelectedIndex();
-        if(idTTMA > 0){
-            searchMonAn_DTO.setIdTTMA(listTTMA.get(idTTMA - 1).getId());
-        }
-
-        ArrayList<MonAn_DTO> result = monAn_BUS.searchMonAn(searchMonAn_DTO);
-        loadTableMonAn(result);
+//        SearchMonAn_DTO searchMonAn_DTO = new SearchMonAn_DTO();
+//
+//        String idOrName = txtSearchIdName.getText();
+//        if(!idOrName.isBlank()){
+//            searchMonAn_DTO.setIdOrName(idOrName.trim());
+//        }
+//
+//        int idLoaiMonAn = cmbLMASearchBox.getSelectedIndex();
+//        if(idLoaiMonAn > 0){
+//            searchMonAn_DTO.setIdLoaiMonAn(loaiMonAnSearchBox.get(idLoaiMonAn - 1).getId());
+//        }
+//
+//        int minPrice = sldMinPrice.getValue();
+//        int maxPrice = sldMaxPrice.getValue();
+//        if(minPrice > maxPrice){
+//            JOptionPane.showMessageDialog(this, "Giá tối thiểu phải nhỏ hơn giá tối đa","Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        } else {
+//            searchMonAn_DTO.setMinPrice(minPrice);
+//            searchMonAn_DTO.setMaxPrice(maxPrice);
+//        }
+//
+//        int idTTMA = cmbTTMASearch.getSelectedIndex();
+//        if(idTTMA > 0){
+//            searchMonAn_DTO.setIdTTMA(listTTMA.get(idTTMA - 1).getId());
+//        }
+//
+//        ArrayList<MonAn_DTO> result = monAn_BUS.searchMonAn(searchMonAn_DTO);
+//        loadTableMonAn(result);
     }//GEN-LAST:event_btnTimKiemMouseClicked
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
@@ -1107,31 +1097,31 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
 
     private void tblMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMonAnMouseClicked
         // TODO add your handling code here:
-        if(dangThemMonAn)
-        return;
-
-        int indexRow = tblMonAn.getSelectedRow();
-        TableModel model = tblMonAn.getModel();
-
-        int idMonAn = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
-        loadFormWithMonAn(idMonAn);
-        btnLuu.setEnabled(true);
+//        if(dangThemMonAn)
+//        return;
+//
+//        int indexRow = tblMonAn.getSelectedRow();
+//        TableModel model = tblMonAn.getModel();
+//
+//        int idMonAn = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
+//        loadFormWithMonAn(idMonAn);
+//        btnLuu.setEnabled(true);
     }//GEN-LAST:event_tblMonAnMouseClicked
 
     private void btnQuanLyLoaiMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyLoaiMonAnMouseClicked
         // TODO add your handling code here:
-        if(quanLyLoaiMonAn_GUI == null || !quanLyLoaiMonAn_GUI.isDisplayable()){
-            quanLyLoaiMonAn_GUI = new QuanLyLoaiMonAn_GUI();
-            quanLyLoaiMonAn_GUI.setVisible(true);
-        } else {
-            quanLyLoaiMonAn_GUI.setState(JFrame.NORMAL);
-            quanLyLoaiMonAn_GUI.toFront();
-        }
+//        if(quanLyLoaiMonAn_GUI == null || !quanLyLoaiMonAn_GUI.isDisplayable()){
+//            quanLyLoaiMonAn_GUI = new QuanLyLoaiMonAn_GUI();
+//            quanLyLoaiMonAn_GUI.setVisible(true);
+//        } else {
+//            quanLyLoaiMonAn_GUI.setState(JFrame.NORMAL);
+//            quanLyLoaiMonAn_GUI.toFront();
+//        }
     }//GEN-LAST:event_btnQuanLyLoaiMonAnMouseClicked
 
     private void resetTableButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetTableButtonMouseClicked
         // TODO add your handling code here:
-        resetTable();
+//        resetTable();
     }//GEN-LAST:event_resetTableButtonMouseClicked
 
     private void txtSearchIdNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchIdNameActionPerformed

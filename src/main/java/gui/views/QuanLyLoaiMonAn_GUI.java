@@ -127,48 +127,48 @@ public class QuanLyLoaiMonAn_GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
-        int total = tblLoaiMonAn.getSelectedRowCount();
-        TableModel model = tblLoaiMonAn.getModel();
-        if(total < 1)
-            JOptionPane.showMessageDialog(this, "Bạn chưa chọn loại món ăn muốn xóa","Error", JOptionPane.ERROR_MESSAGE);
-        
-        int confirm = JOptionPane.showConfirmDialog(null, 
-                "Bạn có chắc chắn muốn xóa " + total + " loại món ăn không ?", "Xóa dữ liệu món ăn!", JOptionPane.OK_CANCEL_OPTION);
-        
-        if(confirm == JOptionPane.CANCEL_OPTION)
-            return;
-        
-        if(total == 1){
-            int index = tblLoaiMonAn.getSelectedRow();
-
-            int id = Integer.parseInt(model.getValueAt(index, 0).toString());
-
-            boolean result = loaiMonAn_BUS.deleteLoaiMonAnById(id); 
-            if(result){
-                JOptionPane.showMessageDialog(this, "Xóa 1 loại món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                
-            }            
-            else
-                JOptionPane.showMessageDialog(this, "Xóa thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            int[] listIndex = tblLoaiMonAn.getSelectedRows();
-            ArrayList<Integer> listID = new ArrayList<>();
-            
-            for(int index : listIndex) {
-                listID.add(Integer.valueOf(model.getValueAt(index, 0).toString()));
-            }
-            
-            int result = loaiMonAn_BUS.deleteNhieuLoaiMonAn(listID);
-            if(result == listID.size())
-                JOptionPane.showMessageDialog(this, "Xóa " + total + " loại món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            else if(result > 0)
-                JOptionPane.showMessageDialog(this, "Xóa thất bại, chỉ xóa được " + total + " loại món ăn","Error", JOptionPane.ERROR_MESSAGE);
-            else 
-                JOptionPane.showMessageDialog(this, "Xóa thất bại, không loại món ăn nào được xóa","Error", JOptionPane.ERROR_MESSAGE);            
-                
-        }  
-        loadTableLoaiMonAn();
+//        // TODO add your handling code here:
+//        int total = tblLoaiMonAn.getSelectedRowCount();
+//        TableModel model = tblLoaiMonAn.getModel();
+//        if(total < 1)
+//            JOptionPane.showMessageDialog(this, "Bạn chưa chọn loại món ăn muốn xóa","Error", JOptionPane.ERROR_MESSAGE);
+//        
+//        int confirm = JOptionPane.showConfirmDialog(null, 
+//                "Bạn có chắc chắn muốn xóa " + total + " loại món ăn không ?", "Xóa dữ liệu món ăn!", JOptionPane.OK_CANCEL_OPTION);
+//        
+//        if(confirm == JOptionPane.CANCEL_OPTION)
+//            return;
+//        
+//        if(total == 1){
+//            int index = tblLoaiMonAn.getSelectedRow();
+//
+//            int id = Integer.parseInt(model.getValueAt(index, 0).toString());
+//
+//            boolean result = loaiMonAn_BUS.deleteLoaiMonAnById(id); 
+//            if(result){
+//                JOptionPane.showMessageDialog(this, "Xóa 1 loại món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//                
+//            }            
+//            else
+//                JOptionPane.showMessageDialog(this, "Xóa thất bại","Error", JOptionPane.ERROR_MESSAGE);
+//        } else {
+//            int[] listIndex = tblLoaiMonAn.getSelectedRows();
+//            ArrayList<Integer> listID = new ArrayList<>();
+//            
+//            for(int index : listIndex) {
+//                listID.add(Integer.valueOf(model.getValueAt(index, 0).toString()));
+//            }
+//            
+//            int result = loaiMonAn_BUS.deleteNhieuLoaiMonAn(listID);
+//            if(result == listID.size())
+//                JOptionPane.showMessageDialog(this, "Xóa " + total + " loại món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//            else if(result > 0)
+//                JOptionPane.showMessageDialog(this, "Xóa thất bại, chỉ xóa được " + total + " loại món ăn","Error", JOptionPane.ERROR_MESSAGE);
+//            else 
+//                JOptionPane.showMessageDialog(this, "Xóa thất bại, không loại món ăn nào được xóa","Error", JOptionPane.ERROR_MESSAGE);            
+//                
+//        }  
+//        loadTableLoaiMonAn();
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**

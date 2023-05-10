@@ -4,34 +4,33 @@
  */
 package gui.models.KhachHang;
 
+import dal.entity.LoaiKhachHang;
 import java.util.Date;
 
 /**
  *
  * @author tuant
  */
-class UpdateKhachHangModel {
+public class UpdateKhachHangModel {
     private int id;
     private String ten;
     private String sdt;
-    private int diemTichLuy;
-    private String loaiKhachHang;
     private String email;
     private Date ngaySinh;
     private boolean gioiTinhNam;
 
-    public UpdateKhachHangModel(int id, String ten, String sdt, int diemTichLuy, String loaiKhachHang, String email, Date ngaySinh, boolean gioiTinhNam) {
+    
+
+    public UpdateKhachHangModel() {
+    }
+
+    public UpdateKhachHangModel(int id, String ten, String sdt, String email, Date ngaySinh, boolean gioiTinhNam) {
         this.id = id;
         this.ten = ten;
         this.sdt = sdt;
-        this.diemTichLuy = diemTichLuy;
-        this.loaiKhachHang = loaiKhachHang;
         this.email = email;
         this.ngaySinh = ngaySinh;
         this.gioiTinhNam = gioiTinhNam;
-    }
-
-    public UpdateKhachHangModel() {
     }
 
     public int getId() {
@@ -58,22 +57,6 @@ class UpdateKhachHangModel {
         this.sdt = sdt;
     }
 
-    public int getDiemTichLuy() {
-        return diemTichLuy;
-    }
-
-    public void setDiemTichLuy(int diemTichLuy) {
-        this.diemTichLuy = diemTichLuy;
-    }
-
-    public String getLoaiKhachHang() {
-        return loaiKhachHang;
-    }
-
-    public void setLoaiKhachHang(String loaiKhachHang) {
-        this.loaiKhachHang = loaiKhachHang;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -97,5 +80,7 @@ class UpdateKhachHangModel {
     public void setGioiTinhNam(boolean gioiTinhNam) {
         this.gioiTinhNam = gioiTinhNam;
     }
+
+    
     
 }

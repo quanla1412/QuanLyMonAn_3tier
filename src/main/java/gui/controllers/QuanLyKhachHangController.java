@@ -12,13 +12,16 @@ import bll.services.impl.LoaiKhachHangServiceImpl;
 import com.mycompany.quanlynhahang.CheckHopLe;
 import gui.models.KhachHang.KhachHangFullModel;
 import gui.models.KhachHang.KhachHangModel;
+import gui.models.KhachHang.UpdateKhachHangModel;
 import gui.models.LoaiKhachHang.LoaiKhachHangModel;
 import gui.views.QuanLyKhachHang_GUI;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -53,6 +56,7 @@ public class QuanLyKhachHangController {
         view.setVisible(true);
         
         loadData();
+        loadDetailKhachHang();
         view.loadTableKhachHang(listKhachHangModel);
         view.loadComboBoxTimKiemLoaiKH(listLoaiKhachHangModel);
         view.loadComboBoxThemSuaLoaiKH(listLoaiKhachHangModel);
@@ -97,17 +101,18 @@ public class QuanLyKhachHangController {
     private void loadDetailKhachHang(){
         if(khachHangSelected == null || dangThemKhachHang){
             view.txtIDKH.setText("");
-            view.cmbThemSuaLoaiKH.setSelectedIndex(-1);
             view.txtHoTen.setText("");
             view.txtSDT.setText("");
-            view.txtDiemTichLuy.setText("");
             view.txtEmail.setText("");
+            view.txtDiemTichLuy.setText("0");
             view.cmbGioiTinhKH.setSelectedIndex(-1);
+            view.cmbThemSuaLoaiKH.setSelectedIndex(-1);
+            Date now = new Date();
+            view.jdcNgaySinh.setDate(now);
         } else {
             view.txtIDKH.setText(Integer.toString(khachHangSelected.getId()));
             LoaiKhachHangModel loaiKhachHangModel = khachHangSelected.getLoaiKhachHang();
             int indexKhachHang = listLoaiKhachHangModel.indexOf(loaiKhachHangModel);
-            view.cmbThemSuaLoaiKH.setSelectedIndex(indexKhachHang);
             view.txtHoTen.setText(khachHangSelected.getTen());
             view.txtSDT.setText(khachHangSelected.getSdt());
             view.txtDiemTichLuy.setText(Integer.toString(khachHangSelected.getDiemTichLuy()));
@@ -119,6 +124,7 @@ public class QuanLyKhachHangController {
             else
                 view.cmbGioiTinhKH.setSelectedIndex(1);
             
+            view.cmbThemSuaLoaiKH.setSelectedIndex(indexKhachHang);
         }                  
     }
     private void luuKhachHang(){
@@ -128,37 +134,37 @@ public class QuanLyKhachHangController {
             return;
         }
         String tenKhachHang = view.txtHoTen.getText().trim();
-        int idLoaiKhachHang = listLoaiKhachHangModel.get(view.cmbThemSuaLoaiKH.getSelectedIndex()).getId();
         String soDienThoai  =  view.txtSDT.getText().trim();
         String email  =  view.txtEmail.getText().trim();
-        int diemTichLuy = Integer.parseInt( view.txtDiemTichLuy.getText());
-        boolean gioiTinhNam = false;
+        boolean gioiTinhNam = true;
         if(view.cmbGioiTinhKH.getSelectedIndex()==1){
-            gioiTinhNam = true;
+            gioiTinhNam = false;
         }
+        Timestamp ngaySinh;
+        ngaySinh = new Timestamp(view.jdcNgaySinh.getDate().getTime());
         
         if(dangThemKhachHang){
-            CreateKhachHangModel createKhachHangModel = new CreateKhachHangModel(tenLoaiKhachHang, diemToiThieu, mucUuDai);
+            CreateKhachHangModel createKhachHangModel = new CreateKhachHangModel(tenKhachHang, soDienThoai, email, ngaySinh, gioiTinhNam);
 
-            boolean result = loaiKhachHangService.createLoaiKhachHang(createLoaiKhachHangModel);
+            boolean result = khachHangService.createKhachHang(createKhachHangModel);
             if(result){
-                JOptionPane.showMessageDialog(view, "Thêm loại khách hàng mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(view, "Thêm khách hàng mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
             else{
-                JOptionPane.showMessageDialog(view, "Thêm loại khách hàng mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(view, "Thêm khách hàng mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } 
         else {
-            UpdateLoaiKhachHangModel updateLoaiKhachHangModel = new UpdateLoaiKhachHangModel(loaiKhachHangSelected.getId(), tenLoaiKhachHang, diemToiThieu, mucUuDai);
+            UpdateKhachHangModel updateKhachHangModel = new UpdateKhachHangModel(khachHangSelected.getId(), tenKhachHang, soDienThoai, email, ngaySinh, gioiTinhNam);
 
-            boolean result = loaiKhachHangService.updateLoaiKhachHang(updateLoaiKhachHangModel);
+            boolean result = khachHangService.updateKhachHang(updateKhachHangModel);
             if(result){
-                JOptionPane.showMessageDialog(view, "Sửa loại khách hàng thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                loaiKhachHangSelected = loaiKhachHangService.getById(loaiKhachHangSelected.getId());
+                JOptionPane.showMessageDialog(view, "Sửa khách hàng thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                khachHangSelected = khachHangService.getById(khachHangSelected.getId());
             }
             else{
-                JOptionPane.showMessageDialog(view, "Sửa loại khách hàng thất bại","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(view, "Sửa khách hàng thất bại","Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
