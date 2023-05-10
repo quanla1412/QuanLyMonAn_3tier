@@ -27,16 +27,16 @@ public class ChucVu implements Serializable{
     private int id;
     @Column(name = "CV_Ten")
     private String ten;
-//    @OneToMany(mappedBy = "chucVu")
-//    private List<NhanVien> listNhanVien;
+    @OneToMany(mappedBy = "chucVu")
+    private List<NhanVien> listNhanVien;
 
-//    public List<NhanVien> getListNhanVien() {
-//        return listNhanVien;
-//    }
-//
-//    public void setListNhanVien(List<NhanVien> listNhanVien) {
-//        this.listNhanVien = listNhanVien;
-//    }
+    public List<NhanVien> getListNhanVien() {
+        return listNhanVien;
+    }
+
+    public void setListNhanVien(List<NhanVien> listNhanVien) {
+        this.listNhanVien = listNhanVien;
+    }
     
 
     public int getId() {

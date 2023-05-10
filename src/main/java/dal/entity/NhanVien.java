@@ -3,12 +3,15 @@ package dal.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.lang.String;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -16,6 +19,8 @@ import javax.persistence.TemporalType;
  *
  * @author dinhn
  */
+@Entity
+@Table(name="NhanVien")
 public class NhanVien implements Serializable{
     @Id
     @Column(name = "NV_Ma")
@@ -32,7 +37,7 @@ public class NhanVien implements Serializable{
     @Temporal(TemporalType.DATE)
     private Date ngaySinh;
     @Column(name = "NV_GioiTinhNam")
-    private String gioiTinhNam;
+    private boolean gioiTinhNam;
     @Column(name = "NV_Email")
     private String email;
     @Column(name = "NV_SDT")
@@ -84,13 +89,15 @@ public class NhanVien implements Serializable{
         this.ngaySinh = ngaySinh;
     }
 
-    public String getGioiTinhNam() {
+    public boolean isGioiTinhNam() {
         return gioiTinhNam;
     }
 
-    public void setGioiTinhNam(String gioiTinhNam) {
+    public void setGioiTinhNam(boolean gioiTinhNam) {
         this.gioiTinhNam = gioiTinhNam;
     }
+
+  
 
     public String getEmail() {
         return email;
@@ -130,6 +137,10 @@ public class NhanVien implements Serializable{
 
     public void setCccd(String cccd) {
         this.cccd = cccd;
+    }
+
+     public boolean getGioiTinhNam() {
+        return gioiTinhNam;
     }
     
     
