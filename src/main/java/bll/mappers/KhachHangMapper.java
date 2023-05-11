@@ -5,6 +5,7 @@
 package bll.mappers;
 
 import dal.entity.KhachHang;
+import gui.models.KhachHang.CreateKhachHangModel;
 import gui.models.KhachHang.KhachHangFullModel;
 import gui.models.KhachHang.KhachHangModel;
 import gui.models.LoaiKhachHang.LoaiKhachHangModel;
