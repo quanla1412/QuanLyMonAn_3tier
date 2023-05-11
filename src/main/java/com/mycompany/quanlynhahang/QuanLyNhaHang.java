@@ -22,7 +22,6 @@ import org.hibernate.Session;
  * @author LeAnhQuan
  */
 public class QuanLyNhaHang {
-
     public static void main(String[] args) {
         // TODO code application logic here
         try{

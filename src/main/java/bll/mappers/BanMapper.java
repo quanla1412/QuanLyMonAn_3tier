@@ -76,4 +76,11 @@ public class BanMapper {
         
         return banFullModel;
     }
+
+    public static List<BanFullModel> toListBanFullModel(List<Ban> listBan) {
+        List<BanFullModel> listBanFullModel = new ArrayList<>();
+        listBan.forEach(ban -> listBanFullModel.add(toBanFullModel(ban)) );
+        
+        return listBanFullModel;
+    }
 }

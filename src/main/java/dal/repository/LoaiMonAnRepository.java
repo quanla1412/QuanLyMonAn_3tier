@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -24,6 +25,7 @@ public class LoaiMonAnRepository {
         
         Query queryResult = session.createQuery(query);
         ArrayList<LoaiMonAn> result = (ArrayList<LoaiMonAn>) queryResult.getResultList();
+        result.forEach(item -> Hibernate.initialize(item.getListMonAn()));
         session.close();       
         
         return result;

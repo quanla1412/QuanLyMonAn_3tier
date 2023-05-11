@@ -4,7 +4,6 @@ import bll.mappers.BanMapper;
 import dal.entity.Ban;
 import java.util.List;
 import bll.services.IBanService;
-import bll.services.ITinhTrangBanService;
 import dal.entity.TinhTrangBan;
 import dal.repository.BanRepository;
 import dal.repository.TinhTrangBanRepository;
@@ -20,12 +19,10 @@ import gui.models.BanModel;
 public class BanServiceImpl implements IBanService{
     private final BanRepository banRepository;
     private final TinhTrangBanRepository tinhTrangBanRepository;
-    private final ITinhTrangBanService iTinhTrangBanService;
 
     public BanServiceImpl() {
         banRepository = new BanRepository();
         tinhTrangBanRepository = new TinhTrangBanRepository();
-        iTinhTrangBanService = new TinhTrangBanServiceImpl();
     }
     
     @Override
@@ -51,6 +48,23 @@ public class BanServiceImpl implements IBanService{
         
         return banFullModel;
     }
+        
+    @Override
+    public List<BanFullModel> getAllFull(){
+        List<Ban> listBan = banRepository.getAll();
+        List<BanFullModel> listBanModel = BanMapper.toListBanFullModel(listBan);        
+        
+        return listBanModel;        
+    }
+
+    @Override
+    public List<BanModel> getByTinhTrang(int idTinhTrangBan) {
+        TinhTrangBan tinhTrangBan = tinhTrangBanRepository.getById(idTinhTrangBan);
+        List<Ban> listBan = tinhTrangBan.getListBan();
+        List<BanModel> listBanModel = BanMapper.toListBanModel(listBan);        
+        
+        return listBanModel;  
+    }
 
     @Override
     public boolean createBan(CreateBanModel createBanModel) {
@@ -69,13 +83,13 @@ public class BanServiceImpl implements IBanService{
     }
 
     @Override
-    public Ban changeTinhTrangBan(int idBan, int idTinhTrangBan) {        
+    public boolean changeTinhTrangBan(int idBan, int idTinhTrangBan) {        
         Ban ban = banRepository.getById(idBan);
         TinhTrangBan tinhTrangBan = tinhTrangBanRepository.getById(idTinhTrangBan);
         ban.setTinhTrangBan(tinhTrangBan);
         banRepository.updateBan(ban);
         
-        return ban;
+        return ban.getTinhTrangBan().getId() == idTinhTrangBan;
     }
 
     @Override
