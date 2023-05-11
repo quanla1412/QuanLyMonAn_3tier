@@ -7,7 +7,6 @@ package dal.repository;
 import dal.HibernateUtils;
 import dal.entity.KhachHang;
 import dal.entity.LoaiKhachHang;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -65,13 +64,10 @@ public class KhachHangRepository {
     public KhachHang updateKhachHang (KhachHang khachHangUpdate){
         Session session = HibernateUtils.getFACTORY().openSession();
         KhachHang khachHang= session.get(KhachHang.class, khachHangUpdate.getId());
-        LoaiKhachHang loaiKhachHang = loaiKhachHangRepository.getById(1);
         session.getTransaction().begin();
         
-        khachHang.setLoaiKhachHang(loaiKhachHang);
         khachHang.setTen(khachHangUpdate.getTen());
         khachHang.setSdt(khachHangUpdate.getSdt());
-        khachHang.setDiemTichLuy(0);
         khachHang.setEmail(khachHangUpdate.getEmail());
         khachHang.setNgaySinh(khachHangUpdate.getNgaySinh());
         khachHang.setGioiTinhNam(khachHangUpdate.getGioiTinhNam());
