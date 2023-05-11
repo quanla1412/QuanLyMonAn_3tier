@@ -91,6 +91,10 @@ public class NhanVienModel {
         return gioiTinhNam;
     }
 
+    public boolean getGioiTinhNam(){
+        return gioiTinhNam;
+    }
+    
     public void setGioiTinhNam(boolean gioiTinhNam) {
         this.gioiTinhNam = gioiTinhNam;
     }
