@@ -4,10 +4,11 @@
  */
 package bll.services;
 
+import gui.models.KhachHang.CreateKhachHangModel;
 import gui.models.KhachHang.KhachHangFullModel;
 import gui.models.KhachHang.KhachHangModel;
-import gui.models.LoaiKhachHang.CreateLoaiKhachHangModel;
-import gui.models.LoaiKhachHang.UpdateLoaiKhachHangModel;
+import gui.models.KhachHang.SearchKhachHangModel;
+import gui.models.KhachHang.UpdateKhachHangModel;
 import java.util.List;
 
 /**
@@ -18,7 +19,10 @@ public interface IKhachHangService {
     List<KhachHangModel> getAll();
     
     KhachHangFullModel getById(int id);
-    boolean createLoaiKhachHang(CreateLoaiKhachHangModel createLoaiKhachHangModel);
     
-    boolean updateLoaiKhachHang(UpdateLoaiKhachHangModel updateLoaiKhachHangModel);
+    List<KhachHangModel> search(SearchKhachHangModel searchKhachHangModel);
+    
+    boolean createKhachHang(CreateKhachHangModel createKhachHangModel);
+    
+    boolean updateKhachHang(UpdateKhachHangModel updateKhachHangModel);
 }

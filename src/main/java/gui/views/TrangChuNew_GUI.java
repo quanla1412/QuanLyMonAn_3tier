@@ -7,10 +7,6 @@ package gui.views;
 
 import gui.controllers.QuanLyKhachHangController;
 import gui.controllers.QuanLyLoaiBanVaBanController;
-import gui.controllers.QuanLyLoaiKhachHangController;
-import gui.controllers.QuanLyMonAnController;
-import gui.controllers.QuanLyNhanVienController;
-import gui.controllers.QuanLyPhucVuController;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -34,7 +30,7 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
         initComponents();
         prepareIcon();
         btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new QuanLyNhanVienController().getView());
+        showForm(new QuanLyKhachHangController().getView());
     }
 
     class jPanelGradient extends JPanel {

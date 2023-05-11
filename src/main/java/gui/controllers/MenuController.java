@@ -8,6 +8,7 @@ import gui.views.Menu_GUI;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /**
@@ -35,6 +36,7 @@ public class MenuController {
     private void init(){
         view = new Menu_GUI();
         view.setVisible(true);
+        datMonController = new DatMonController();
         
         view.loadMonAn(listLoaiMonAnFullModel);
         view.listBtnDatMon.forEach(btnDatMon -> btnDatMon.addMouseListener(new MouseAdapter(){
@@ -58,9 +60,14 @@ public class MenuController {
     }
     
     private void showDatMon(int idMonAn){
-        if(datMonController == null)
-            datMonController = new DatMonController(idBan, idMonAn);
-        else
-            datMonController.show(idBan, idMonAn);
+        datMonController.show(idBan, idMonAn);
+    }
+    
+    public void datMon(){    
+        datMonController.datMon();
+    }
+    
+    public JButton getBtnDatMon(){
+        return datMonController.getBtnDatMon();
     }
 }

@@ -4,13 +4,17 @@
  */
 package bll.services.impl;
 
-import gui.models.KhachHang.UpdateKhachHangModel;
 import bll.mappers.KhachHangMapper;
 import bll.services.IKhachHangService;
 import dal.entity.KhachHang;
 import dal.repository.KhachHangRepository;
 import gui.models.KhachHang.KhachHangFullModel;
+import gui.models.KhachHang.CreateKhachHangModel;
 import gui.models.KhachHang.KhachHangModel;
+import gui.models.KhachHang.SearchKhachHangModel;
+import gui.models.KhachHang.UpdateKhachHangModel;
+import gui.models.LoaiKhachHang.CreateLoaiKhachHangModel;
+import gui.models.LoaiKhachHang.UpdateLoaiKhachHangModel;
 import java.util.List;
 
 /**
@@ -23,40 +27,43 @@ public class KhachHangServiceImpl implements IKhachHangService {
     public KhachHangServiceImpl() {
         khachHangRepository = new KhachHangRepository();
     }
-    @Override
+    
     public List<KhachHangModel> getAll() {
         List<KhachHang> listKhachHang = khachHangRepository.getAll();
         List<KhachHangModel> listKhachHangModel = KhachHangMapper.toListKhachHangModel(listKhachHang);
                 
         return listKhachHangModel;        
     }
+    
     public KhachHangFullModel getById(int id) {
         KhachHang khachHang = khachHangRepository.getById(id);
         KhachHangFullModel khachHangModel = KhachHangMapper.toKhachHangFullModel(khachHang);
         
         return khachHangModel;
     }
+
+    @Override
+    public List<KhachHangModel> search(SearchKhachHangModel searchKhachHangModel) {
+        List<KhachHang> listKhachHang = khachHangRepository.search(searchKhachHangModel);
+        List<KhachHangModel> listKhachHangModel = KhachHangMapper.toListKhachHangModel(listKhachHang);
+                
+        return listKhachHangModel; 
+    }
+    
+    @Override
     public boolean createKhachHang(CreateKhachHangModel createKhachHangModel) {
         KhachHang khachHang = KhachHangMapper.toKhachHang(createKhachHangModel);
-        
-        if(!kiemTraCreate(khachHang))
-            return false;
-        
         KhachHang createdKhachHang = khachHangRepository.createKhachHang(khachHang);
         
-        if(createdKhachHang.getId() > 0)
-            return true;
-        return false;
+        return createdKhachHang.getId() > 0;
     }
- 
+    @Override
     public boolean updateKhachHang(UpdateKhachHangModel updateKhachHangModel) {
         KhachHang khachHang = KhachHangMapper.toKhachHang(updateKhachHangModel);
-        
-        if(!kiemTraUpdate(khachHang))
-            return false;
-        
         KhachHang updatedKhachHang = khachHangRepository.updateKhachHang(khachHang);
         
         return true;
     }
+
+    
 }

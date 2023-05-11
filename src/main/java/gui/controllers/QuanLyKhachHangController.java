@@ -10,15 +10,20 @@ import bll.services.ILoaiKhachHangService;
 import bll.services.impl.KhachHangServiceImpl;
 import bll.services.impl.LoaiKhachHangServiceImpl;
 import com.mycompany.quanlynhahang.CheckHopLe;
+import gui.constraints.GioiTinhConstraints;
 import gui.models.KhachHang.KhachHangFullModel;
 import gui.models.KhachHang.KhachHangModel;
+import gui.models.KhachHang.SearchKhachHangModel;
+import gui.models.KhachHang.UpdateKhachHangModel;
 import gui.models.LoaiKhachHang.LoaiKhachHangModel;
 import gui.views.QuanLyKhachHang_GUI;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -53,13 +58,16 @@ public class QuanLyKhachHangController {
         view.setVisible(true);
         
         loadData();
+        loadDetailKhachHang();
         view.loadTableKhachHang(listKhachHangModel);
         view.loadComboBoxTimKiemLoaiKH(listLoaiKhachHangModel);
         view.loadComboBoxThemSuaLoaiKH(listLoaiKhachHangModel);
         view.btnThem.addActionListener(e -> changeModeKhachHang(true));
         view.btnSua.addActionListener(e -> changeModeKhachHang(false));
         view.btnLuu.addActionListener(e -> luuKhachHang());
-        view.btnReset.addActionListener(e -> resetKhachHang());
+        view.btnReset.addActionListener(e -> resetKhachHangForm());
+        view.btnResetTable.addActionListener(e -> resetTable());
+        view.btnTimKiem.addActionListener(e -> searchKhachHang());
         view.tblKhachHang.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
@@ -87,27 +95,37 @@ public class QuanLyKhachHangController {
         String titlePanel = dangThemKhachHang ? "Thêm loại khách hàng mới" : "Sửa loại khách hàng";
         view.pnlThemSuaKhachHang.setBorder(BorderFactory.createTitledBorder(titlePanel));
         view.pnlThemSuaKhachHang.repaint();
-        resetKhachHang();
+        resetKhachHangForm();
     }
-    private void resetKhachHang(){     
-        loadData();
-        view.loadTableKhachHang(listKhachHangModel);
+    private void resetKhachHangForm(){     
         loadDetailKhachHang();  
     }
+    
+    private void resetTable(){
+        loadData();
+        view.loadTableKhachHang(listKhachHangModel);
+        
+        view.txtSearchIdName.setText("");
+        view.cmbTimKiemGioiTinh.setSelectedIndex(0);
+        view.cmbTimKiemGioiTinh.setSelectedIndex(0);
+        view.txtTimKiemSDT.setText("");
+    }
+    
     private void loadDetailKhachHang(){
         if(khachHangSelected == null || dangThemKhachHang){
             view.txtIDKH.setText("");
-            view.cmbThemSuaLoaiKH.setSelectedIndex(-1);
             view.txtHoTen.setText("");
             view.txtSDT.setText("");
-            view.txtDiemTichLuy.setText("");
             view.txtEmail.setText("");
+            view.txtDiemTichLuy.setText("0");
             view.cmbGioiTinhKH.setSelectedIndex(-1);
+            view.cmbThemSuaLoaiKH.setSelectedIndex(-1);
+            Date now = new Date();
+            view.jdcNgaySinh.setDate(now);
         } else {
             view.txtIDKH.setText(Integer.toString(khachHangSelected.getId()));
             LoaiKhachHangModel loaiKhachHangModel = khachHangSelected.getLoaiKhachHang();
             int indexKhachHang = listLoaiKhachHangModel.indexOf(loaiKhachHangModel);
-            view.cmbThemSuaLoaiKH.setSelectedIndex(indexKhachHang);
             view.txtHoTen.setText(khachHangSelected.getTen());
             view.txtSDT.setText(khachHangSelected.getSdt());
             view.txtDiemTichLuy.setText(Integer.toString(khachHangSelected.getDiemTichLuy()));
@@ -119,6 +137,7 @@ public class QuanLyKhachHangController {
             else
                 view.cmbGioiTinhKH.setSelectedIndex(1);
             
+            view.cmbThemSuaLoaiKH.setSelectedIndex(indexKhachHang);
         }                  
     }
     private void luuKhachHang(){
@@ -128,41 +147,41 @@ public class QuanLyKhachHangController {
             return;
         }
         String tenKhachHang = view.txtHoTen.getText().trim();
-        int idLoaiKhachHang = listLoaiKhachHangModel.get(view.cmbThemSuaLoaiKH.getSelectedIndex()).getId();
         String soDienThoai  =  view.txtSDT.getText().trim();
         String email  =  view.txtEmail.getText().trim();
-        int diemTichLuy = Integer.parseInt( view.txtDiemTichLuy.getText());
-        boolean gioiTinhNam = false;
+        boolean gioiTinhNam = true;
         if(view.cmbGioiTinhKH.getSelectedIndex()==1){
-            gioiTinhNam = true;
+            gioiTinhNam = false;
         }
+        Timestamp ngaySinh;
+        ngaySinh = new Timestamp(view.jdcNgaySinh.getDate().getTime());
         
         if(dangThemKhachHang){
-            CreateKhachHangModel createKhachHangModel = new CreateKhachHangModel(tenLoaiKhachHang, diemToiThieu, mucUuDai);
+            CreateKhachHangModel createKhachHangModel = new CreateKhachHangModel(tenKhachHang, soDienThoai, email, ngaySinh, gioiTinhNam);
 
-            boolean result = loaiKhachHangService.createLoaiKhachHang(createLoaiKhachHangModel);
+            boolean result = khachHangService.createKhachHang(createKhachHangModel);
             if(result){
-                JOptionPane.showMessageDialog(view, "Thêm loại khách hàng mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(view, "Thêm khách hàng mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
             else{
-                JOptionPane.showMessageDialog(view, "Thêm loại khách hàng mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(view, "Thêm khách hàng mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } 
         else {
-            UpdateLoaiKhachHangModel updateLoaiKhachHangModel = new UpdateLoaiKhachHangModel(loaiKhachHangSelected.getId(), tenLoaiKhachHang, diemToiThieu, mucUuDai);
+            UpdateKhachHangModel updateKhachHangModel = new UpdateKhachHangModel(khachHangSelected.getId(), tenKhachHang, soDienThoai, email, ngaySinh, gioiTinhNam);
 
-            boolean result = loaiKhachHangService.updateLoaiKhachHang(updateLoaiKhachHangModel);
+            boolean result = khachHangService.updateKhachHang(updateKhachHangModel);
             if(result){
-                JOptionPane.showMessageDialog(view, "Sửa loại khách hàng thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                loaiKhachHangSelected = loaiKhachHangService.getById(loaiKhachHangSelected.getId());
+                JOptionPane.showMessageDialog(view, "Sửa khách hàng thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                khachHangSelected = khachHangService.getById(khachHangSelected.getId());
             }
             else{
-                JOptionPane.showMessageDialog(view, "Sửa loại khách hàng thất bại","Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(view, "Sửa khách hàng thất bại","Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
-        resetKhachHang();      
+        resetKhachHangForm();      
     }
     private String kiemtraLuuKhachHang(){
         ArrayList<String> errorList = new ArrayList<>();
@@ -186,5 +205,32 @@ public class QuanLyKhachHangController {
         String error = String.join("\n", errorList);
         
         return error;
+    }
+    
+    private void searchKhachHang(){
+        SearchKhachHangModel searchKhachHangModel = new SearchKhachHangModel();
+        
+        String idOrName = view.txtSearchIdName.getText().trim();
+        if(!idOrName.isBlank()){
+            searchKhachHangModel.setIdOrName(idOrName);
+        }
+        String sdt = view.txtTimKiemSDT.getText().trim();
+        if(!sdt.isBlank()){
+            searchKhachHangModel.setSdt(sdt);
+        }
+        int idKhachHang = view.cmbTimKiemLoaiKH.getSelectedIndex();
+        if(idKhachHang > 0){
+            searchKhachHangModel.setIdLoaiKhachHang(listLoaiKhachHangModel.get(idKhachHang - 1).getId());
+        }
+        int gioiTinh;
+        gioiTinh = switch (view.cmbTimKiemGioiTinh.getSelectedIndex()) {
+            case 1 -> GioiTinhConstraints.NAM;
+            case 2 -> GioiTinhConstraints.NU;
+            default -> GioiTinhConstraints.TAT_CA;
+        };
+        searchKhachHangModel.setGioiTinh(gioiTinh);
+        
+        listKhachHangModel = (ArrayList<KhachHangModel>) khachHangService.search(searchKhachHangModel);
+        view.loadTableKhachHang(listKhachHangModel);
     }
 }
