@@ -9,6 +9,7 @@ import gui.models.KhachHang.KhachHangFullModel;
 import gui.models.KhachHang.KhachHangModel;
 import gui.models.KhachHang.SearchKhachHangModel;
 import gui.models.KhachHang.UpdateKhachHangModel;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,4 +26,11 @@ public interface IKhachHangService {
     boolean createKhachHang(CreateKhachHangModel createKhachHangModel);
     
     boolean updateKhachHang(UpdateKhachHangModel updateKhachHangModel);
+    
+    boolean exportKhachHang(ArrayList<KhachHangModel> listKhachHangModels, String filePath);
+    
+    boolean exportAllKhachHangTheoMauImport(String filePath);
+    
+    int importKhachHang(String filePath);
+    
 }

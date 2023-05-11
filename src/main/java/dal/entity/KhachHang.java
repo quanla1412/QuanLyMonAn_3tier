@@ -99,6 +99,10 @@ public class KhachHang implements Serializable {
     public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
+    
+    public boolean isGioiTinhNam(){
+        return gioiTinhNam;
+    }
 
     public boolean getGioiTinhNam() {
         return gioiTinhNam;
