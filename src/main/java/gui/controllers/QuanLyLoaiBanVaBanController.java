@@ -87,6 +87,7 @@ public class QuanLyLoaiBanVaBanController {
         view.btnLuuBan.addActionListener(e -> saveBan());
         view.btnResetBan.addActionListener(e -> resetBan());
         view.btnXoaBan.addActionListener(e -> deleteBan());
+        
         view.tblBan.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
@@ -218,7 +219,6 @@ public class QuanLyLoaiBanVaBanController {
         view.loadTableLoaiBan(listLoaiBanModel);   
         view.loadComboBoxLoaiBan(listLoaiBanModel);
         loadDetailLoaiBan();
-        
     }
     
     private void resetBan(){

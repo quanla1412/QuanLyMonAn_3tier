@@ -58,7 +58,7 @@ public class MonAnModel {
         this.loaiMonAn = loaiMonAn;
     }
 
-    public long getGia() {
+    public int getGia() {
         return gia;
     }
 
@@ -66,7 +66,7 @@ public class MonAnModel {
         this.gia = gia;
     }
 
-    public long getGiaKhuyenMai() {
+    public int getGiaKhuyenMai() {
         return giaKhuyenMai;
     }
 
@@ -80,5 +80,26 @@ public class MonAnModel {
 
     public void setTinhTrangMonAn(String tinhTrangMonAn) {
         this.tinhTrangMonAn = tinhTrangMonAn;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final MonAnModel other = (MonAnModel) obj;
+        return this.id == other.id;
     }
 }

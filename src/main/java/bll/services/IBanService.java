@@ -18,11 +18,15 @@ public interface IBanService {
     
     BanFullModel getFullById(int id);
     
+    List<BanFullModel> getAllFull();
+    
+    List<BanModel> getByTinhTrang(int idTinhTrangBan);
+    
     boolean createBan(CreateBanModel createBanModel);
 
     boolean updateBan(UpdateBanModel updateBanModel);
     
-    Ban changeTinhTrangBan(int idBan, int idTinhTrangBan);
+    boolean changeTinhTrangBan(int idBan, int idTinhTrangBan);
     
     boolean delete(int id);
 }

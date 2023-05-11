@@ -35,24 +35,29 @@ public class HoaDon implements Serializable{
     private int id;
     @ManyToOne
     @JoinColumn(name = "NV_Ma")
-    private NhanVien maNhanVien;
+    private NhanVien nhanVien;
     @ManyToOne
     @JoinColumn(name = "KH_ID")
-    private KhachHang idKhachHang;
+    private KhachHang khachHang;
     @Column (name = "HD_NgayGio")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date ngayGio;
     @Column (name = "HD_TongGia")
-    private int tongGia;
+    private long tongGia;
     @Column (name = "HD_UuDai")
     private float uuDai;
     @Column (name = "HD_DaHuy")
     private boolean daHuy;
-    
     @OneToMany(mappedBy = "maHoaDon")
-    List<ChiTietHoaDon> soLuong;
-    @OneToMany(mappedBy = "maHoaDon")
-    List<ChiTietHoaDon> donGia;
+    List<ChiTietHoaDon> listChiTietHoaDon;
+
+    public List<ChiTietHoaDon> getListChiTietHoaDon() {
+        return listChiTietHoaDon;
+    }
+
+    public void setListChiTietHoaDon(List<ChiTietHoaDon> listChiTietHoaDon) {
+        this.listChiTietHoaDon = listChiTietHoaDon;
+    }
 
     public int getId() {
         return id;
@@ -63,19 +68,19 @@ public class HoaDon implements Serializable{
     }
 
     public NhanVien getMaNhanVien() {
-        return maNhanVien;
+        return nhanVien;
     }
 
     public void setMaNhanVien(NhanVien maNhanVien) {
-        this.maNhanVien = maNhanVien;
+        this.nhanVien = maNhanVien;
     }
 
     public KhachHang getIdKhachHang() {
-        return idKhachHang;
+        return khachHang;
     }
 
     public void setIdKhachHang(KhachHang idKhachHang) {
-        this.idKhachHang = idKhachHang;
+        this.khachHang = idKhachHang;
     }
 
     public Date getNgayGio() {
@@ -94,27 +99,11 @@ public class HoaDon implements Serializable{
         this.daHuy = daHuy;
     }
 
-    public List<ChiTietHoaDon> getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(List<ChiTietHoaDon> soLuong) {
-        this.soLuong = soLuong;
-    }
-
-    public List<ChiTietHoaDon> getDonGia() {
-        return donGia;
-    }
-
-    public void setDonGia(List<ChiTietHoaDon> donGia) {
-        this.donGia = donGia;
-    }
-
-    public int getTongGia() {
+    public long getTongGia() {
         return tongGia;
     }
 
-    public void setTongGia(int tongGia) {
+    public void setTongGia(long tongGia) {
         this.tongGia = tongGia;
     }
 
@@ -125,6 +114,4 @@ public class HoaDon implements Serializable{
     public void setUuDai(float uuDai) {
         this.uuDai = uuDai;
     }
-
-
 }

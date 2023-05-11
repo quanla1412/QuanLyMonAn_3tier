@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -31,7 +32,8 @@ public class TinhTrangBanRepository {
     public TinhTrangBan getById(int id){
         Session session = HibernateUtils.getFACTORY().openSession();
         
-        TinhTrangBan tinhTrangBan = session.get(TinhTrangBan.class, id);
+        TinhTrangBan tinhTrangBan = session.get(TinhTrangBan.class, id);        
+        Hibernate.initialize(tinhTrangBan.getListBan());
         
         session.close();
         return tinhTrangBan;
