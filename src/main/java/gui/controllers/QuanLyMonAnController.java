@@ -186,7 +186,10 @@ public class QuanLyMonAnController {
             else
                 view.lblTenHinhAnh.setText(monAnSelected.getHinhAnh());
             view.txtGia.setText(Integer.toString(monAnSelected.getGia()));
-            view.txtGiaKhuyenMai.setText(Integer.toString(monAnSelected.getGiaKhuyenMai()));
+            if(monAnSelected.getGiaKhuyenMai() >= 0)
+                view.txtGiaKhuyenMai.setText(Integer.toString(monAnSelected.getGiaKhuyenMai()));
+            else
+                view.txtGiaKhuyenMai.setText("");
             view.cmbTinhTrangMonAnForm.setSelectedIndex(listTinhTrangMonAnModel.indexOf(monAnSelected.getTinhTrangMonAnModel()));
             view.txaNoiDung.setText(monAnSelected.getNoiDung());
         }

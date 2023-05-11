@@ -6,6 +6,7 @@ import dal.entity.LoaiMonAn;
 import dal.repository.LoaiMonAnRepository;
 import gui.models.LoaiMonAn.CreateLoaiMonAnModel;
 import gui.models.LoaiMonAn.LoaiMonAnModel;
+import gui.models.MonAn.LoaiMonAnFullModel;
 import java.util.List;
 
 /**
@@ -25,6 +26,14 @@ public class LoaiMonAnServiceImpl implements ILoaiMonAnService{
         List<LoaiMonAnModel> listLoaiMonAnModel = LoaiMonAnMapper.toListLoaiMonAnModel(listLoaiMonAn);
         
         return listLoaiMonAnModel;
+    }
+
+    @Override
+    public List<LoaiMonAnFullModel> getAllFull() {
+        List<LoaiMonAn> listLoaiMonAn = loaiMonAnRepository.getAll();
+        List<LoaiMonAnFullModel> listLoaiMonAnFullModel = LoaiMonAnMapper.toListLoaiMonAnFullModel(listLoaiMonAn);
+        
+        return listLoaiMonAnFullModel;
     }
 
     @Override

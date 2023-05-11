@@ -6,6 +6,8 @@ import com.mycompany.quanlynhahang.Price;
 import gui.constraints.TinhTrangBanConstraints;
 import gui.models.Ban.BanFullModel;
 import gui.models.BanModel;
+import gui.models.DonGoi.DonGoiMasterModel;
+import gui.models.DonGoi.DonGoiModel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -21,13 +23,41 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-public class QuanLyPhucVu_GUI extends javax.swing.JPanel {  
-    
-    private BanFullModel banSelected = null;
+public class QuanLyPhucVu_GUI extends javax.swing.JPanel {      
+    public ArrayList<JButton> listBtnBan;
     
     public QuanLyPhucVu_GUI() {
+        listBtnBan = new ArrayList<>();
+        
         initComponents();
     }
+    
+    public void loadDanhSachBan(ArrayList<BanFullModel> listBanFullModel) {
+        listBtnBan.clear();
+        pnlDanhSachBan.removeAll();
+        for(BanFullModel ban : listBanFullModel){
+            String title = "<html> "
+                    + "<p style=\"text-align:center\">Bàn " + ban.getId() + "</p> "
+                    + "<p  style=\"text-align:center\">" + ban.getLoaiBan().getTen() + "</p> "
+                    + "<p  style=\"text-align:center\">" + ban.getTinhTrangBan().getTen() + "</p> "
+                    + "</html>";
+            JButton button = new JButton(title);
+            button.setPreferredSize(new Dimension(120, 60));
+            button.setMinimumSize(new Dimension(120, 60));
+            button.setMaximumSize(new Dimension(120, 60));
+            
+            int idTinhTrangBan = ban.getTinhTrangBan().getId();
+            switch (idTinhTrangBan) {
+                case TinhTrangBanConstraints.SAN_SANG -> button.setBackground(new Color(95, 192, 102));
+                case TinhTrangBanConstraints.DANG_PHUC_VU -> button.setBackground(new Color(231, 197, 76));
+                case TinhTrangBanConstraints.DANG_CHUAN_BI -> button.setBackground(new Color(220, 60, 47));
+                default -> button.setBackground(new Color(141, 141, 141));
+            }
+            button.setName(Integer.toString(ban.getId()));
+            pnlDanhSachBan.add(button);
+            listBtnBan.add(button);
+        }
+    } 
     
     public void loadComboBoxBanSanSang(ArrayList<BanModel> listBanModel){
         cmbBanSanSang.removeAllItems();
@@ -37,40 +67,23 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
         cmbBanSanSang.setSelectedIndex(-1);
     }
 
-    private void loadDonGoi(){
-        listDonGoi = donGoi_BUS.getAllDonGoiByIdBan(banDangChon.getId());
-        
-        long total = 0;
-        
+    public void loadTableDonGoi(DonGoiMasterModel donGoiMasterModel){
         String[] col = {"ID Món ăn","Tên món ăn", "Đơn giá", "Số lượng", "Thành tiền"};
         DefaultTableModel model = new DefaultTableModel(col, 0);
         tblDonGoi.setModel(model);
-        for(DonGoi_DTO donGoi : listDonGoi){
-            long gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? donGoi.getMonAn().getGiaKhuyenMai() : donGoi.getMonAn().getGia();
-            long thanhTien = gia * donGoi.getSoLuong();
+        for(DonGoiModel donGoi : donGoiMasterModel.getListDonGoiModel()){
             Object[] data = {
                 donGoi.getMonAn().getId(),
                 donGoi.getMonAn().getTen(), 
-                Price.formatPrice(gia),
+                Price.formatPrice(donGoi.getGia()),
                 donGoi.getSoLuong(),
-                Price.formatPrice(thanhTien)
+                Price.formatPrice(donGoi.getThanhTien())
             };
-            total += thanhTien;
             
             model.addRow(data);
         }  
         
-        lblTongGia.setText(Price.formatPrice(total));
-    }
-    
-    private void chuyenTinhTrangBan(int tinhTrangMoi){
-        ban_BUS.changeTinhTrangBan(banDangChon.getId(), tinhTrangMoi);
-        banDangChon = ban_BUS.getBanFullById(banDangChon.getId());
-        
-        loadChucNang();
-        loadDonGoi();
-        loadComboBoxBanSanSang();
-        loadDanhSachBan();
+        lblTongGia.setText(Price.formatPrice(donGoiMasterModel.getTotal()));
     }
     
     @SuppressWarnings("unchecked")
@@ -341,11 +354,6 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
         btnThemMonMoi.setMinimumSize(new java.awt.Dimension(132, 28));
         btnThemMonMoi.setName(""); // NOI18N
         btnThemMonMoi.setPreferredSize(new java.awt.Dimension(132, 28));
-        btnThemMonMoi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnThemMonMoiMouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -360,11 +368,6 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
         btnXoa.setMaximumSize(new java.awt.Dimension(132, 28));
         btnXoa.setMinimumSize(new java.awt.Dimension(132, 28));
         btnXoa.setPreferredSize(new java.awt.Dimension(132, 28));
-        btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnXoaMouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
@@ -379,11 +382,6 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
         btnSuaDonGoi.setMaximumSize(new java.awt.Dimension(132, 28));
         btnSuaDonGoi.setMinimumSize(new java.awt.Dimension(132, 28));
         btnSuaDonGoi.setPreferredSize(new java.awt.Dimension(132, 28));
-        btnSuaDonGoi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSuaDonGoiMouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -434,11 +432,6 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
         btnChuyenBan.setMaximumSize(new java.awt.Dimension(132, 28));
         btnChuyenBan.setMinimumSize(new java.awt.Dimension(132, 28));
         btnChuyenBan.setPreferredSize(new java.awt.Dimension(132, 28));
-        btnChuyenBan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnChuyenBanMouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -506,6 +499,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
                 "ID Món ăn", "Tên món ăn", "Đơn giá", "Số lượng", "Thành tiền"
             }
         ));
+        tblDonGoi.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblDonGoi);
 
         jPanel3.add(jScrollPane1);
@@ -568,16 +562,6 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
         btnResetDonGoi.setMaximumSize(new java.awt.Dimension(120, 28));
         btnResetDonGoi.setMinimumSize(new java.awt.Dimension(120, 28));
         btnResetDonGoi.setPreferredSize(new java.awt.Dimension(120, 28));
-        btnResetDonGoi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnResetDonGoiMouseClicked(evt);
-            }
-        });
-        btnResetDonGoi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetDonGoiActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -592,93 +576,6 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
         jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.LINE_AXIS));
         add(jPanel6);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnThemMonMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMonMoiMouseClicked
-        // TODO add your handling code here:
-        if(btnThemMonMoi.isEnabled()){
-            if(menu_GUI == null || !menu_GUI.isDisplayable()){
-                menu_GUI = new Menu_GUI(banDangChon.getId());
-                menu_GUI.setVisible(true);
-            } else {
-                menu_GUI.setState(JFrame.NORMAL);
-                menu_GUI.toFront();
-            }
-        }
-    }//GEN-LAST:event_btnThemMonMoiMouseClicked
-
-    private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
-        // TODO add your handling code here:
-        if(btnXoa.isEnabled()){
-            int count = tblDonGoi.getSelectedRowCount();
-            if(count < 1)
-            JOptionPane.showMessageDialog(this, "Chưa chọn món ăn","Error", JOptionPane.ERROR_MESSAGE);
-            else if(count > 1)
-            JOptionPane.showMessageDialog(this, "Chỉ chọn 1 món ăn","Error", JOptionPane.ERROR_MESSAGE);
-
-            int indexRow = tblDonGoi.getSelectedRow();
-            TableModel model = tblDonGoi.getModel();
-
-            int idMonAn = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
-            boolean result = donGoi_BUS.deleteDonGoi(banDangChon.getId(), idMonAn);
-            if(result){
-                JOptionPane.showMessageDialog(this, "Xóa món ăn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                loadDonGoi();
-            } else {
-                JOptionPane.showMessageDialog(this, "Xóa món ăn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_btnXoaMouseClicked
-
-    private void btnSuaDonGoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaDonGoiMouseClicked
-        // TODO add your handling code here:
-        if(btnSuaDonGoi.isEnabled()){
-            int count = tblDonGoi.getSelectedRowCount();
-            if(count < 1){
-                JOptionPane.showMessageDialog(this, "Chưa chọn món ăn","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            int indexRow = tblDonGoi.getSelectedRow();
-            TableModel model = tblDonGoi.getModel();
-
-            int idMonAn = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
-            if(datMon_GUI == null || !datMon_GUI.isDisplayable()){
-                datMon_GUI = new DatMon_GUI(banDangChon.getId(), idMonAn);
-                datMon_GUI.setVisible(true);
-            } else {
-                datMon_GUI.setState(JFrame.NORMAL);
-                datMon_GUI.toFront();
-            }
-        }
-    }//GEN-LAST:event_btnSuaDonGoiMouseClicked
-
-    private void btnChuyenBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChuyenBanMouseClicked
-        // TODO add your handling code here:
-        if(btnChuyenBan.isEnabled()){
-            int indexBan = cmbBanSanSang.getSelectedIndex();
-            if(indexBan < 0){
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn bàn muốn chuyển","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            boolean result = donGoi_BUS.chuyenBan(banDangChon.getId(), listBanSanSang.get(indexBan).getId());
-            if(result){
-                JOptionPane.showMessageDialog(this, "Chuyển bàn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                chuyenTinhTrangBan(TinhTrangBanConstraints.DANG_CHUAN_BI);
-            } else {
-                JOptionPane.showMessageDialog(this, "Chuyển bàn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_btnChuyenBanMouseClicked
-
-    private void btnResetDonGoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetDonGoiMouseClicked
-        // TODO add your handling code here:
-        if(btnResetDonGoi.isEnabled()){
-            loadDonGoi();
-            loadDanhSachBan();
-        }
-        
-    }//GEN-LAST:event_btnResetDonGoiMouseClicked
 
     private void btnThanhToanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToanMouseClicked
         // TODO add your handling code here:
@@ -701,10 +598,6 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnThanhToanActionPerformed
-
-    private void btnResetDonGoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetDonGoiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnResetDonGoiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -754,7 +647,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
     public javax.swing.JLabel lblTinhTrangBan;
     private javax.swing.JLabel lblTongGia;
     public javax.swing.JPanel pnlDanhSachBan;
-    private javax.swing.JTable tblDonGoi;
+    public javax.swing.JTable tblDonGoi;
     // End of variables declaration//GEN-END:variables
 
 }
