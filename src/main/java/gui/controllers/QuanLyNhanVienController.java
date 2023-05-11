@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -83,7 +84,9 @@ public class QuanLyNhanVienController {
         view.btnXoaNV.addActionListener(e -> deleteNhanVien());
         view.btnResetThemNV.addActionListener(e -> resetNhanVien());
         view.btnResetTable.addActionListener(e -> resetTable());
-        
+        view.btnExportNV.addActionListener(e -> exportNhanVien());
+        view.btnExportMauImport.addActionListener(e -> exportAllNhanVienTheoMauImport());
+        view.btnImportNV.addActionListener(e -> importNhanVien());
         
         view.tblDanhSachNV.addMouseListener(new MouseAdapter(){
             @Override
@@ -98,6 +101,49 @@ public class QuanLyNhanVienController {
             }
         });
         
+    }
+    
+    private void exportNhanVien(){
+        boolean result = false;
+        JFileChooser jFileChooser = new JFileChooser("D:");
+        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            result = nhanVienService.exportNhanVien(listNhanVienModel, jFileChooser.getSelectedFile().getAbsolutePath());
+        }
+
+        if (!result) {
+            JOptionPane.showMessageDialog(view, "Xuất file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void exportAllNhanVienTheoMauImport(){
+        boolean result = false;
+
+        JFileChooser jFileChooser = new JFileChooser("D:");
+        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            result = nhanVienService.exportAllNhanVienTheoMauImport(jFileChooser.getSelectedFile().getAbsolutePath());
+        }
+
+        if (!result) {
+            JOptionPane.showMessageDialog(view, "Export file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void importNhanVien (){
+        int totalSuccess = 0;
+
+        JFileChooser jFileChooser = new JFileChooser("D:");
+        if (jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            totalSuccess = nhanVienService.importNhanVien(jFileChooser.getSelectedFile().getAbsolutePath());
+
+            JOptionPane.showMessageDialog(view, "Cập nhật " + totalSuccess + " nhân viên","Import danh sách nhân viên", JOptionPane.INFORMATION_MESSAGE);
+
+            loadData();
+        }else {
+            JOptionPane.showMessageDialog(view, "Import file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     private void loadData(){

@@ -31,7 +31,11 @@ public interface INhanVienSerivice {
     
     boolean delete(String ma);
     
+    boolean exportNhanVien(ArrayList<NhanVienModel> listNhanVienModels, String filePath);
     
+    boolean exportAllNhanVienTheoMauImport(String filePath);
+    
+    int importNhanVien(String filePath);
     
     
 }
