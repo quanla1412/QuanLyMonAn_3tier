@@ -12,6 +12,7 @@ import bll.services.impl.LoaiKhachHangServiceImpl;
 import com.mycompany.quanlynhahang.CheckHopLe;
 import gui.models.KhachHang.KhachHangFullModel;
 import gui.models.KhachHang.KhachHangModel;
+import gui.models.KhachHang.SearchKhachHangModel;
 import gui.models.KhachHang.UpdateKhachHangModel;
 import gui.models.LoaiKhachHang.LoaiKhachHangModel;
 import gui.views.QuanLyKhachHang_GUI;
@@ -64,6 +65,7 @@ public class QuanLyKhachHangController {
         view.btnSua.addActionListener(e -> changeModeKhachHang(false));
         view.btnLuu.addActionListener(e -> luuKhachHang());
         view.btnReset.addActionListener(e -> resetKhachHang());
+        view.btnTimKiem.addActionListener(e -> searchKhachHang());
         view.tblKhachHang.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
@@ -192,5 +194,22 @@ public class QuanLyKhachHangController {
         String error = String.join("\n", errorList);
         
         return error;
+    }
+    private void searchKhachHang(){
+        SearchKhachHangModel searchKhachHangModel = new SearchKhachHangModel();
+        
+        String idOrName = view.txtSearchIdName.getText().trim();
+        if(!idOrName.isBlank()){
+            searchKhachHangModel.setIdOrName(idOrName);
+        }
+        String sdt = view.txtTimKiemSDT.getText().trim();
+        if(!sdt.isBlank()){
+            searchKhachHangModel.setSdt(sdt);
+        }
+        int idKhachHang = view.cmbTimKiemLoaiKH.getSelectedIndex();
+        if(idKhachHang > 0){
+            searchKhachHangModel.setIdLoaiKhachHang(listLoaiKhachHangModel.get(idKhachHang - 1).getId());
+        }
+        int gioiTinh = view.cmbTimKiemLoaiKH.getSelectedIndex();
     }
 }
