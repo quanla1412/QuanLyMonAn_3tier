@@ -8,7 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  *
@@ -37,6 +39,8 @@ public class MonAn implements Serializable{
     @ManyToOne
     @JoinColumn(name = "TTMA_ID")
     private TinhTrangMonAn tinhTrangMonAn;
+    @OneToMany(mappedBy = "monAn")
+    private List<DonGoi> listDonGoi;
 
     public int getId() {
         return id;
@@ -102,5 +106,13 @@ public class MonAn implements Serializable{
 
     public void setTinhTrangMonAn(TinhTrangMonAn tinhTrangMonAn) {
         this.tinhTrangMonAn = tinhTrangMonAn;
+    }
+
+    public List<DonGoi> getListDonGoi() {
+        return listDonGoi;
+    }
+
+    public void setListDonGoi(List<DonGoi> listDonGoi) {
+        this.listDonGoi = listDonGoi;
     }
 }

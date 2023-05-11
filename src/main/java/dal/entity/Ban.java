@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -27,6 +29,8 @@ public class Ban implements Serializable {
     @ManyToOne
     @JoinColumn(name="TTB_ID")
     private TinhTrangBan tinhTrangBan; 
+    @OneToMany(mappedBy = "ban")
+    private List<DonGoi> listDonGoi;
 
     public int getId() {
         return id;
@@ -51,6 +55,12 @@ public class Ban implements Serializable {
     public void setTinhTrangBan(TinhTrangBan tinhTrangBan) {
         this.tinhTrangBan = tinhTrangBan;
     }
-    
-    
+
+    public List<DonGoi> getListDonGoi() {
+        return listDonGoi;
+    }
+
+    public void setListDonGoi(List<DonGoi> listDonGoi) {
+        this.listDonGoi = listDonGoi;
+    }
 }

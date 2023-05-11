@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.List;
+import org.hibernate.Hibernate;
 
 /**
  *
@@ -45,6 +46,7 @@ public class BanRepository {
         Session session = HibernateUtils.getFACTORY().openSession();
         
         Ban ban= session.get(Ban.class, id);
+        Hibernate.initialize(ban.getListDonGoi());
         
         session.close();
         

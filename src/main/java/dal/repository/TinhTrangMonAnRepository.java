@@ -2,7 +2,7 @@ package dal.repository;
 
 import dal.HibernateUtils;
 import dal.entity.TinhTrangMonAn;
-import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -15,7 +15,7 @@ import org.hibernate.query.Query;
  * @author LeAnhQuan
  */
 public class TinhTrangMonAnRepository {
-    public ArrayList<TinhTrangMonAn> getAll() {
+    public List<TinhTrangMonAn> getAll() {
         Session session = HibernateUtils.getFACTORY().openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<TinhTrangMonAn> query = builder.createQuery(TinhTrangMonAn.class);
@@ -23,7 +23,7 @@ public class TinhTrangMonAnRepository {
         query = query.select(tinhTrangMonAnEntry);
         
         Query queryResult = session.createQuery(query);
-        ArrayList<TinhTrangMonAn> result = (ArrayList<TinhTrangMonAn>) queryResult.getResultList();
+        List<TinhTrangMonAn> result = queryResult.getResultList();
         session.close();
         
         return result;
