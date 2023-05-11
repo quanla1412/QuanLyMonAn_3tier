@@ -31,8 +31,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
     public TrangChu_GUI() {
         initComponents();
         prepareIcon();
-        btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new BaoCaoThongKeController().getView());
+        showForm(new QuanLyPhucVuController("maittt").getView());
     }
 
     class jPanelGradient extends JPanel {

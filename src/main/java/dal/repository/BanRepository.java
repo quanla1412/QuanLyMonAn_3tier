@@ -45,7 +45,7 @@ public class BanRepository {
     public Ban getById(int id){
         Session session = HibernateUtils.getFACTORY().openSession();
         
-        Ban ban= session.get(Ban.class, id);
+        Ban ban = session.get(Ban.class, id);
         Hibernate.initialize(ban.getListDonGoi());
         
         session.close();

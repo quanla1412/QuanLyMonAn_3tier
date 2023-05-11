@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -49,7 +50,7 @@ public class QuanLyKhachHangController {
         init();
     }
     
-    public JComponent getView(){
+    public QuanLyKhachHang_GUI getView(){
         return view;
     }
     
@@ -68,6 +69,12 @@ public class QuanLyKhachHangController {
         view.btnReset.addActionListener(e -> resetKhachHangForm());
         view.btnResetTable.addActionListener(e -> resetTable());
         view.btnTimKiem.addActionListener(e -> searchKhachHang());
+        
+        view.btnExport.addActionListener(e -> exportKhachHang());
+        view.btnExportMauImport.addActionListener(e -> exportAllKhachHangTheoMauImport());
+        view.btnImport.addActionListener(e -> importNhanVien());
+        
+        
         view.tblKhachHang.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
@@ -81,6 +88,52 @@ public class QuanLyKhachHangController {
             }
         });
     }
+    
+    private void exportKhachHang(){
+         boolean result = false;
+        JFileChooser jFileChooser = new JFileChooser("D:");
+        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            result = khachHangService.exportKhachHang(listKhachHangModel, jFileChooser.getSelectedFile().getAbsolutePath());
+        }
+
+        if (!result) {
+            JOptionPane.showMessageDialog(view, "Xuất file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void exportAllKhachHangTheoMauImport(){
+          boolean result = false;
+
+        JFileChooser jFileChooser = new JFileChooser("D:");
+        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            result = khachHangService.exportAllKhachHangTheoMauImport(jFileChooser.getSelectedFile().getAbsolutePath());
+        }
+
+        if (!result) {
+            JOptionPane.showMessageDialog(view, "Export file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void importNhanVien (){
+         int totalSuccess = 0;
+
+        JFileChooser jFileChooser = new JFileChooser("D:");
+        if (jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            totalSuccess = khachHangService.importKhachHang(jFileChooser.getSelectedFile().getAbsolutePath());
+
+            JOptionPane.showMessageDialog(view, "Cập nhật " + totalSuccess + " khách hàng","Import danh sách nhân viên", JOptionPane.INFORMATION_MESSAGE);
+
+            loadData();
+        }else {
+            JOptionPane.showMessageDialog(view, "Import file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    
     
     private void loadData(){
         listKhachHangModel = (ArrayList<KhachHangModel>) khachHangService.getAll();

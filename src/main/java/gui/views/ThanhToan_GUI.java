@@ -306,11 +306,6 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         getContentPane().add(btnThanhToan, gridBagConstraints);
 
         btnInBillTam.setText("In bill tạm");
-        btnInBillTam.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnInBillTamMouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -323,67 +318,53 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnInBillTamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInBillTamMouseClicked
-        JFileChooser jFileChooser= new JFileChooser("D:");
-        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        boolean result = false; 
-       
-        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            result = donGoi_BUS.inBillTam(idBan, maNhanVien, khachHang.getId(), jFileChooser.getSelectedFile().getAbsolutePath());
-        }
-        
-        if (!result) {
-            JOptionPane.showMessageDialog(this, "In bill tạm thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnInBillTamMouseClicked
-
     private void btnThanhToanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToanMouseClicked
         // TODO add your handling code here:
-        CreateHoaDon_DTO createHoaDon_DTO = new CreateHoaDon_DTO();
-        
-        createHoaDon_DTO.setMaNhanVien(maNhanVien);
-        if(khachHang != null){
-            createHoaDon_DTO.setIdKhachHang(khachHang.getId());
-            createHoaDon_DTO.setUuDai(khachHang.getLoaiKhachHang().getMucUuDai());
-        }
-        
-        createHoaDon_DTO.setNgayGio(Timestamp.valueOf(LocalDateTime.now()));
-        createHoaDon_DTO.setTongGia(tongTien);
-        
-        ArrayList<CreateChiTietHoaDon_DTO> listChiTietHoaDon = new ArrayList<>();
-        for(DonGoi_DTO donGoi : listDonGoi){
-            int idMonAn = donGoi.getMonAn().getId();
-            int soLuong = donGoi.getSoLuong();
-            long gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? 
-                    donGoi.getMonAn().getGiaKhuyenMai() :
-                    donGoi.getMonAn().getGia();
-            
-            CreateChiTietHoaDon_DTO cthd = new CreateChiTietHoaDon_DTO(idMonAn, soLuong, gia);
-            listChiTietHoaDon.add(cthd);
-        }
-        createHoaDon_DTO.setListMonAn(listChiTietHoaDon);
-        
-        int idHoaDon = hoaDon_BUS.createHoaDon(createHoaDon_DTO);
-        if(idHoaDon > 0){
-            donGoi_BUS.deleteDonGoi(idBan);
-            
-            boolean result = khachHang_BUS.capNhatSauThanhToan(idHoaDon);
-            if(!result)
-                JOptionPane.showMessageDialog(this, "Cập nhật điểm khách hàng thất bại","Error", JOptionPane.ERROR_MESSAGE);                
-            
-            JFileChooser jFileChooser= new JFileChooser("D:");
-            jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            boolean resultInBill = false; 
-
-            if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-                resultInBill = hoaDon_BUS.inBill(idHoaDon, jFileChooser.getSelectedFile().getAbsolutePath());
-            }  
-            ban_BUS.changeTinhTrangBan(idBan, TinhTrangBanConstraints.DANG_CHUAN_BI);
-            this.dispose();
-        }            
-        else{
-            JOptionPane.showMessageDialog(this, "Thanh toán thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        CreateHoaDon_DTO createHoaDon_DTO = new CreateHoaDon_DTO();
+//        
+//        createHoaDon_DTO.setMaNhanVien(maNhanVien);
+//        if(khachHang != null){
+//            createHoaDon_DTO.setIdKhachHang(khachHang.getId());
+//            createHoaDon_DTO.setUuDai(khachHang.getLoaiKhachHang().getMucUuDai());
+//        }
+//        
+//        createHoaDon_DTO.setNgayGio(Timestamp.valueOf(LocalDateTime.now()));
+//        createHoaDon_DTO.setTongGia(tongTien);
+//        
+//        ArrayList<CreateChiTietHoaDon_DTO> listChiTietHoaDon = new ArrayList<>();
+//        for(DonGoi_DTO donGoi : listDonGoi){
+//            int idMonAn = donGoi.getMonAn().getId();
+//            int soLuong = donGoi.getSoLuong();
+//            long gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? 
+//                    donGoi.getMonAn().getGiaKhuyenMai() :
+//                    donGoi.getMonAn().getGia();
+//            
+//            CreateChiTietHoaDon_DTO cthd = new CreateChiTietHoaDon_DTO(idMonAn, soLuong, gia);
+//            listChiTietHoaDon.add(cthd);
+//        }
+//        createHoaDon_DTO.setListMonAn(listChiTietHoaDon);
+//        
+//        int idHoaDon = hoaDon_BUS.createHoaDon(createHoaDon_DTO);
+//        if(idHoaDon > 0){
+//            donGoi_BUS.deleteDonGoi(idBan);
+//            
+//            boolean result = khachHang_BUS.capNhatSauThanhToan(idHoaDon);
+//            if(!result)
+//                JOptionPane.showMessageDialog(this, "Cập nhật điểm khách hàng thất bại","Error", JOptionPane.ERROR_MESSAGE);                
+//            
+//            JFileChooser jFileChooser= new JFileChooser("D:");
+//            jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//            boolean resultInBill = false; 
+//
+//            if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+//                resultInBill = hoaDon_BUS.inBill(idHoaDon, jFileChooser.getSelectedFile().getAbsolutePath());
+//            }  
+//            ban_BUS.changeTinhTrangBan(idBan, TinhTrangBanConstraints.DANG_CHUAN_BI);
+//            this.dispose();
+//        }            
+//        else{
+//            JOptionPane.showMessageDialog(this, "Thanh toán thất bại","Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_btnThanhToanMouseClicked
 
     /**
