@@ -43,4 +43,27 @@ public class BanFullModel {
     public void setTinhTrangBan(TinhTrangBanModel tinhTrangBan) {
         this.tinhTrangBan = tinhTrangBan;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BanFullModel other = (BanFullModel) obj;
+        return this.id == other.id;
+    }
+    
+    
 }

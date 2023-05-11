@@ -3,12 +3,22 @@ package dal.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+<<<<<<< HEAD
 import javax.persistence.Column;
+=======
+import java.lang.String;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+>>>>>>> dev
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+<<<<<<< HEAD
+=======
+import javax.persistence.Table;
+>>>>>>> dev
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -16,6 +26,11 @@ import javax.persistence.TemporalType;
  *
  * @author dinhn
  */
+<<<<<<< HEAD
+=======
+@Entity
+@Table(name="NhanVien")
+>>>>>>> dev
 public class NhanVien implements Serializable{
     @Id
     @Column(name = "NV_Ma")
@@ -32,7 +47,11 @@ public class NhanVien implements Serializable{
     @Temporal(TemporalType.DATE)
     private Date ngaySinh;
     @Column(name = "NV_GioiTinhNam")
+<<<<<<< HEAD
     private String gioiTinhNam;
+=======
+    private boolean gioiTinhNam;
+>>>>>>> dev
     @Column(name = "NV_Email")
     private String email;
     @Column(name = "NV_SDT")
@@ -43,8 +62,11 @@ public class NhanVien implements Serializable{
     private String passWord;
     @Column(name = "NV_CCCD")
     private String cccd;
+<<<<<<< HEAD
     
     
+=======
+>>>>>>> dev
 
     public String getMa() {
         return ma;
@@ -86,11 +108,19 @@ public class NhanVien implements Serializable{
         this.ngaySinh = ngaySinh;
     }
 
+<<<<<<< HEAD
     public String getGioiTinhNam() {
         return gioiTinhNam;
     }
 
     public void setGioiTinhNam(String gioiTinhNam) {
+=======
+    public boolean isGioiTinhNam() {
+        return gioiTinhNam;
+    }
+    
+    public void setGioiTinhNam(boolean gioiTinhNam) {
+>>>>>>> dev
         this.gioiTinhNam = gioiTinhNam;
     }
 
@@ -133,6 +163,13 @@ public class NhanVien implements Serializable{
     public void setCccd(String cccd) {
         this.cccd = cccd;
     }
+<<<<<<< HEAD
+=======
+
+     public boolean getGioiTinhNam() {
+        return gioiTinhNam;
+    }
+>>>>>>> dev
     
     
     

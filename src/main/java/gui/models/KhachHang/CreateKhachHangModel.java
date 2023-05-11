@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author tuant
  */
-class CreateKhachHangModel {
+public class CreateKhachHangModel {
     private String ten;
     private String sdt;
     private int diemTichLuy;
