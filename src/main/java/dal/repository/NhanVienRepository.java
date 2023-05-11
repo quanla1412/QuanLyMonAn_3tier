@@ -57,6 +57,8 @@ public class NhanVienRepository {
         return nhanVien;
     }
     
+    
+    
      public NhanVien createNhanVien(NhanVien nhanVien){
         Session session = HibernateUtils.getFACTORY().openSession();
         
@@ -164,5 +166,23 @@ public class NhanVienRepository {
         
         return getByNhieuMa(nma);
     }
+    
+    public boolean hasMaNV(String ma) {
+        Session session = HibernateUtils.getFACTORY().openSession();
+        NhanVien nhanVien = null;
+        try {
+            String hql = "FROM NhanVien NV WHERE NV.ma = :ma";
+            Query query = session.createQuery(hql);
+            query.setParameter("ma", ma);
+            nhanVien = (NhanVien) query.uniqueResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return nhanVien != null;
+    }
+ 
+    
     
 }
