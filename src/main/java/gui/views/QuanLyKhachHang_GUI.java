@@ -848,9 +848,9 @@ public class QuanLyKhachHang_GUI extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExport;
-    private javax.swing.JButton btnExportMauImport;
-    private javax.swing.JButton btnImport;
+    public javax.swing.JButton btnExport;
+    public javax.swing.JButton btnExportMauImport;
+    public javax.swing.JButton btnImport;
     public javax.swing.JButton btnLuu;
     public javax.swing.JButton btnQLLKH;
     public javax.swing.JButton btnReset;

@@ -144,4 +144,19 @@ public class KhachHangRepository {
        return getByIds(ids);
     }
     
+    public boolean hasId(int id) {
+        Session session = HibernateUtils.getFACTORY().openSession();
+        KhachHang khachHang = null;
+      
+            String hql = "FROM KhachHang KH WHERE KH.id = :id";
+            Query query = session.createQuery(hql);
+            query.setParameter("id", id);
+            khachHang = (KhachHang) query.uniqueResult();
+       
+        
+            session.close();
+        
+        return khachHang != null;
+    }
+    
 }
