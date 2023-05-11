@@ -5,14 +5,13 @@
 package gui.controllers;
 
 import bll.services.IChucVuService;
-import bll.services.INhanVienSerivice;
 import bll.services.ITinhTrangNhanVienService;
 import bll.services.impl.ChucVuServiceImpl;
 import bll.services.impl.NhanVienServiceImpl;
 import bll.services.impl.TinhTrangNhanVienServiceImpl;
 import com.mycompany.quanlynhahang.CheckHopLe;
-import gui.constraint.GioiTinhConstraints;
-import gui.constraint.TinhTrangNhanVienConstraint;
+import gui.constraints.GioiTinhConstraints;
+import gui.constraints.TinhTrangNhanVienConstraint;
 import gui.models.NhanVien.ChucVuModel;
 import gui.models.NhanVien.CreateNhanVienModel;
 import gui.models.NhanVien.NhanVienFullModel;
@@ -32,13 +31,14 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import bll.services.INhanVienService;
 
 /**
  *
  * @author dinhn
  */
 public class QuanLyNhanVienController {
-    private final INhanVienSerivice nhanVienService;
+    private final INhanVienService nhanVienService;
     private final IChucVuService chucVuService;
     private final ITinhTrangNhanVienService tinhTrangNhanVienService;
     

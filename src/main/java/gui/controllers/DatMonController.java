@@ -30,16 +30,22 @@ public class DatMonController {
     
     private MonAnFullModel monAn;
     private int idBan;
-    DonGoiModel donGoiModel = null;    
+    DonGoiModel donGoiModel = null;  
+
+    public DatMonController() {
+        monAnService = new MonAnServiceImpl();
+        donGoiService = new DonGoiServiceImpl();
+        
+        init();
+    }
+    
+    
 
     public DatMonController(int idBan, int idMonAn) {
         monAnService = new MonAnServiceImpl();
         donGoiService = new DonGoiServiceImpl();
         
-        monAn = monAnService.getFullById(idMonAn);
-        this.idBan = idBan;
-        
-        init();
+        show(idBan, idMonAn);
     }
     
     public JButton getBtnDatMon(){
@@ -48,9 +54,6 @@ public class DatMonController {
     
     private void init(){
         view = new DatMon_GUI();
-        view.setVisible(true);
-        
-        loadMonAn();
     }
     
     private void loadMonAn(){

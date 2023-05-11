@@ -30,6 +30,7 @@ public class TinhTrangNhanVienRepository {
         
         Query queryResult = session.createQuery(query);
         ArrayList<TinhTrangNhanVien> result = (ArrayList<TinhTrangNhanVien>) queryResult.getResultList();
+        result.forEach(item -> Hibernate.initialize(item.getListNhanVien()));
         session.close();
         
         return result;

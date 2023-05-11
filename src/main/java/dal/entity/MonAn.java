@@ -1,6 +1,7 @@
 package dal.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,6 +40,8 @@ public class MonAn implements Serializable{
     @ManyToOne
     @JoinColumn(name = "TTMA_ID")
     private TinhTrangMonAn tinhTrangMonAn;
+    @OneToMany(mappedBy = "maHoaDon")
+    List<ChiTietHoaDon> listChiTietHoaDon;
     @OneToMany(mappedBy = "monAn")
     private List<DonGoi> listDonGoi;
 
@@ -76,7 +79,7 @@ public class MonAn implements Serializable{
 
     public int getGiaKhuyenMai() {
         if(giaKhuyenMai == null)
-            return 0;
+            return -1;
         return giaKhuyenMai;
     }
 

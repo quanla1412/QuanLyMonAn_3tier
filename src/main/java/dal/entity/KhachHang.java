@@ -6,6 +6,7 @@ package dal.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -43,6 +45,16 @@ public class KhachHang implements Serializable {
     private Date ngaySinh;
     @Column(name="KH_GioiTinhNam")
     private boolean gioiTinhNam;
+    @OneToMany(mappedBy = "idKhachHang")
+    private List<KhachHang> listKhachHang;
+
+    public List<KhachHang> getListKhachHang() {
+        return listKhachHang;
+    }
+
+    public void setListKhachHang(List<KhachHang> listKhachHang) {
+        this.listKhachHang = listKhachHang;
+    }
 
     public int getId() {
         return id;
@@ -100,7 +112,7 @@ public class KhachHang implements Serializable {
         this.ngaySinh = ngaySinh;
     }
 
-    public boolean getGioiTinhNam() {
+    public boolean isGioiTinhNam() {
         return gioiTinhNam;
     }
 

@@ -3,7 +3,9 @@ package dal.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import java.lang.String;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -48,6 +51,16 @@ public class NhanVien implements Serializable{
     private String passWord;
     @Column(name = "NV_CCCD")
     private String cccd;
+    @OneToMany(mappedBy = "maNhanVien")
+    private List<NhanVien> listNhanVien;
+
+    public List<NhanVien> getListNhanVien() {
+        return listNhanVien;
+    }
+
+    public void setListNhanVien(List<NhanVien> listNhanVien) {
+        this.listNhanVien = listNhanVien;
+    }
 
     public String getMa() {
         return ma;
@@ -136,12 +149,7 @@ public class NhanVien implements Serializable{
     public void setCccd(String cccd) {
         this.cccd = cccd;
     }
-
      public boolean getGioiTinhNam() {
         return gioiTinhNam;
     }
-    
-    
-    
-  
 }

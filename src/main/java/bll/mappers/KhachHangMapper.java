@@ -5,9 +5,11 @@
 package bll.mappers;
 
 import dal.entity.KhachHang;
+import dal.entity.LoaiKhachHang;
 import gui.models.KhachHang.CreateKhachHangModel;
 import gui.models.KhachHang.KhachHangFullModel;
 import gui.models.KhachHang.KhachHangModel;
+import gui.models.KhachHang.UpdateKhachHangModel;
 import gui.models.LoaiKhachHang.LoaiKhachHangModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +20,18 @@ import java.util.List;
  */
 public class KhachHangMapper {
     public static KhachHangModel toKhachHangModel(KhachHang khachHang){
-        KhachHangModel khachHangModel = new KhachHangModel(khachHang.getId(), khachHang.getTen(), khachHang.getSdt(), khachHang.getDiemTichLuy(), khachHang.getLoaiKhachHang().getTen(), khachHang.getEmail(), khachHang.getNgaySinh(), khachHang.getGioiTinhNam());
+        if(khachHang == null)
+            return null;
+        
+        KhachHangModel khachHangModel = new KhachHangModel(khachHang.getId(), khachHang.getTen(), khachHang.getSdt(), khachHang.getDiemTichLuy(), khachHang.getLoaiKhachHang().getTen(), khachHang.getEmail(), khachHang.getNgaySinh(), khachHang.isGioiTinhNam());
         
         return khachHangModel;
     }
+    
     public static KhachHangFullModel toKhachHangFullModel(KhachHang khachHang){
+        if(khachHang == null)
+            return null;
+        
         KhachHangFullModel khachHangFullModel = new KhachHangFullModel();
         
         khachHangFullModel.setId(khachHang.getId());
@@ -35,7 +44,7 @@ public class KhachHangMapper {
         khachHangFullModel.setDiemTichLuy(khachHang.getDiemTichLuy());
         khachHangFullModel.setEmail(khachHang.getEmail());
         khachHangFullModel.setNgaySinh(khachHang.getNgaySinh());
-        khachHangFullModel.setGioiTinhNam(khachHang.getGioiTinhNam());
+        khachHangFullModel.setGioiTinhNam(khachHang.isGioiTinhNam());
                 
         
         return khachHangFullModel;
@@ -50,8 +59,13 @@ public class KhachHangMapper {
         KhachHang khachHang = new KhachHang();
         
         khachHang.setTen(createKhachHangModel.getTen());
-        khachHang.setDiemToiThieu(createKhachHangModel.getDiemToiThieu());
-        khachHang.setMucUuDai(createKhachHangModel.getMucUuDai());
+        khachHang.setSdt(createKhachHangModel.getSdt());
+        khachHang.setEmail(createKhachHangModel.getEmail());
+        khachHang.setNgaySinh(createKhachHangModel.getNgaySinh());
+        khachHang.setGioiTinhNam(createKhachHangModel.isGioiTinhNam());
+        
+        LoaiKhachHang loaiKhachHang = new LoaiKhachHang();
+        khachHang.setLoaiKhachHang(loaiKhachHang);
         
         return khachHang;
     }
@@ -60,8 +74,13 @@ public class KhachHangMapper {
         
         khachHang.setId(updateKhachHangModel.getId());
         khachHang.setTen(updateKhachHangModel.getTen());
-        khachHang.setDiemToiThieu(updateKhachHangModel.getDiemToiThieu());
-        khachHang.setMucUuDai(updateKhachHangModel.getMucUuDai());
+        khachHang.setSdt(updateKhachHangModel.getSdt());
+        khachHang.setEmail(updateKhachHangModel.getEmail());
+        khachHang.setNgaySinh(updateKhachHangModel.getNgaySinh());
+        khachHang.setGioiTinhNam(updateKhachHangModel.isGioiTinhNam());
+        
+        LoaiKhachHang loaiKhachHang = new LoaiKhachHang();
+        khachHang.setLoaiKhachHang(loaiKhachHang);
         
         return khachHang;
     }

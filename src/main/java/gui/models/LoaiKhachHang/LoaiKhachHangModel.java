@@ -4,6 +4,8 @@
  */
 package gui.models.LoaiKhachHang;
 
+import java.util.Objects;
+
 /**
  *
  * @author tuant
@@ -55,4 +57,39 @@ public class LoaiKhachHangModel {
     public void setMucUuDai(float mucUuDai) {
         this.mucUuDai = mucUuDai;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + this.id;
+        hash = 13 * hash + Objects.hashCode(this.ten);
+        hash = 13 * hash + this.diemToiThieu;
+        hash = 13 * hash + Float.floatToIntBits(this.mucUuDai);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final LoaiKhachHangModel other = (LoaiKhachHangModel) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.diemToiThieu != other.diemToiThieu) {
+            return false;
+        }
+        if (Float.floatToIntBits(this.mucUuDai) != Float.floatToIntBits(other.mucUuDai)) {
+            return false;
+        }
+        return Objects.equals(this.ten, other.ten);
+    }
+    
 }
