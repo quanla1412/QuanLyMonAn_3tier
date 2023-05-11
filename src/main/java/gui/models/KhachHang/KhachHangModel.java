@@ -97,6 +97,5 @@ public class KhachHangModel {
     public void setGioiTinhNam(boolean gioiTinhNam) {
         this.gioiTinhNam = gioiTinhNam;
     }
-
     
 }

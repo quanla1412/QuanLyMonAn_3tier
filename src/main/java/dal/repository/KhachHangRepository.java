@@ -7,6 +7,7 @@ package dal.repository;
 import dal.HibernateUtils;
 import dal.entity.KhachHang;
 import dal.entity.LoaiKhachHang;
+import gui.models.KhachHang.SearchKhachHangModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -20,11 +21,9 @@ import org.hibernate.query.Query;
  * @author tuant
  */
 public class KhachHangRepository {
-    private KhachHangRepository khachHangRepository;
     private LoaiKhachHangRepository loaiKhachHangRepository;
     
     public KhachHangRepository() {
-        khachHangRepository = new KhachHangRepository();
         loaiKhachHangRepository = new LoaiKhachHangRepository();
     }
     
@@ -50,9 +49,13 @@ public class KhachHangRepository {
     }
     public KhachHang createKhachHang(KhachHang khachHang){
         Session session = HibernateUtils.getFACTORY().openSession();
+        LoaiKhachHang loaiKhachHang = loaiKhachHangRepository.getById(1);
+        khachHang.setLoaiKhachHang(loaiKhachHang);
+        khachHang.setDiemTichLuy(0);
         
         int idKhachHang = (int) session.save(khachHang);
         khachHang.setId(idKhachHang);
+        
         
         session.close();
         
@@ -63,17 +66,13 @@ public class KhachHangRepository {
     public KhachHang updateKhachHang (KhachHang khachHangUpdate){
         Session session = HibernateUtils.getFACTORY().openSession();
         KhachHang khachHang= session.get(KhachHang.class, khachHangUpdate.getId());
-        LoaiKhachHang loaiKhachHang = loaiKhachHangRepository.getById(khachHangUpdate.getLoaiKhachHang().getId());
         session.getTransaction().begin();
         
         khachHang.setTen(khachHangUpdate.getTen());
-        khachHang.setLoaiKhachHang(loaiKhachHang);
-        khachHang.setTen(khachHang.getTen());
-        khachHang.setSdt(khachHang.getSdt());
-        khachHang.setDiemTichLuy(khachHang.getDiemTichLuy());
-        khachHang.setEmail(khachHang.getEmail());
-        khachHang.setNgaySinh(khachHang.getNgaySinh());
-        khachHang.setGioiTinhNam(khachHang.getGioiTinhNam());
+        khachHang.setSdt(khachHangUpdate.getSdt());
+        khachHang.setEmail(khachHangUpdate.getEmail());
+        khachHang.setNgaySinh(khachHangUpdate.getNgaySinh());
+        khachHang.setGioiTinhNam(khachHangUpdate.getGioiTinhNam());
         
         session.save(khachHang);
         session.getTransaction().commit();
@@ -82,4 +81,47 @@ public class KhachHangRepository {
         
         return khachHang;
     }
+    public List<KhachHang> getByIds(List<Integer> ids){
+        Session session = HibernateUtils.getFACTORY().openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<KhachHang> query = builder.createQuery(KhachHang.class);
+        Root<KhachHang> khachHangEntry = query.from(KhachHang.class);
+        query = query.select(khachHangEntry).where(khachHangEntry.get("id").in(ids));
+        
+        Query<KhachHang> queryResult = session.createQuery(query);
+        List<KhachHang> listKhachHang = queryResult.getResultList();       
+        
+        session.close();
+        
+        return listKhachHang;
+    }
+    public List<KhachHang> searchKhachHang(SearchKhachHangModel searchKhachHangModel){
+        Session session = HibernateUtils.getFACTORY().openSession();
+        
+        String sql = "SELECT KH_ID FROM KhachHang KH LEFT JOIN KH_LoaiKhachHang LKH ";
+        
+        ArrayList<String> conditions = new ArrayList<>();
+        
+        if(searchKhachHangModel.getIdOrName()!= null && !searchKhachHangModel.getIdOrName().isBlank())
+            conditions.add("(KH.id LIKE N'%" + searchKhachHangModel.getIdOrName() + "%' OR KH.ten LIKE '%" + searchKhachHangModel.getIdOrName() + "%')");
+        if(searchKhachHangModel.getIdLoaiKhachHang()>0)
+            conditions.add("LKH.id = "+ searchKhachHangModel.getIdLoaiKhachHang());
+        if(searchKhachHangModel.getSdt()!= null &&!searchKhachHangModel.getSdt().isBlank())
+            conditions.add("(KH.sdt LIKE N'%" + searchKhachHangModel + "%')");
+        if(searchKhachHangModel.isGioiTinhNam()>=0)
+            conditions.add("KH.gioiTinhNam = "+ searchKhachHangModel.isGioiTinhNam());
+        
+        String whereSql = "";
+        if(!conditions.isEmpty())
+            whereSql = " WHERE ";
+        String finalSql = sql + whereSql + String.join(" AND ", conditions);
+        
+        javax.persistence.Query query = session.createQuery(finalSql);
+        List<Integer> ids = query.getResultList();
+        
+       session.close();
+       
+       return getByIds(ids);
+    }
+    
 }

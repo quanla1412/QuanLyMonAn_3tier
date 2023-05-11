@@ -633,6 +633,73 @@ public class QuanLyMonAn_GUI extends javax.swing.JPanel {
         add(jPanel5);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemMouseClicked
+
+    private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSuaMouseClicked
+
+    private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
+
+    }//GEN-LAST:event_btnXoaMouseClicked
+
+    private void btnChuyenTinhTrangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChuyenTinhTrangMouseClicked
+
+    }//GEN-LAST:event_btnChuyenTinhTrangMouseClicked
+
+    private void btnResetFormMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetFormMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnResetFormMouseClicked
+
+    private void btnLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseClicked
+
+    }//GEN-LAST:event_btnLuuMouseClicked
+
+    private void btnHinhAnhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHinhAnhMouseClicked
+
+    }//GEN-LAST:event_btnHinhAnhMouseClicked
+
+    private void btnTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseClicked
+
+    }//GEN-LAST:event_btnTimKiemMouseClicked
+
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    private void sldMinPriceMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sldMinPriceMouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sldMinPriceMouseDragged
+
+    private void sldMaxPriceMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sldMaxPriceMouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sldMaxPriceMouseDragged
+
+    private void cmbTTMASearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbTTMASearchMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbTTMASearchMouseClicked
+
+    private void cmbTTMASearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTTMASearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbTTMASearchActionPerformed
+
+    private void tblMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMonAnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblMonAnMouseClicked
+
+    private void btnQuanLyLoaiMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyLoaiMonAnMouseClicked
+
+    }//GEN-LAST:event_btnQuanLyLoaiMonAnMouseClicked
+
+    private void resetTableButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetTableButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resetTableButtonMouseClicked
+
+    private void txtSearchIdNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchIdNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchIdNameActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnChuyenTinhTrang;
