@@ -158,6 +158,17 @@ public class DonGoiServiceImpl implements IDonGoiService {
     }
 
     @Override
+    public boolean delete(int idBan) {
+        ArrayList<DonGoi> listDonGoi = (ArrayList<DonGoi>) donGoiRepository.getByBan(idBan);
+        if(listDonGoi.isEmpty())
+            return false;
+        listDonGoi.forEach(donGoi -> donGoiRepository.delete(donGoi));        
+        
+        ArrayList<DonGoi> listDonGoiCheck = (ArrayList<DonGoi>) donGoiRepository.getByBan(idBan);
+        return listDonGoiCheck.isEmpty(); 
+    }
+
+    @Override
     public boolean inBillTam(int idBan, int idKhachHang, String maNhanVien, String filePath) {
         NhanVienFullModel nhanVienFullModel = nhanVienService.getByMa(maNhanVien);
         KhachHangFullModel khachHangFullModel = null;

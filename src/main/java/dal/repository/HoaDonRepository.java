@@ -5,6 +5,7 @@
 package dal.repository;
 
 import dal.HibernateUtils;
+import dal.entity.DonGoi;
 import dal.entity.HoaDon;
 import dal.entity.KhachHang;
 import dal.entity.LoaiBan;
@@ -33,11 +34,13 @@ public class HoaDonRepository {
     private NhanVienRepository nhanVienRepository;
     private KhachHangRepository khachHangRepository;
     private MonAnRepository monAnRepository;
+    private DonGoiRepository donGoiRepository;
 
     public HoaDonRepository() {
         nhanVienRepository = new NhanVienRepository();
         khachHangRepository = new KhachHangRepository();
         monAnRepository = new MonAnRepository();
+        donGoiRepository = new DonGoiRepository();
     }
     
     
@@ -155,7 +158,7 @@ public class HoaDonRepository {
             
             session.save(chiTietHoaDon);
         });
-       
+        
         session.getTransaction().commit();
         
         return hoaDon;

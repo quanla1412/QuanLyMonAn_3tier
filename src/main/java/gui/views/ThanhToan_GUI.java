@@ -406,7 +406,7 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnInBillTam;
+    public javax.swing.JButton btnInBillTam;
     public javax.swing.JButton btnSearch;
     public javax.swing.JButton btnThanhToan;
     private javax.swing.JLabel jLabel1;

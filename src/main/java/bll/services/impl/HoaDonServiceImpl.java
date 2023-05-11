@@ -5,10 +5,13 @@
 package bll.services.impl;
 
 import bll.mappers.HoaDonMapper;
+import bll.services.IBanService;
+import bll.services.IDonGoiService;
 import bll.services.IHoaDonService;
 import dal.entity.HoaDon;
 import dal.repository.HoaDonRepository;
 import gui.constraint.TinhTrangHoaDonConstraints;
+import gui.constraints.TinhTrangBanConstraints;
 import gui.models.HoaDon.CreateHoaDonModel;
 import gui.models.HoaDon.HoaDonFullModel;
 import gui.models.HoaDon.HoaDonModel;
@@ -21,9 +24,13 @@ import java.util.List;
  */
 public class HoaDonServiceImpl implements IHoaDonService{
     HoaDonRepository hoaDonRepository;
+    IDonGoiService donGoiService;
+    IBanService banService;
 
     public HoaDonServiceImpl(){
         hoaDonRepository = new HoaDonRepository();
+        donGoiService = new DonGoiServiceImpl();
+        banService = new BanServiceImpl();
     }
     
     @Override
@@ -65,6 +72,16 @@ public class HoaDonServiceImpl implements IHoaDonService{
         HoaDon hoaDon = HoaDonMapper.toHoaDon(createHoaDonModel);
         HoaDon createdHoaDon = hoaDonRepository.create(hoaDon);
         
-        return createdHoaDon.getId() > 0;
+        boolean result = createdHoaDon.getId() > 0;
+        if(!result)
+            return false;
+        
+        result = donGoiService.delete(createHoaDonModel.getIdBan());        
+        if(!result)
+            return false;
+        
+        result = banService.changeTinhTrangBan(createHoaDonModel.getIdBan(), TinhTrangBanConstraints.DANG_CHUAN_BI);
+        
+        return result;
     }
 }
