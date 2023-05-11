@@ -5,8 +5,10 @@
 package gui.views;
 
 
+import gui.controllers.BaoCaoThongKeController;
 import gui.controllers.QuanLyKhachHangController;
 import gui.controllers.QuanLyLoaiBanVaBanController;
+import gui.controllers.QuanLyPhucVuController;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -21,16 +23,16 @@ import org.kordamp.ikonli.swing.FontIcon;
  *
  * @author tanph
  */
-public class TrangChuNew_GUI extends javax.swing.JFrame {
+public class TrangChu_GUI extends javax.swing.JFrame {
     QuanLyKhachHangController quanLyLoaiBanVaBanController;
     
     boolean over;
     
-    public TrangChuNew_GUI() {
+    public TrangChu_GUI() {
         initComponents();
         prepareIcon();
         btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new QuanLyKhachHangController().getView());
+        showForm(new BaoCaoThongKeController().getView());
     }
 
     class jPanelGradient extends JPanel {
@@ -649,14 +651,22 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TrangChuNew_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TrangChu_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TrangChuNew_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TrangChu_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TrangChuNew_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TrangChu_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TrangChuNew_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TrangChu_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -669,7 +679,7 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TrangChuNew_GUI().setVisible(true);
+                new TrangChu_GUI().setVisible(true);
             }
         });
     }

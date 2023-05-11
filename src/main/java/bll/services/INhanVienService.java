@@ -12,12 +12,13 @@ import gui.models.NhanVien.SearchNhanVienModel;
 import gui.models.NhanVien.UpdateNhanVienModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author dinhn
  */
-public interface INhanVienSerivice {
+public interface INhanVienService {
      List<NhanVienModel> getAll();
     
     
@@ -35,7 +36,12 @@ public interface INhanVienSerivice {
     
     boolean exportAllNhanVienTheoMauImport(String filePath);
     
-    int importNhanVien(String filePath);
+    int importNhanVien(String filePath);   
     
+    Map<String, Integer> countByGioiTinh(); 
+    
+    Map<String, Integer> countByTinhTrang();
+    
+    Map<String, Integer> countByTuoi();
     
 }

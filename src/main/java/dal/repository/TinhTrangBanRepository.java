@@ -24,6 +24,7 @@ public class TinhTrangBanRepository {
         
         Query queryResult = session.createQuery(query);
         ArrayList<TinhTrangBan> result = (ArrayList<TinhTrangBan>) queryResult.getResultList();
+        result.forEach(item -> Hibernate.initialize(item.getListBan()));
         session.close();
         
         return result;

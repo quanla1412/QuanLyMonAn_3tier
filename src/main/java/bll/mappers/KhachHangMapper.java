@@ -20,11 +20,18 @@ import java.util.List;
  */
 public class KhachHangMapper {
     public static KhachHangModel toKhachHangModel(KhachHang khachHang){
-        KhachHangModel khachHangModel = new KhachHangModel(khachHang.getId(), khachHang.getTen(), khachHang.getSdt(), khachHang.getDiemTichLuy(), khachHang.getLoaiKhachHang().getTen(), khachHang.getEmail(), khachHang.getNgaySinh(), khachHang.getGioiTinhNam());
+        if(khachHang == null)
+            return null;
+        
+        KhachHangModel khachHangModel = new KhachHangModel(khachHang.getId(), khachHang.getTen(), khachHang.getSdt(), khachHang.getDiemTichLuy(), khachHang.getLoaiKhachHang().getTen(), khachHang.getEmail(), khachHang.getNgaySinh(), khachHang.isGioiTinhNam());
         
         return khachHangModel;
     }
+    
     public static KhachHangFullModel toKhachHangFullModel(KhachHang khachHang){
+        if(khachHang == null)
+            return null;
+        
         KhachHangFullModel khachHangFullModel = new KhachHangFullModel();
         
         khachHangFullModel.setId(khachHang.getId());
@@ -37,7 +44,7 @@ public class KhachHangMapper {
         khachHangFullModel.setDiemTichLuy(khachHang.getDiemTichLuy());
         khachHangFullModel.setEmail(khachHang.getEmail());
         khachHangFullModel.setNgaySinh(khachHang.getNgaySinh());
-        khachHangFullModel.setGioiTinhNam(khachHang.getGioiTinhNam());
+        khachHangFullModel.setGioiTinhNam(khachHang.isGioiTinhNam());
                 
         
         return khachHangFullModel;

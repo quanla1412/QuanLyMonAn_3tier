@@ -27,6 +27,7 @@ public class LoaiBanRepository {
         
         Query queryResult = session.createQuery(query);
         ArrayList<LoaiBan> result = (ArrayList<LoaiBan>) queryResult.getResultList();
+        result.forEach(item -> Hibernate.initialize(item.getListBan()));
         session.close();
         
         return result;

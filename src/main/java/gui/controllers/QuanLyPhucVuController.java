@@ -42,10 +42,13 @@ public class QuanLyPhucVuController {
     private DonGoiMasterModel donGoiMasterModel = null;
     private ArrayList<BanModel> listBanSanSang;
     private int idDonGoiItemSelected = -1;
+    private String maNhanVien;
     
-    public QuanLyPhucVuController() {
+    public QuanLyPhucVuController(String maNhanVien) {
         banService = new BanServiceImpl();
         donGoiService = new DonGoiServiceImpl();
+        
+        this.maNhanVien = maNhanVien;
         
         init();
     }
@@ -291,7 +294,7 @@ public class QuanLyPhucVuController {
             return;            
         }
         if (thanhToanController == null) {
-            thanhToanController = new ThanhToanController(banSelected.getId());
+            thanhToanController = new ThanhToanController(banSelected.getId(), maNhanVien);
         } else {
             thanhToanController.show(banSelected.getId());
         }

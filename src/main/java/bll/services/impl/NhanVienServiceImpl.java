@@ -5,7 +5,6 @@
 package bll.services.impl;
 
 import bll.mappers.NhanVienMapper;
-import bll.services.INhanVienSerivice;
 import com.mycompany.quanlynhahang.OpenFile;
 import dal.entity.NhanVien;
 import dal.repository.NhanVienRepository;
@@ -33,18 +32,28 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import bll.services.INhanVienService;
+import dal.entity.TinhTrangNhanVien;
+import dal.repository.TinhTrangNhanVienRepository;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
  *
  * @author dinhn
  */
-public class NhanVienServiceImpl implements INhanVienSerivice{
+public class NhanVienServiceImpl implements INhanVienService{
     private final NhanVienRepository nhanVienRepository;
+    private final TinhTrangNhanVienRepository tinhTrangNhanVienRepository;
  
     
     public NhanVienServiceImpl(){
         nhanVienRepository = new NhanVienRepository();
+        tinhTrangNhanVienRepository = new TinhTrangNhanVienRepository();
     }
             
     @Override
@@ -463,14 +472,67 @@ public class NhanVienServiceImpl implements INhanVienSerivice{
         return totalSuccess;
     }
     
-    
-    
-   
-    
-    
- 
-    
-    
-    
+    @Override
+    public Map<String, Integer> countByTinhTrang() {
+        Map<String, Integer> result = new HashMap<>();
+        ArrayList<TinhTrangNhanVien> listTinhTrangNhanVien = tinhTrangNhanVienRepository.getAll();
+        
+        listTinhTrangNhanVien.forEach(tinhTrangNhanVien -> result.put(tinhTrangNhanVien.getTen(), tinhTrangNhanVien.getListNhanVien().size()));
+        
+        return result;
+    }
+
+    @Override
+    public Map<String, Integer> countByGioiTinh() {
+        Map<String, Integer> result = new HashMap<>();
+        ArrayList<NhanVien> listNhanVien = (ArrayList<NhanVien>) nhanVienRepository.getAll();
+        
+        int nam = 0;
+        int nu = 0;
+        
+        for(NhanVien nhanVien : listNhanVien) {
+            if(nhanVien.isGioiTinhNam())
+                nam++;
+            else
+                nu++;
+        }
+        
+        result.put("Nam", nam);
+        result.put("Nữ", nu);
+        
+        return result;
+    }
+
+    @Override
+    public Map<String, Integer> countByTuoi() {
+        Map<String, Integer> result = new HashMap<>();
+        ArrayList<NhanVien> listNhanVien = (ArrayList<NhanVien>) nhanVienRepository.getAll();
+        
+        int u20=0;
+        int u30=0;
+        int u40=0;
+        int conLai=0;
+        for(NhanVien nhanVien : listNhanVien){
+            Timestamp ngaySinh = new Timestamp(nhanVien.getNgaySinh().getTime());
+            int tuoi = Period.between(ngaySinh.toLocalDateTime().toLocalDate(), LocalDate.now()).getYears();
+            if (tuoi < 20) {
+                u20++;
+            }
+            else if(tuoi < 30){
+                u30++;
+            }
+            else if(tuoi < 40){
+                u40++;
+            }
+            else 
+                conLai++;               
+        }
+        if(u20>0) result.put("Dưới 20", u20);
+        if(u30>0) result.put("Từ 20 - 29", u30);
+        if(u40>0) result.put("Từ 30 - 39", u40);
+        if(conLai>0) result.put("Từ 40 trở lên", conLai);
+        
+        return result;
+    }
     
 }

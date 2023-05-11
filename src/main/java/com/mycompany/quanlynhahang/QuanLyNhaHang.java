@@ -11,8 +11,9 @@ import dal.entity.LoaiBan;
 import dal.repository.LoaiBanRepository;
 import gui.controllers.QuanLyLoaiMonAnController;
 import gui.controllers.QuanLyMonAnController;
+import gui.controllers.TrangChuController;
 import gui.views.QuanLyLoaiMonAn_GUI;
-import gui.views.TrangChuNew_GUI;
+import gui.views.TrangChu_GUI;
 import java.util.ArrayList;
 import javax.swing.UIManager;
 import org.hibernate.Session;
@@ -29,7 +30,6 @@ public class QuanLyNhaHang {
         } catch(Exception ex){
             System.out.println(ex);
         }
-        TrangChuNew_GUI trangChuNew_GUI = new TrangChuNew_GUI();
-        trangChuNew_GUI.setVisible(true);
+        TrangChuController trangChuController = new TrangChuController();
     }
 }

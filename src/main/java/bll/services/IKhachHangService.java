@@ -10,6 +10,7 @@ import gui.models.KhachHang.KhachHangModel;
 import gui.models.KhachHang.SearchKhachHangModel;
 import gui.models.KhachHang.UpdateKhachHangModel;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -20,9 +21,19 @@ public interface IKhachHangService {
     
     KhachHangFullModel getById(int id);
     
+    KhachHangModel getBySoDienThoai(String soDienThoai);
+    
+    KhachHangFullModel getFullBySoDienThoai(String soDienThoai);
+    
     List<KhachHangModel> search(SearchKhachHangModel searchKhachHangModel);
     
     boolean createKhachHang(CreateKhachHangModel createKhachHangModel);
     
     boolean updateKhachHang(UpdateKhachHangModel updateKhachHangModel);
+    
+    Map<String, Integer> countByLoaiKhachHang();
+    
+    Map<String, Integer> countByGioiTinh();
+    
+    Map<String, Integer> countByTuoi();
 }

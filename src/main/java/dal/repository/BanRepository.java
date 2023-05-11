@@ -53,7 +53,7 @@ public class BanRepository {
         return ban;
     }
     
-    public ArrayList<Ban> getListBanByTinhTrang(int idTinhTrangBan){
+    public ArrayList<Ban> getByTinhTrang(int idTinhTrangBan){
         Session session = HibernateUtils.getFACTORY().openSession();
         TinhTrangBan tinhTrangBan = session.get(TinhTrangBan.class, idTinhTrangBan);
         

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -36,7 +37,7 @@ public class KhachHangRepository {
         query = query.select(khachHangEntry);
         
         Query queryResult = session.createQuery(query);
-        List<KhachHang> result = (List<KhachHang>) queryResult.getResultList();
+        List<KhachHang> result = queryResult.getResultList();
         session.close();
         
         return result;
@@ -47,6 +48,22 @@ public class KhachHangRepository {
         KhachHang khachHang = session.get(KhachHang.class, id);
         
         return khachHang;
+    }
+    
+    public KhachHang getBySoDienThoai(String soDienThoai){
+        Session session = HibernateUtils.getFACTORY().openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<KhachHang> query = builder.createQuery(KhachHang.class);
+        Root<KhachHang> khachHangEntry = query.from(KhachHang.class);
+        query = query.select(khachHangEntry);
+        Predicate predicate = builder.equal(khachHangEntry.get("sdt").as(String.class), soDienThoai);
+        query = query.where(predicate);
+        
+        Query queryResult = session.createQuery(query);
+        KhachHang result = (KhachHang) queryResult.getSingleResult();
+        session.close();
+        
+        return result;
     }
     public KhachHang createKhachHang(KhachHang khachHang){
         Session session = HibernateUtils.getFACTORY().openSession();
@@ -73,7 +90,7 @@ public class KhachHangRepository {
         khachHang.setSdt(khachHangUpdate.getSdt());
         khachHang.setEmail(khachHangUpdate.getEmail());
         khachHang.setNgaySinh(khachHangUpdate.getNgaySinh());
-        khachHang.setGioiTinhNam(khachHangUpdate.getGioiTinhNam());
+        khachHang.setGioiTinhNam(khachHangUpdate.isGioiTinhNam());
         
         session.save(khachHang);
         session.getTransaction().commit();

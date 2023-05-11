@@ -4,13 +4,18 @@ import bll.mappers.BanMapper;
 import dal.entity.Ban;
 import java.util.List;
 import bll.services.IBanService;
+import dal.entity.LoaiBan;
 import dal.entity.TinhTrangBan;
 import dal.repository.BanRepository;
+import dal.repository.LoaiBanRepository;
 import dal.repository.TinhTrangBanRepository;
 import gui.models.Ban.BanFullModel;
 import gui.models.Ban.CreateBanModel;
 import gui.models.Ban.UpdateBanModel;
 import gui.models.BanModel;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -19,10 +24,12 @@ import gui.models.BanModel;
 public class BanServiceImpl implements IBanService{
     private final BanRepository banRepository;
     private final TinhTrangBanRepository tinhTrangBanRepository;
+    private final LoaiBanRepository loaiBanRepository;
 
     public BanServiceImpl() {
         banRepository = new BanRepository();
         tinhTrangBanRepository = new TinhTrangBanRepository();
+        loaiBanRepository = new LoaiBanRepository();
     }
     
     @Override
@@ -97,5 +104,36 @@ public class BanServiceImpl implements IBanService{
         banRepository.delete(id);
         
         return true;
+    }
+
+    @Override
+    public List<BanModel> getByLoaiBan(int idLoaiBan) {
+        LoaiBan loaiBan = loaiBanRepository.getById(idLoaiBan);
+        List<Ban> listBan = loaiBan.getListBan();
+        List<BanModel> listBanModel = BanMapper.toListBanModel(listBan);
+        
+        return listBanModel;
+    }
+
+    @Override
+    public Map<String, Integer> countByLoaiBan() {
+        Map<String, Integer> result = new HashMap<>();
+        
+        ArrayList<LoaiBan> listLoaiBan = (ArrayList<LoaiBan>) loaiBanRepository.getAll();        
+        
+        listLoaiBan.forEach( loaiBan -> result.put(loaiBan.getTen(), loaiBan.getListBan().size()));
+        
+        return result;
+    }
+    
+    @Override
+    public Map<String, Integer> countByTinhTrang() {
+        Map<String, Integer> result = new HashMap<>();
+        
+        ArrayList<TinhTrangBan> listTinhTrangBan = (ArrayList<TinhTrangBan>) tinhTrangBanRepository.getAll();        
+        
+        listTinhTrangBan.forEach(tinhTrangBan -> result.put(tinhTrangBan.getTen(), tinhTrangBan.getListBan().size()));
+        
+        return result;
     }
 }
