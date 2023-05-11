@@ -47,7 +47,8 @@ public class BanMapper {
         return ban;        
     }
     
-    public static Ban toBan(UpdateBanModel updateBanModel){
+
+        public static Ban toBan(UpdateBanModel updateBanModel){
         Ban ban = new Ban();
         
         ban.setId(updateBanModel.getIdBan());
@@ -62,7 +63,6 @@ public class BanMapper {
         
         return ban;        
     }
-    
     public static BanFullModel toBanFullModel(Ban ban){
         BanFullModel banFullModel = new BanFullModel();
         

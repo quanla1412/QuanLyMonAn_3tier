@@ -20,6 +20,7 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import gui.models.HoaDon.SearchHoaDonModel;
 
 /**
  *
@@ -68,52 +69,51 @@ public class HoaDonRepository {
         return listHoaDon;
     }
     
-    public List<HoaDon> search(SearchHoaDonModel searchHoaDonModel){
+    public List<HoaDon> search(SearchHoaDonModel searchHoaDonModel ){
         Session session = HibernateUtils.getFACTORY().openSession();
-        
-        
-        StringBuilder sql = new StringBuilder("SELECT HD_ID, NV_Ma, KH_ID , HD_NgayGio, HD_TongGia"
-                                                + " FROM HoaDon"
-                                                + " WHERE ");
+
+        String sql = "SELECT HD.id FROM HoaDon HD";
             
         ArrayList<String> conditions = new ArrayList<>();
         
         if(searchHoaDonModel.getId() != null && !searchHoaDonModel.getId().isBlank())
-            conditions.add("HD_ID LIKE '%" + searchHoaDonModel.getId() + "%'");
+            conditions.add("HD.id LIKE '%" + searchHoaDonModel.getId() + "%'");
           
         if(searchHoaDonModel.getNgayBatDau() != null)
-            conditions.add("HD_NgayGio BETWEEN '" + searchHoaDonModel.getNgayBatDau() + "' AND '" + searchHoaDonModel.getNgayCuoiCung() + "'");
+            conditions.add("HD.ngayGio BETWEEN '" + searchHoaDonModel.getNgayBatDau() + "' AND '" + searchHoaDonModel.getNgayCuoiCung() + "'");
         
         if (searchHoaDonModel.getMinPrice() > 0)
-            conditions.add("HD_TongGia > " + searchHoaDonModel.getMinPrice());
+            conditions.add("HD.tongGia > " + searchHoaDonModel.getMinPrice());
             
         if (searchHoaDonModel.getMaxPrice() > 0)
-            conditions.add("HD_TongGia < " + searchHoaDonModel.getMaxPrice());
+            conditions.add("HD.tongGia < " + searchHoaDonModel.getMaxPrice());
           
         if(searchHoaDonModel.getIdTTHD() >= 0)
-            conditions.add("HD_DaHuy = " + searchHoaDonModel.getIdTTHD());
-                
-            
-            sql.append(String.join(" AND ", listSQL));
-            
-            Statement statement = con.createStatement();
-            ResultSet rs = statement.executeQuery(sql.toString());
-            
-            while(rs.next()){
-                HoaDon_DTO hoaDon = new HoaDon_DTO();
-                
-                hoaDon.setId(rs.getInt("HD_ID"));
-                hoaDon.setMaNhanVien(rs.getString("NV_Ma"));
-                hoaDon.setIdKhachHang(rs.getInt("KH_ID"));
-                hoaDon.setNgayGio(rs.getTimestamp("HD_NgayGio"));
-                hoaDon.setTongGia(rs.getInt("HD_TongGia"));
-                
-                result.add(hoaDon);
-            }        
-      
-        return result;
+            conditions.add("HD.daHuy = " + searchHoaDonModel.getIdTTHD());
+        
+        String whereSql = "";
+        if(!conditions.isEmpty())
+            whereSql = " WHERE ";
+        String finalSql = sql + whereSql + String.join(" AND ", conditions);
+        
+        javax.persistence.Query query = session.createQuery(finalSql);
+        List<Integer> ids = query.getResultList();
+        
+        session.close();           
+        
+        return getByIds(ids);
     }
     
-
-    
+    public HoaDon huyHoaDon(int idHoaDon){
+        Session session = HibernateUtils.getFACTORY().openSession();
+        HoaDon hoaDon = session.get(HoaDon.class, idHoaDon);
+        
+        session.getTransaction().begin();
+        hoaDon.setDaHuy(true);
+        session.save(hoaDon);
+        
+        session.getTransaction().commit();
+        session.close();
+        return hoaDon;
+    }
 }

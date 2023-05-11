@@ -27,7 +27,7 @@ public class ChiTietHoaDonRepository {
         CriteriaQuery<ChiTietHoaDon> query = builder.createQuery(ChiTietHoaDon.class);
         Root<ChiTietHoaDon> chiTietHoaDonEntry = query.from(ChiTietHoaDon.class);
         query = query.select(chiTietHoaDonEntry);
-        
+       
         Predicate predicate = builder.equal(chiTietHoaDonEntry.get("maHoaDon"), idHoaDon);
         query = query.where(predicate);
         
