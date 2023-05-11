@@ -43,6 +43,8 @@ public class NhanVien implements Serializable{
     private String passWord;
     @Column(name = "NV_CCCD")
     private String cccd;
+    
+    
 
     public String getMa() {
         return ma;
