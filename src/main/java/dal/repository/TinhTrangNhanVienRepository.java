@@ -5,12 +5,14 @@
 package dal.repository;
 
 import dal.HibernateUtils;
+import dal.entity.NhanVien;
 
 import dal.entity.TinhTrangNhanVien;
 import java.util.ArrayList;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -37,7 +39,7 @@ public class TinhTrangNhanVienRepository {
         Session session = HibernateUtils.getFACTORY().openSession();
         
         TinhTrangNhanVien tinhTrangNhanVien = session.get(TinhTrangNhanVien.class, id);
-        
+        Hibernate.initialize(tinhTrangNhanVien.getListNhanVien());
         session.close();
         return tinhTrangNhanVien;
     }

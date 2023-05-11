@@ -8,6 +8,7 @@ import bll.services.IChucVuService;
 import bll.services.impl.ChucVuServiceImpl;
 import gui.models.NhanVien.ChucVuModel;
 import gui.models.NhanVien.CreateChucVuModel;
+import gui.models.NhanVien.SearchNhanVienModel;
 import gui.models.NhanVien.UpdateChucVuModel;
 import gui.views.QuanLyChucVu_GUI;
 import java.awt.event.MouseAdapter;
@@ -166,4 +167,9 @@ public class QuanLyChucVuController {
             JOptionPane.showMessageDialog(view, "Xóa thất bại","Error", JOptionPane.ERROR_MESSAGE);
         resetChucVu();
     }
+
+   
+     
+     
+     
 }

@@ -48,6 +48,16 @@ public class NhanVienMapper {
     public static NhanVien toNhanVien(CreateNhanVienModel createNhanVienModel){
         NhanVien nhanVien = new NhanVien();
         
+        nhanVien.setMa(createNhanVienModel.getMa());
+        nhanVien.setHoTen(createNhanVienModel.getHoTen());
+        nhanVien.setDiaChi(createNhanVienModel.getDiaChi());
+        nhanVien.setGioiTinhNam(createNhanVienModel.getGioiTinhNam());
+        nhanVien.setEmail(createNhanVienModel.getEmail());
+        nhanVien.setSdt(createNhanVienModel.getSoDienThoai());
+        nhanVien.setCccd(createNhanVienModel.getCCCD());
+        nhanVien.setNgaySinh(createNhanVienModel.getNgaySinh());
+        
+        
         ChucVu chucVu = new ChucVu();
         chucVu.setId(createNhanVienModel.getIdChucVu());
         nhanVien.setChucVu(chucVu);
@@ -63,6 +73,11 @@ public class NhanVienMapper {
         NhanVien nhanVien = new NhanVien();
         
         nhanVien.setMa(updateNhanVienModel.getMa());
+        nhanVien.setHoTen(updateNhanVienModel.getHoTen());
+        nhanVien.setDiaChi(updateNhanVienModel.getDiaChi());
+        nhanVien.setEmail(updateNhanVienModel.getEmail());
+        nhanVien.setSdt(updateNhanVienModel.getSoDienThoai());
+   
         
         ChucVu chucVu = new ChucVu();
         chucVu.setId(updateNhanVienModel.getIdChucVu());
