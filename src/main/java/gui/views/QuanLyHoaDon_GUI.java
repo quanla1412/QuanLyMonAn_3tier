@@ -4,6 +4,19 @@
  */
 package gui.views;
 
+import com.mycompany.quanlynhahang.Price;
+import gui.models.HoaDon.HoaDonModel;
+import gui.models.MonAn.MonAnModel;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author tanph
@@ -15,6 +28,51 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
      */
     public QuanLyHoaDon_GUI() {
         initComponents();
+    }
+    
+    public void loadTableHoaDon(ArrayList<HoaDonModel> listHoaDon){
+        String col[] = {"ID","Mã nhân viên","Mã khách hàng","Ngày giờ","Tổng giá"};
+        DefaultTableModel tableModel = new DefaultTableModel(col,0);
+        tblDanhSachHoaDon.setModel(tableModel);
+        for(HoaDonModel row: listHoaDon){
+            Object[] data = {row.getId(), row.getMaNhanVien(),row.getIdKhachHang(),row.getNgayGio(),Price.formatPrice(row.getTongGia())};
+            tableModel.addRow(data);
+        }
+    }
+    
+    class MyRenderer extends DefaultTableCellRenderer {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                                                        boolean hasFocus, int row, int column) {
+            JTextArea textArea = new JTextArea();
+            textArea.setText(value.toString());
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+            textArea.setFont(table.getFont());
+
+            int height = table.getRowHeight(row);
+            int width = table.getColumnModel().getColumn(column).getWidth();
+            textArea.setSize(new Dimension(width, height));
+            if (table.getRowHeight(row) != textArea.getPreferredSize().height) {
+                table.setRowHeight(row, textArea.getPreferredSize().height);
+            }
+
+            return textArea;
+        }
+    }
+    
+    public void loadFromDateToDate(){  
+        LocalDate fromDate = LocalDate.now().minusDays(30);
+        LocalDate toDate = LocalDate.now();
+        
+        dtcNgayBatDau.setDate(Date.valueOf(fromDate));
+        dtcNgayCuoiCung.setDate(Date.valueOf(toDate));
+    }
+    
+    public void loadTTHDSearch(){
+        cmbTTMASearch.addItem("Tất cả");
+        cmbTTMASearch.addItem("Hợp lệ");
+        cmbTTMASearch.addItem("Đã Huỷ");  
     }
 
     /**
@@ -186,11 +244,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         sldMinPrice.setValue(0);
         sldMinPrice.setMinimumSize(new java.awt.Dimension(120, 24));
         sldMinPrice.setPreferredSize(new java.awt.Dimension(120, 24));
-        sldMinPrice.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                sldMinPriceMouseDragged(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -204,11 +257,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         sldMaxPrice.setValue(100000000);
         sldMaxPrice.setMinimumSize(new java.awt.Dimension(120, 24));
         sldMaxPrice.setPreferredSize(new java.awt.Dimension(120, 24));
-        sldMaxPrice.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                sldMaxPriceMouseDragged(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 3;
@@ -230,16 +278,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
 
         cmbTTMASearch.setMinimumSize(new java.awt.Dimension(120, 24));
         cmbTTMASearch.setPreferredSize(new java.awt.Dimension(120, 24));
-        cmbTTMASearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cmbTTMASearchMouseClicked(evt);
-            }
-        });
-        cmbTTMASearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTTMASearchActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
@@ -252,16 +290,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         btnTimKiem.setMaximumSize(new java.awt.Dimension(80, 24));
         btnTimKiem.setMinimumSize(new java.awt.Dimension(80, 24));
         btnTimKiem.setPreferredSize(new java.awt.Dimension(80, 24));
-        btnTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnTimKiemMouseClicked(evt);
-            }
-        });
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 4;
@@ -311,11 +339,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblDanhSachHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblDanhSachHoaDonMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tblDanhSachHoaDon);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -331,16 +354,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         btnReset.setMaximumSize(new java.awt.Dimension(80, 24));
         btnReset.setMinimumSize(new java.awt.Dimension(80, 24));
         btnReset.setPreferredSize(new java.awt.Dimension(80, 24));
-        btnReset.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnResetMouseClicked(evt);
-            }
-        });
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 6;
@@ -427,11 +440,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         txtIdNhanVien.setMaximumSize(new java.awt.Dimension(172, 24));
         txtIdNhanVien.setMinimumSize(new java.awt.Dimension(172, 24));
         txtIdNhanVien.setPreferredSize(new java.awt.Dimension(172, 24));
-        txtIdNhanVien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdNhanVienActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -519,11 +527,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         txtIdKhachHang.setEnabled(false);
         txtIdKhachHang.setMinimumSize(new java.awt.Dimension(172, 24));
         txtIdKhachHang.setPreferredSize(new java.awt.Dimension(172, 24));
-        txtIdKhachHang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdKhachHangActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -535,11 +538,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         txtUuDai.setEnabled(false);
         txtUuDai.setMinimumSize(new java.awt.Dimension(172, 24));
         txtUuDai.setPreferredSize(new java.awt.Dimension(172, 24));
-        txtUuDai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUuDaiActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 8;
@@ -551,11 +549,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         txtThanhTien.setEnabled(false);
         txtThanhTien.setMinimumSize(new java.awt.Dimension(172, 24));
         txtThanhTien.setPreferredSize(new java.awt.Dimension(172, 24));
-        txtThanhTien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtThanhTienActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 9;
@@ -590,16 +583,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         btnHuyHoaDon.setMaximumSize(new java.awt.Dimension(172, 24));
         btnHuyHoaDon.setMinimumSize(new java.awt.Dimension(172, 24));
         btnHuyHoaDon.setPreferredSize(new java.awt.Dimension(172, 24));
-        btnHuyHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnHuyHoaDonMouseClicked(evt);
-            }
-        });
-        btnHuyHoaDon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHuyHoaDonActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
@@ -622,11 +605,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         txtTinhTrangHoaDon.setEnabled(false);
         txtTinhTrangHoaDon.setMinimumSize(new java.awt.Dimension(172, 24));
         txtTinhTrangHoaDon.setPreferredSize(new java.awt.Dimension(172, 24));
-        txtTinhTrangHoaDon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTinhTrangHoaDonActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
@@ -648,11 +626,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         txtMaHoaDon.setMaximumSize(new java.awt.Dimension(172, 24));
         txtMaHoaDon.setMinimumSize(new java.awt.Dimension(172, 24));
         txtMaHoaDon.setPreferredSize(new java.awt.Dimension(172, 24));
-        txtMaHoaDon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaHoaDonActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
@@ -664,148 +637,15 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         add(jPanel9);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sldMinPriceMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sldMinPriceMouseDragged
-        // TODO add your handling code here:
-        lblMinPrice.setText(Price.formatPrice(sldMinPrice.getValue()));
-    }//GEN-LAST:event_sldMinPriceMouseDragged
-
-    private void sldMaxPriceMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sldMaxPriceMouseDragged
-        // TODO add your handling code here:
-        lblMaxPrice.setText(Price.formatPrice(sldMaxPrice.getValue()));
-    }//GEN-LAST:event_sldMaxPriceMouseDragged
-
-    private void cmbTTMASearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbTTMASearchMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbTTMASearchMouseClicked
-
-    private void cmbTTMASearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTTMASearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbTTMASearchActionPerformed
-
-    private void btnTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseClicked
-        SearchHoaDon_DTO searchHoaDon_DTO = new SearchHoaDon_DTO();
-
-        String id = txtSearchID.getText();
-        if(!id.isBlank()){
-            searchHoaDon_DTO.setId(id.trim());
-        }
-
-        Timestamp ngayBatDau;
-        ngayBatDau = new Timestamp(dtcNgayBatDau.getDate().getTime());
-        java.util.Date ngayCuoiCung = dtcNgayCuoiCung.getDate();
-        ngayCuoiCung.setHours(23);
-        ngayCuoiCung.setMinutes(59);
-        ngayCuoiCung.setSeconds(59);
-        Timestamp ngayCuoiCungTS = new Timestamp(ngayCuoiCung.getTime());
-
-        if((ngayBatDau.compareTo(ngayCuoiCung)) > 0){
-            JOptionPane.showMessageDialog(this,"Ngày bắt đầu không được lớn hơn ngày kết thúc","Error",JOptionPane.ERROR_MESSAGE);
-            return;
-        } else {
-            searchHoaDon_DTO.setNgayBatDau(ngayBatDau);
-            searchHoaDon_DTO.setNgayCuoiCung(ngayCuoiCungTS);
-        }
-
-        int minPrice = sldMinPrice.getValue();
-        int maxPrice = sldMaxPrice.getValue();
-        if(minPrice > maxPrice){
-            JOptionPane.showMessageDialog(this,"Giá tối thiểu phải nhỏ hơn giá tối đa","Error",JOptionPane.ERROR_MESSAGE);
-            return;
-        } else {
-            searchHoaDon_DTO.setMinPrice(minPrice);
-            searchHoaDon_DTO.setMaxPrice(maxPrice);
-        }
-
-        int idTTHD = cmbTTMASearch.getSelectedIndex();
-        if(idTTHD > 0){
-            if(idTTHD == 1){
-                searchHoaDon_DTO.setIdTTHD(TinhTrangHoaDonConstraints.HOP_LE);
-            } else {
-                searchHoaDon_DTO.setIdTTHD(TinhTrangHoaDonConstraints.DA_HUY);
-            }
-        } else{
-            searchHoaDon_DTO.setIdTTHD(TinhTrangHoaDonConstraints.TAT_CA);
-        }
-        ArrayList<HoaDon_DTO> result = hoaDon_BUS.searchHoaDon(searchHoaDon_DTO);
-        loadTableHoaDon(result);
-    }//GEN-LAST:event_btnTimKiemMouseClicked
-
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTimKiemActionPerformed
-
-    private void tblDanhSachHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachHoaDonMouseClicked
-        int indexRow = tblDanhSachHoaDon.getSelectedRow();
-        TableModel model = tblDanhSachHoaDon.getModel();
-
-        int idHoaDon = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
-        loadFormWithHoaDon(idHoaDon);
-    }//GEN-LAST:event_tblDanhSachHoaDonMouseClicked
-
-    private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
-        resetTable();
-    }//GEN-LAST:event_btnResetMouseClicked
-
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnResetActionPerformed
-
-    private void txtIdNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdNhanVienActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdNhanVienActionPerformed
-
-    private void txtIdKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdKhachHangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdKhachHangActionPerformed
-
-    private void txtUuDaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUuDaiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUuDaiActionPerformed
-
-    private void txtThanhTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtThanhTienActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtThanhTienActionPerformed
-
-    private void btnHuyHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyHoaDonMouseClicked
-        if(btnHuyHoaDon.isEnabled()){
-            int indexRow = tblDanhSachHoaDon.getSelectedRow();
-            TableModel model = tblDanhSachHoaDon.getModel();
-
-            int idHoaDon = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
-
-            boolean result = hoaDon_BUS.deleteHoaDon(idHoaDon);
-
-            if(result){
-                JOptionPane.showMessageDialog(this, "Huỷ hoá đơn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                resetTable();
-                loadFormWithHoaDon(idHoaDon);
-            } else{
-                JOptionPane.showMessageDialog(this, "Huỷ hoá đơn không thành công","Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_btnHuyHoaDonMouseClicked
-
-    private void btnHuyHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyHoaDonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnHuyHoaDonActionPerformed
-
-    private void txtTinhTrangHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTinhTrangHoaDonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTinhTrangHoaDonActionPerformed
-
-    private void txtMaHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaHoaDonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaHoaDonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnHuyHoaDon;
-    private javax.swing.JButton btnReset;
-    private javax.swing.JButton btnTimKiem;
-    private javax.swing.JComboBox<String> cmbTTMASearch;
-    private com.toedter.calendar.JDateChooser dtcNgayBatDau;
-    private com.toedter.calendar.JDateChooser dtcNgayCuoiCung;
-    private com.toedter.calendar.JDateChooser dtcNgayGio;
+    public javax.swing.JButton btnHuyHoaDon;
+    public javax.swing.JButton btnReset;
+    public javax.swing.JButton btnTimKiem;
+    public javax.swing.JComboBox<String> cmbTTMASearch;
+    public com.toedter.calendar.JDateChooser dtcNgayBatDau;
+    public com.toedter.calendar.JDateChooser dtcNgayCuoiCung;
+    public com.toedter.calendar.JDateChooser dtcNgayGio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel16;
@@ -818,8 +658,8 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel lblDoanhThu7NgayGanNhat;
-    private javax.swing.JLabel lblDoanhThuTrongNgay;
+    public javax.swing.JLabel lblDoanhThu7NgayGanNhat;
+    public javax.swing.JLabel lblDoanhThuTrongNgay;
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblID1;
     private javax.swing.JLabel lblID2;
@@ -827,25 +667,25 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
     private javax.swing.JLabel lblID4;
     private javax.swing.JLabel lblLocQuyen;
     private javax.swing.JLabel lblMatKhau;
-    private javax.swing.JLabel lblMaxPrice;
-    private javax.swing.JLabel lblMinPrice;
+    public javax.swing.JLabel lblMaxPrice;
+    public javax.swing.JLabel lblMinPrice;
     private javax.swing.JLabel lblNhapID;
     private javax.swing.JLabel lblQuyen;
     private javax.swing.JLabel lblQuyen1;
     private javax.swing.JPanel pnlBangDanhSachTaiKhoan;
     private javax.swing.JPanel pnlBoLocTimKiem;
     private javax.swing.JPanel pnlThemTaiKhoanMoi;
-    private javax.swing.JSlider sldMaxPrice;
-    private javax.swing.JSlider sldMinPrice;
-    private javax.swing.JTable tblDanhSachHoaDon;
-    private javax.swing.JTable tblDonGoi;
-    private javax.swing.JTextField txtIdKhachHang;
-    private javax.swing.JTextField txtIdNhanVien;
-    private javax.swing.JTextField txtMaHoaDon;
-    private javax.swing.JTextField txtSearchID;
-    private javax.swing.JTextField txtThanhTien;
-    private javax.swing.JTextField txtTinhTrangHoaDon;
-    private javax.swing.JTextField txtTongTien;
-    private javax.swing.JTextField txtUuDai;
+    public javax.swing.JSlider sldMaxPrice;
+    public javax.swing.JSlider sldMinPrice;
+    public javax.swing.JTable tblDanhSachHoaDon;
+    public javax.swing.JTable tblDonGoi;
+    public javax.swing.JTextField txtIdKhachHang;
+    public javax.swing.JTextField txtIdNhanVien;
+    public javax.swing.JTextField txtMaHoaDon;
+    public javax.swing.JTextField txtSearchID;
+    public javax.swing.JTextField txtThanhTien;
+    public javax.swing.JTextField txtTinhTrangHoaDon;
+    public javax.swing.JTextField txtTongTien;
+    public javax.swing.JTextField txtUuDai;
     // End of variables declaration//GEN-END:variables
 }

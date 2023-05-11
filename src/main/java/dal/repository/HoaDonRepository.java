@@ -104,6 +104,7 @@ public class HoaDonRepository {
         return getByIds(ids);
     }
     
+    
     public HoaDon huyHoaDon(int idHoaDon){
         Session session = HibernateUtils.getFACTORY().openSession();
         HoaDon hoaDon = session.get(HoaDon.class, idHoaDon);

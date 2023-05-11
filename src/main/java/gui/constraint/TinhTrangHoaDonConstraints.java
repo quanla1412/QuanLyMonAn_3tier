@@ -9,6 +9,6 @@ package gui.constraint;
  * @author tanph
  */
 public class TinhTrangHoaDonConstraints {
-    public static final int DA_HUY = 1;
-    public static final int HOP_LE = 0;    
+    public static final boolean DA_HUY = true;
+    public static final boolean HOP_LE = false;    
 }

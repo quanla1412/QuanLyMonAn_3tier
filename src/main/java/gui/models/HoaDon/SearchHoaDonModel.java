@@ -18,6 +18,11 @@ public class SearchHoaDonModel {
     private int maxPrice;
     private int idTTHD;
 
+    public SearchHoaDonModel() {
+    }
+
+    
+    
     public SearchHoaDonModel(String id, Date ngayBatDau, Date ngayCuoiCung, int minPrice, int maxPrice, int idTTHD) {
         this.id = id;
         this.ngayBatDau = ngayBatDau;

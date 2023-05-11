@@ -51,6 +51,11 @@ public class HoaDonServiceImpl implements IHoaDonService{
 
     @Override
     public boolean huyHoaDon(HoaDonFullModel hoaDonSelected) {
-        int idTinhTrang = hoaDonSelected.isDaHuy() == TinhTrangHoaDonConstraints.DA_HUY : TinhTrangHoaDonConstraints.HOP_LE;
+        if(hoaDonSelected.isDaHuy() ==  TinhTrangHoaDonConstraints.HOP_LE){
+            HoaDon hoaDon = hoaDonRepository.huyHoaDon(hoaDonSelected.getId());
+            return true;
+        } else {
+            return false;
+        }
     }
 }
