@@ -86,6 +86,8 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
         lblTongGia.setText(Price.formatPrice(donGoiMasterModel.getTotal()));
     }
     
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -514,16 +516,6 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
         btnThanhToan.setMaximumSize(new java.awt.Dimension(120, 28));
         btnThanhToan.setMinimumSize(new java.awt.Dimension(120, 28));
         btnThanhToan.setPreferredSize(new java.awt.Dimension(120, 28));
-        btnThanhToan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnThanhToanMouseClicked(evt);
-            }
-        });
-        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThanhToanActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -576,28 +568,6 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
         jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.LINE_AXIS));
         add(jPanel6);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnThanhToanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToanMouseClicked
-        // TODO add your handling code here:
-        if(btnThanhToan.isEnabled()){
-            if(donGoi_BUS.getAllDonGoiByIdBan(banDangChon.getId()).size() <= 0){
-                JOptionPane.showMessageDialog(this, "Đơn gọi không có món ăn","Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if(thanhToan_GUI == null || !thanhToan_GUI.isDisplayable()){
-                thanhToan_GUI = new ThanhToan_GUI(banDangChon.getId(), maNhanVien);
-                thanhToan_GUI.setVisible(true);
-            } else {
-                thanhToan_GUI.setState(JFrame.NORMAL);
-                thanhToan_GUI.toFront();
-            }
-        }
-    }//GEN-LAST:event_btnThanhToanMouseClicked
-
-    private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThanhToanActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

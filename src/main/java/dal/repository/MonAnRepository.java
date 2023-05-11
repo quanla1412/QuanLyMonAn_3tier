@@ -98,7 +98,7 @@ public class MonAnRepository {
         ArrayList<String> conditions = new ArrayList<>();
         
         if(searchMonAnModel.getIdOrName() != null && !searchMonAnModel.getIdOrName().isBlank())
-                conditions.add("(MA.id LIKE N'%" + searchMonAnModel.getIdOrName() + "%' OR MA.ten LIKE '%" + searchMonAnModel.getIdOrName() + "%')");
+                conditions.add("(MA.id LIKE '%" + searchMonAnModel.getIdOrName() + "%' OR MA.ten LIKE '%" + searchMonAnModel.getIdOrName() + "%')");
             
         if(searchMonAnModel.getIdLoaiMonAn() > 0)
             conditions.add("LMA.id = "+ searchMonAnModel.getIdLoaiMonAn());
@@ -151,8 +151,7 @@ public class MonAnRepository {
         
         monAn.setTen(data.getTen());
         monAn.setGia(data.getGia());
-        if(data.getGiaKhuyenMai() >= 0)
-            monAn.setGiaKhuyenMai(monAn.getGiaKhuyenMai());
+        monAn.setGiaKhuyenMai(data.getGiaKhuyenMai());
         monAn.setHinhAnh(data.getHinhAnh());
         monAn.setNoiDung(data.getNoiDung());
         monAn.setLoaiMonAn(loaiMonAnRepository.getById(data.getLoaiMonAn().getId()));

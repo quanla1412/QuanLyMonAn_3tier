@@ -112,7 +112,7 @@ public class KhachHang implements Serializable {
         this.ngaySinh = ngaySinh;
     }
 
-    public boolean getGioiTinhNam() {
+    public boolean isGioiTinhNam() {
         return gioiTinhNam;
     }
 

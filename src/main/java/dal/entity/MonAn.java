@@ -79,7 +79,7 @@ public class MonAn implements Serializable{
 
     public int getGiaKhuyenMai() {
         if(giaKhuyenMai == null)
-            return 0;
+            return -1;
         return giaKhuyenMai;
     }
 

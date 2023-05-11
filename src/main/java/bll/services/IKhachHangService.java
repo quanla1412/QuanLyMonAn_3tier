@@ -4,11 +4,13 @@
  */
 package bll.services;
 
+import gui.models.KhachHang.CreateKhachHangModel;
 import gui.models.KhachHang.KhachHangFullModel;
 import gui.models.KhachHang.KhachHangModel;
-import gui.models.LoaiKhachHang.CreateLoaiKhachHangModel;
-import gui.models.LoaiKhachHang.UpdateLoaiKhachHangModel;
+import gui.models.KhachHang.SearchKhachHangModel;
+import gui.models.KhachHang.UpdateKhachHangModel;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -18,7 +20,20 @@ public interface IKhachHangService {
     List<KhachHangModel> getAll();
     
     KhachHangFullModel getById(int id);
-    boolean createLoaiKhachHang(CreateLoaiKhachHangModel createLoaiKhachHangModel);
     
-    boolean updateLoaiKhachHang(UpdateLoaiKhachHangModel updateLoaiKhachHangModel);
+    KhachHangModel getBySoDienThoai(String soDienThoai);
+    
+    KhachHangFullModel getFullBySoDienThoai(String soDienThoai);
+    
+    List<KhachHangModel> search(SearchKhachHangModel searchKhachHangModel);
+    
+    boolean createKhachHang(CreateKhachHangModel createKhachHangModel);
+    
+    boolean updateKhachHang(UpdateKhachHangModel updateKhachHangModel);
+    
+    Map<String, Integer> countByLoaiKhachHang();
+    
+    Map<String, Integer> countByGioiTinh();
+    
+    Map<String, Integer> countByTuoi();
 }

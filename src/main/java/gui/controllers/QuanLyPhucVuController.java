@@ -32,6 +32,7 @@ public class QuanLyPhucVuController {
     
     private MenuController menuController = null;
     private DatMonController datMonController = null;
+    private ThanhToanController thanhToanController = null;
     
     private IBanService banService;
     private IDonGoiService donGoiService;
@@ -41,10 +42,13 @@ public class QuanLyPhucVuController {
     private DonGoiMasterModel donGoiMasterModel = null;
     private ArrayList<BanModel> listBanSanSang;
     private int idDonGoiItemSelected = -1;
+    private String maNhanVien;
     
-    public QuanLyPhucVuController() {
+    public QuanLyPhucVuController(String maNhanVien) {
         banService = new BanServiceImpl();
         donGoiService = new DonGoiServiceImpl();
+        
+        this.maNhanVien = maNhanVien;
         
         init();
     }
@@ -73,6 +77,7 @@ public class QuanLyPhucVuController {
         view.btnThemMonMoi.addActionListener(e -> showMenu());
         view.btnSuaDonGoi.addActionListener(e -> suaDonGoi());
         view.btnXoa.addActionListener(e -> xoaDonGoi());
+        view.btnThanhToan.addActionListener(e -> showThanhToan());
     }
     
     public JComponent getView(){
@@ -243,6 +248,11 @@ public class QuanLyPhucVuController {
             menuController = new MenuController(banSelected.getId());
         else
             menuController.show();
+        
+        menuController.getBtnDatMon().addActionListener(e -> {
+            menuController.datMon();
+            reset();
+        });
     }
     
     private void suaDonGoi(){
@@ -276,5 +286,17 @@ public class QuanLyPhucVuController {
             JOptionPane.showMessageDialog(view, "Xóa món ăn thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
         
+    }
+    
+    private void showThanhToan(){
+        if(donGoiMasterModel.getListDonGoiModel().isEmpty()){
+            JOptionPane.showMessageDialog(view, "Đơn gọi không có món ăn","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;            
+        }
+        if (thanhToanController == null) {
+            thanhToanController = new ThanhToanController(banSelected.getId(), maNhanVien);
+        } else {
+            thanhToanController.show(banSelected.getId());
+        }
     }
 }
