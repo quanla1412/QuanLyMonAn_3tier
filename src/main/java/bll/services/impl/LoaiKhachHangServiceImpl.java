@@ -36,7 +36,7 @@ public class LoaiKhachHangServiceImpl implements ILoaiKhachHangService{
         
         return loaiKhachHangModel;
     }
-    
+    @Override
     public boolean createLoaiKhachHang(CreateLoaiKhachHangModel createLoaiKhachHangModel) {
         LoaiKhachHang loaiKhachHang = LoaiKhachHangMapper.toLoaiKhachHang(createLoaiKhachHangModel);
         
