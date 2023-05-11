@@ -151,8 +151,7 @@ public class MonAnRepository {
         
         monAn.setTen(data.getTen());
         monAn.setGia(data.getGia());
-        if(data.getGiaKhuyenMai() >= 0)
-            monAn.setGiaKhuyenMai(monAn.getGiaKhuyenMai());
+        monAn.setGiaKhuyenMai(data.getGiaKhuyenMai());
         monAn.setHinhAnh(data.getHinhAnh());
         monAn.setNoiDung(data.getNoiDung());
         monAn.setLoaiMonAn(loaiMonAnRepository.getById(data.getLoaiMonAn().getId()));
