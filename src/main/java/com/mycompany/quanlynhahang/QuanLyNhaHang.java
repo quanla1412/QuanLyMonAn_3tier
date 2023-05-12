@@ -5,6 +5,7 @@ import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import dal.HibernateUtils;
 import dal.entity.LoaiBan;
 import dal.repository.LoaiBanRepository;
+import gui.controllers.DangNhapController;
 import gui.controllers.QuanLyLoaiMonAnController;
 import gui.controllers.QuanLyMonAnController;
 import gui.controllers.TrangChuController;
@@ -25,6 +26,6 @@ public class QuanLyNhaHang {
         } catch(Exception ex){
             System.out.println(ex);
         }
-        TrangChuController trangChuController = new TrangChuController("maittt");
+        DangNhapController dangNhapController = new DangNhapController();
     }
 }

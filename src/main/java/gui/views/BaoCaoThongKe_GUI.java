@@ -195,7 +195,7 @@ public class BaoCaoThongKe_GUI extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         cmbLoaiThongKe.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        cmbLoaiThongKe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thống kê bàn theo số lượng", "Thống kê bàn theo tình trạng bàn", "Thống kê khách hàng theo bậc", "Thống kê khách hàng theo giới tính", "Thống kê khách hàng theo độ tuổi", "Thống kê nhân viên theo giới tính", "Thống kê nhân viên theo tình trạng", "Thống kê nhân viên theo độ tuổi", "Thống kê doanh thu theo nhân viên ( năm hiện tại )", "Thống kê khách hàng thân thiết ( năm hiện tại )", "Thống kê doanh thu 7 ngày gần nhất", "Thống kê doanh thu năm hiện tại", "Thống kê doanh thu theo loại món ăn", "Thống kê lượng tiêu thụ theo món ăn ( tháng hiện tại )" }));
+        cmbLoaiThongKe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thống kê bàn theo số lượng", "Thống kê bàn theo tình trạng bàn", "Thống kê khách hàng theo bậc", "Thống kê khách hàng theo giới tính", "Thống kê khách hàng theo độ tuổi", "Thống kê nhân viên theo giới tính", "Thống kê nhân viên theo tình trạng", "Thống kê nhân viên theo độ tuổi", "Thống kê doanh thu theo nhân viên ( tháng hiện tại )", "Thống kê chi tiêu khách hàng ( tháng hiện tại )" }));
         cmbLoaiThongKe.setMinimumSize(new java.awt.Dimension(322, 40));
         cmbLoaiThongKe.setPreferredSize(new java.awt.Dimension(322, 40));
         gridBagConstraints = new java.awt.GridBagConstraints();
