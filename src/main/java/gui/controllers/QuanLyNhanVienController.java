@@ -4,6 +4,7 @@
  */
 package gui.controllers;
 
+import com.mycompany.quanlynhahang.AES;
 import bll.services.IChucVuService;
 import bll.services.ITinhTrangNhanVienService;
 import bll.services.impl.ChucVuServiceImpl;
@@ -41,6 +42,8 @@ public class QuanLyNhanVienController {
     private final INhanVienService nhanVienService;
     private final IChucVuService chucVuService;
     private final ITinhTrangNhanVienService tinhTrangNhanVienService;
+    
+    private DoiMatKhauController doiMatKhauController;
     
     private QuanLyNhanVien_GUI view;
     
@@ -80,6 +83,7 @@ public class QuanLyNhanVienController {
         view.btnTimKiemNhanVien.addActionListener(e -> search());
         view.btnThemNV.addActionListener(e -> changeModeNhanVien(true));
         view.btnSuaNV.addActionListener(e -> changeModeNhanVien(false));
+        view.btnDoiMatKhau.setEnabled(false);
         view.btnLuu.addActionListener(e -> saveNhanVien());
         view.btnXoaNV.addActionListener(e -> deleteNhanVien());
         view.btnResetThemNV.addActionListener(e -> resetNhanVien());
@@ -90,6 +94,8 @@ public class QuanLyNhanVienController {
         view.btnPhanQuyen.addActionListener(e -> showQuanLyQuyen());
         view.btnQuanLyChucVu.addActionListener(e -> showQuanLyChucVu());
         
+        view.btnDoiMatKhau.addActionListener(e -> showDoiMatKhau());
+        
         view.tblDanhSachNV.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e){
@@ -97,7 +103,7 @@ public class QuanLyNhanVienController {
                 String selectedNhanVienMa = view.tblDanhSachNV.getValueAt(selectedRow, 0).toString();
                 
                 nhanVienSelected = nhanVienService.getByMa(selectedNhanVienMa);
-
+                view.btnDoiMatKhau.setEnabled(true);
                 if(!dangThemNhanVien)
                     loadDetailNhanVien();  
             }
@@ -390,6 +396,14 @@ public class QuanLyNhanVienController {
         
         view.loadTableNhanVien(result);
     }
+    private void showDoiMatKhau(){        
+        if(doiMatKhauController == null){
+            doiMatKhauController = new DoiMatKhauController(nhanVienSelected.getMa());
+        } else {
+            doiMatKhauController.show(nhanVienSelected.getMa());
+        }
+    }
+    
     
     private void showQuanLyQuyen(){
         if(nhanVienSelected == null){

@@ -12,6 +12,7 @@ import gui.models.NhanVien.CreateNhanVienModel;
 import gui.models.NhanVien.NhanVienFullModel;
 import gui.models.NhanVien.NhanVienModel;
 import gui.models.NhanVien.TinhTrangNhanVienModel;
+import gui.models.NhanVien.UpdateTaiKhoanNhanVienModel;
 import gui.models.NhanVien.UpdateNhanVienModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +93,18 @@ public class NhanVienMapper {
         return nhanVien;        
     }
     
+      public static NhanVien toNhanVien(UpdateTaiKhoanNhanVienModel updateMatKhauNhanVienModel){
+        NhanVien nhanVien = new NhanVien();
+        
+        nhanVien.setMa(updateMatKhauNhanVienModel.getMa());
+        
+        nhanVien.setPassWord(updateMatKhauNhanVienModel.getPassword());
+
+        return nhanVien;        
+    }
+    
+  
+    
     public static NhanVienFullModel toNhanVienFullModel(NhanVien nhanVien){
         NhanVienFullModel nhanVienFullModel = new NhanVienFullModel();
         
@@ -105,6 +118,7 @@ public class NhanVienMapper {
         nhanVienFullModel.setDiaChi(nhanVien.getDiaChi());
         nhanVienFullModel.setPassWord(nhanVien.getPassWord());
         nhanVienFullModel.setCCCD(nhanVien.getCccd());
+        
         
         TinhTrangNhanVienModel tinhTrangNhanVienModel = TinhTrangNhanVienMapper.toTinhTrangNhanVienModel(nhanVien.getTinhTrangNhanVien());
         nhanVienFullModel.setTinhTrangNhanVien(tinhTrangNhanVienModel);
