@@ -13,7 +13,6 @@ import gui.models.BanModel;
 import gui.models.DonGoi.DonGoiMasterModel;
 import gui.models.DonGoi.DonGoiModel;
 import gui.models.KhachHang.KhachHangFullModel;
-import gui.models.KhachHang.KhachHangModel;
 import gui.views.ThanhToan_GUI;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -21,12 +20,10 @@ import javax.swing.JOptionPane;
 import bll.services.INhanVienService;
 import bll.services.impl.HoaDonServiceImpl;
 import bll.services.impl.NhanVienServiceImpl;
-import gui.constraints.TinhTrangBanConstraints;
 import gui.models.HoaDon.CreateChiTietHoaDonModel;
 import gui.models.HoaDon.CreateHoaDonModel;
 import gui.models.HoaDon.HoaDonModel;
 import gui.models.NhanVien.NhanVienFullModel;
-import gui.models.NhanVien.NhanVienModel;
 import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -160,7 +157,7 @@ public class ThanhToanController {
         HoaDonModel result = hoaDonService.create(createHoaDonModel);
         if(result != null){
             JOptionPane.showMessageDialog(view, "Thanh toán thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            JFileChooser jFileChooser= new JFileChooser("D:");
+            JFileChooser jFileChooser= new JFileChooser("D:\\QuanLyNhaHang\\Bill");
             jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             boolean resultInBill = false; 
 
@@ -178,7 +175,7 @@ public class ThanhToanController {
     }
     
     private void inBillTam(){
-        JFileChooser jFileChooser= new JFileChooser("D:\\");
+        JFileChooser jFileChooser= new JFileChooser("D:\\QuanLyNhaHang\\Bill");
         jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         boolean result = false; 
        
