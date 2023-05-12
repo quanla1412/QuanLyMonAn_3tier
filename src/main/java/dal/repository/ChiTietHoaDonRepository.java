@@ -21,25 +21,20 @@ import org.hibernate.query.Query;
  * @author tanph
  */
 public class ChiTietHoaDonRepository {
-    private MonAnRepository monAnRepository;
-
-    public ChiTietHoaDonRepository() {
-        monAnRepository = new MonAnRepository();
-    }
-    
     public List<ChiTietHoaDon> getAllChiTietHoaDonById(int idHoaDon){
         Session session = HibernateUtils.getFACTORY().openSession();
+        session.getTransaction().begin();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<ChiTietHoaDon> query = builder.createQuery(ChiTietHoaDon.class);
         Root<ChiTietHoaDon> chiTietHoaDonEntry = query.from(ChiTietHoaDon.class);
         query = query.select(chiTietHoaDonEntry);
-       
-        Predicate predicate = builder.equal(chiTietHoaDonEntry.get("maHoaDon"), idHoaDon);
+        
+        Predicate predicate = builder.equal(chiTietHoaDonEntry.get("hoaDon").get("id").as(Integer.class), idHoaDon);
         query = query.where(predicate);
         
         Query queryResult = session.createQuery(query);
         List<ChiTietHoaDon> result = queryResult.getResultList();
-
+        session.getTransaction().commit();
         session.close();
         
         return result;
