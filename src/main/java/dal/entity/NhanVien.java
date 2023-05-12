@@ -53,6 +53,8 @@ public class NhanVien implements Serializable{
     private String cccd;
     @OneToMany(mappedBy = "nhanVien")
     private List<HoaDon> listHoaDon;
+    @OneToMany(mappedBy = "nhanVien")
+    private List<QuyenTaiKhoan> listQuyenTaiKhoan;
 
     public List<HoaDon> getListHoaDon() {
         return listHoaDon;
@@ -151,5 +153,13 @@ public class NhanVien implements Serializable{
     }
      public boolean getGioiTinhNam() {
         return gioiTinhNam;
+    }
+
+    public List<QuyenTaiKhoan> getListQuyenTaiKhoan() {
+        return listQuyenTaiKhoan;
+    }
+
+    public void setListQuyenTaiKhoan(List<QuyenTaiKhoan> listQuyenTaiKhoan) {
+        this.listQuyenTaiKhoan = listQuyenTaiKhoan;
     }
 }

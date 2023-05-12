@@ -21,8 +21,10 @@ import javax.swing.JOptionPane;
 import bll.services.INhanVienService;
 import bll.services.impl.HoaDonServiceImpl;
 import bll.services.impl.NhanVienServiceImpl;
+import gui.constraints.TinhTrangBanConstraints;
 import gui.models.HoaDon.CreateChiTietHoaDonModel;
 import gui.models.HoaDon.CreateHoaDonModel;
+import gui.models.HoaDon.HoaDonModel;
 import gui.models.NhanVien.NhanVienFullModel;
 import gui.models.NhanVien.NhanVienModel;
 import java.util.Date;
@@ -155,13 +157,24 @@ public class ThanhToanController {
         });
         createHoaDonModel.setListChiTietHoaDonModel(listChiTietHoaDonModel);
         
-        boolean result = hoaDonService.create(createHoaDonModel);
-        if(result){
+        HoaDonModel result = hoaDonService.create(createHoaDonModel);
+        if(result != null){
             JOptionPane.showMessageDialog(view, "Thanh toán thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            view.dispose();
-        } else {
+            JFileChooser jFileChooser= new JFileChooser("D:");
+            jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            boolean resultInBill = false; 
+
+            if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                resultInBill = hoaDonService.inBill(result.getId(), jFileChooser.getSelectedFile().getAbsolutePath());
+            }  
+            if (resultInBill)
+                view.dispose();
+            else
+                JOptionPane.showMessageDialog(view, "In bill thất bại","Error", JOptionPane.ERROR_MESSAGE);
+                       
+        } else 
             JOptionPane.showMessageDialog(view, "Thanh toán thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        }
+        
     }
     
     private void inBillTam(){

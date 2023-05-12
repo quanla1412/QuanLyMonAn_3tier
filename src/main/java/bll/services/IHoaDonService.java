@@ -23,5 +23,7 @@ public interface IHoaDonService {
     
     public boolean huyHoaDon(HoaDonFullModel hoaDonSelected);
     
-    public boolean create(CreateHoaDonModel createHoaDonModel);
+    public HoaDonModel create(CreateHoaDonModel createHoaDonModel);
+    
+    public boolean inBill(int idHoaDon, String filePath);
 }

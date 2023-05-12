@@ -30,6 +30,6 @@ public class QuanLyNhaHang {
         } catch(Exception ex){
             System.out.println(ex);
         }
-        TrangChuController trangChuController = new TrangChuController();
+        TrangChuController trangChuController = new TrangChuController("maittt");
     }
 }

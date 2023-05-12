@@ -84,6 +84,8 @@ public class DatMonController {
         view.lblTinhTrangMonAn.setText(monAn.getTinhTrangMonAnModel().getTen());
         if(monAn.getTinhTrangMonAnModel().getId() == TinhTrangMonAnConstraints.HET)
             view.btnDatMon.setEnabled(false);
+        else
+            view.btnDatMon.setEnabled(true);
     }
     
     void show(int idBan, int idMonAn){        

@@ -8,6 +8,7 @@ package gui.views;
 import gui.controllers.BaoCaoThongKeController;
 import gui.controllers.QuanLyKhachHangController;
 import gui.controllers.QuanLyLoaiBanVaBanController;
+import gui.controllers.QuanLyNhanVienController;
 import gui.controllers.QuanLyPhucVuController;
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -24,18 +25,13 @@ import org.kordamp.ikonli.swing.FontIcon;
  * @author tanph
  */
 public class TrangChu_GUI extends javax.swing.JFrame {
-    QuanLyKhachHangController quanLyLoaiBanVaBanController;
     
-    boolean over;
-    
-    public TrangChu_GUI() {
+    public TrangChu_GUI() {        
         initComponents();
         prepareIcon();
-        showForm(new QuanLyPhucVuController("maittt").getView());
     }
 
     class jPanelGradient extends JPanel {
-
         @Override
         protected void paintComponent(Graphics grphcs) {
             Graphics2D g2 = (Graphics2D) grphcs;
@@ -45,16 +41,6 @@ public class TrangChu_GUI extends javax.swing.JFrame {
             g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
         }
     }
-    
-    
-    
-    private void showForm(JComponent com){
-        pnlForm.removeAll();
-        pnlForm.add(com);
-        pnlForm.repaint();
-        pnlForm.revalidate();
-    }
-    
      private void resetColorButton(){
         btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,0));
         btnQuanLyBan.setBackground(new java.awt.Color(0,0,0,0));
@@ -429,18 +415,17 @@ public class TrangChu_GUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(38, 38, 38)
                 .addComponent(pnlForm, javax.swing.GroupLayout.DEFAULT_SIZE, 1194, Short.MAX_VALUE)
-                .addGap(40, 40, 40))
+                .addGap(42, 42, 42))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pnlForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE))
+                .addComponent(pnlMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(pnlForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -448,9 +433,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnQuanLyPhucVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyPhucVuMouseClicked
-        resetColorButton();
         btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
-//        showForm(new QuanLyPhucVu_GUI_PanelForm());
     }//GEN-LAST:event_btnQuanLyPhucVuMouseClicked
 
     private void btnQuanLyPhucVuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyPhucVuMouseEntered
@@ -468,17 +451,11 @@ public class TrangChu_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQuanLyPhucVuMousePressed
 
     private void btnQuanLyPhucVuMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyPhucVuMouseReleased
-        //        if (over) {
-            //            jButton1.setBackground(new java.awt.Color(0,0,0,100));
-            //        } else {
-            //            jButton1.setBackground(new java.awt.Color(0,0,0,0));
-            //        }
+        btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,0));
     }//GEN-LAST:event_btnQuanLyPhucVuMouseReleased
 
     private void btnQuanLyBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyBanMouseClicked
-        resetColorButton();
         btnQuanLyBan.setBackground(new java.awt.Color(0,0,0,100));
-        new QuanLyLoaiBanVaBanController();
     }//GEN-LAST:event_btnQuanLyBanMouseClicked
 
     private void btnQuanLyBanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyBanMouseEntered
@@ -494,7 +471,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQuanLyBanMousePressed
 
     private void btnQuanLyBanMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyBanMouseReleased
-
+        btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,0));
     }//GEN-LAST:event_btnQuanLyBanMouseReleased
 
     private void btnQuanLyMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyMonAnMouseClicked
@@ -686,17 +663,17 @@ public class TrangChu_GUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBaoCaoThongKe;
     private javax.swing.JButton btnDangXuat;
-    private javax.swing.JButton btnQuanLyBan;
+    public javax.swing.JButton btnQuanLyBan;
     private javax.swing.JButton btnQuanLyHoaDon;
     private javax.swing.JButton btnQuanLyKhachHang;
     private javax.swing.JButton btnQuanLyMonAn;
     private javax.swing.JButton btnQuanLyNhanVien;
-    private javax.swing.JButton btnQuanLyPhucVu;
+    public javax.swing.JButton btnQuanLyPhucVu;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblTenNhanVien;
-    private javax.swing.JPanel pnlForm;
+    public javax.swing.JPanel pnlForm;
     private javax.swing.JPanel pnlMenu;
     // End of variables declaration//GEN-END:variables
 }

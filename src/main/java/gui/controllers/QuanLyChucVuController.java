@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -166,6 +167,15 @@ public class QuanLyChucVuController {
         } else
             JOptionPane.showMessageDialog(view, "Xóa thất bại","Error", JOptionPane.ERROR_MESSAGE);
         resetChucVu();
+    }
+
+    void show() {
+        view.setVisible(true);
+        view.setState(JFrame.NORMAL);
+        view.toFront();
+        
+        loadData();
+        view.loadTableChucVu(listChucVuModel);
     }
 
    

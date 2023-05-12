@@ -44,16 +44,16 @@ public class QuanLyNhanVienController {
     
     private QuanLyNhanVien_GUI view;
     
+    private QuanLyChucVuController quanLyChucVuController = null;
+    private QuanLyQuyenController quanLyQuyenController = null;
+    
     private ArrayList<NhanVienModel> listNhanVienModel;
     private NhanVienFullModel nhanVienSelected = null;
     
     private ArrayList<TinhTrangNhanVienModel> listTinhTrangNhanVienModel;
     private TinhTrangNhanVienModel tinhTrangNhanVienSelected = null;
-    
     private ArrayList<ChucVuModel> listChucVuModel;
     private ChucVuModel chucVuSelected = null;
-    
-    
     private boolean dangThemNhanVien = true;
     
     public QuanLyNhanVienController(){
@@ -87,6 +87,8 @@ public class QuanLyNhanVienController {
         view.btnExportNV.addActionListener(e -> exportNhanVien());
         view.btnExportMauImport.addActionListener(e -> exportAllNhanVienTheoMauImport());
         view.btnImportNV.addActionListener(e -> importNhanVien());
+        view.btnPhanQuyen.addActionListener(e -> showQuanLyQuyen());
+        view.btnQuanLyChucVu.addActionListener(e -> showQuanLyChucVu());
         
         view.tblDanhSachNV.addMouseListener(new MouseAdapter(){
             @Override
@@ -389,4 +391,21 @@ public class QuanLyNhanVienController {
         view.loadTableNhanVien(result);
     }
     
+    private void showQuanLyQuyen(){
+        if(nhanVienSelected == null){
+                JOptionPane.showMessageDialog(view, "Vui lòng chọn nhân viên muốn thay đổi quyền","Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        if(quanLyQuyenController == null)
+            quanLyQuyenController = new QuanLyQuyenController(nhanVienSelected.getMa());
+       else 
+            quanLyQuyenController.show(nhanVienSelected.getMa());
+    }
+    
+    private void showQuanLyChucVu(){
+        if(quanLyChucVuController == null )
+            quanLyChucVuController = new QuanLyChucVuController();
+        else
+            quanLyChucVuController.show();
+    }
 }
