@@ -38,6 +38,8 @@ public interface IKhachHangService {
     
     Map<String, Integer> countByTuoi();
     
+    Map<String, Long> getDoanhThuTheoThangHienTai();
+    
     boolean exportKhachHang(ArrayList<KhachHangModel> listKhachHangModels, String filePath);
     
     boolean exportAllKhachHangTheoMauImport(String filePath);

@@ -1,11 +1,13 @@
 package gui.controllers;
 
 import bll.services.IBanService;
+import bll.services.IHoaDonService;
 import bll.services.IKhachHangService;
 import bll.services.ILoaiBanService;
 import bll.services.INhanVienService;
 import bll.services.ITinhTrangBanService;
 import bll.services.impl.BanServiceImpl;
+import bll.services.impl.HoaDonServiceImpl;
 import bll.services.impl.KhachHangServiceImpl;
 import bll.services.impl.LoaiBanServiceImpl;
 import bll.services.impl.NhanVienServiceImpl;
@@ -22,6 +24,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +34,8 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 /**
@@ -45,6 +50,7 @@ public class BaoCaoThongKeController {
     private ITinhTrangBanService tinhTrangBanService;
     private IKhachHangService khachHangService;
     private INhanVienService nhanVienService;
+    private IHoaDonService hoaDonService;
 
     public BaoCaoThongKeController() {
         loaiBanService = new LoaiBanServiceImpl();
@@ -52,7 +58,7 @@ public class BaoCaoThongKeController {
         tinhTrangBanService = new TinhTrangBanServiceImpl();
         khachHangService = new KhachHangServiceImpl();
         nhanVienService = new NhanVienServiceImpl();
-        
+        hoaDonService = new HoaDonServiceImpl();
         init();
     }
     
@@ -71,9 +77,9 @@ public class BaoCaoThongKeController {
                 case (5) -> showPieChartNhanVienTheoGioiTinh();
                 case (6) -> showPieChartNhanVienTheoTinhTrang();
                 case (7) -> showPieChartNhanVienTheoDoTuoi();
-//                case (8) -> showPieChartDoanhThuTheoNhanVienNamHienTai();
-//                case (9) -> showPieChartDoanhThuTheoKhachHangNamHienTai();
-//                case (10) -> showPieChartDoanhThuTheo7NgayGanNhat();
+                case (8) -> showBarChartDoanhThuNhanVienTheoThangHienTai();
+                case (9) -> showBarChartDoanhThuKhachHangTheoThangHienTai();
+                case (10) -> showBarChartDoanhThuTheo7NgayGanNhat();
 //                case (11) -> showPieChartDoanhThuNamHienTai();
 //                case (12) -> showPieChartDoanhThuTheoLoaiMonAnNamHienTai();
 //                case (13) -> showPieChartTieuThuMonAnThangHienTai();
@@ -174,4 +180,101 @@ public class BaoCaoThongKeController {
         
         showPieChart(title, data);
     }
+    
+    private void showBarChartDoanhThuNhanVienTheoThangHienTai(){
+        HashMap<String, Long> data = (HashMap<String, Long>) nhanVienService.getDoanhThuTheoThangHienTai();
+        String title = "Thống kê doanh thu nhân viên theo tháng hiện tại";
+        
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+         
+        
+         for(String key : data.keySet()){
+            dataset.setValue(data.get(key),"Doanh thu",key);
+        }
+        // Create the chart
+        JFreeChart chart = ChartFactory.createBarChart(
+            "Thống kê doanh thu nhân viên theo tháng hiện tại", // Tiêu đề biểu đồ
+            "Tên nhân viên",                           // Tên trục x
+            "Doanh thu (Triệu VNĐ)",                // Tên trục y
+            dataset,                          // Dữ liệu
+            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
+            true,                             // Legend
+            true,                             // Tooltips
+            false                             // URLs
+        );
+        
+        // Create the chart panel and add it to the main panel
+        ChartPanel chartPanel = new ChartPanel(chart);
+        view.pnlBieuDo.removeAll();
+        view.pnlBieuDo.add(chartPanel);
+        view.pnlBieuDo.validate();
+        view.pnlBieuDo.repaint();
+        
+    }
+    
+     private void showBarChartDoanhThuKhachHangTheoThangHienTai(){
+        HashMap<String, Long> data = (HashMap<String, Long>) khachHangService.getDoanhThuTheoThangHienTai();
+        String title = "Thống kê doanh thu nhân viên theo tháng hiện tại";
+        
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+         
+        
+         for(String key : data.keySet()){
+            dataset.setValue(data.get(key),"Doanh thu",key);
+        }
+        // Create the chart
+        JFreeChart chart = ChartFactory.createBarChart(
+            "Thống kê doanh thu khách hàng theo tháng hiện tại", // Tiêu đề biểu đồ
+            "Tên khách hàng",                           // Tên trục x
+            "Doanh thu (Triệu VNĐ)",                // Tên trục y
+            dataset,                          // Dữ liệu
+            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
+            true,                             // Legend
+            true,                             // Tooltips
+            false                             // URLs
+        );
+        
+        // Create the chart panel and add it to the main panel
+        ChartPanel chartPanel = new ChartPanel(chart);
+        view.pnlBieuDo.removeAll();
+        view.pnlBieuDo.add(chartPanel);
+        view.pnlBieuDo.validate();
+        view.pnlBieuDo.repaint();
+ 
+    }
+     
+     private void showBarChartDoanhThuTheo7NgayGanNhat (){
+        LocalDate fromDate = LocalDate.now().minusDays(7);
+        LocalDate toDate = LocalDate.now();
+        Date ngayBatDau = java.sql.Date.valueOf(fromDate);
+        Date ngayKetThuc = java.sql.Date.valueOf(toDate);
+        HashMap<String, Long> data = (HashMap<String, Long>) hoaDonService.getDoanhThuTheoThang7NgayGanNhat(ngayBatDau, ngayKetThuc);
+        String title = "Thống kê doanh thu theo 7 ngày gần nhất";
+         
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+                   
+        
+        for(String key : data.keySet()){
+            dataset.setValue(data.get(key),"Doanh thu",key);
+        }
+        // Create the chart
+        JFreeChart chart = ChartFactory.createBarChart(
+            "Thống kê doanh thu theo 7 ngày gần nhất", // Tiêu đề biểu đồ
+            "Ngày",                           // Tên trục x
+            "Doanh thu (Triệu VNĐ)",                // Tên trục y
+            dataset,                          // Dữ liệu
+            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
+            true,                             // Legend
+            true,                             // Tooltips
+            false                             // URLs
+        );
+        
+        // Create the chart panel and add it to the main panel
+        ChartPanel chartPanel = new ChartPanel(chart);
+        view.pnlBieuDo.removeAll();
+        view.pnlBieuDo.add(chartPanel);
+        view.pnlBieuDo.validate();
+        view.pnlBieuDo.repaint();
+     }
+    
 }

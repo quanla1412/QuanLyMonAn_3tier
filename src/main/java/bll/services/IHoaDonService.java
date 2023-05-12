@@ -10,6 +10,7 @@ import gui.models.HoaDon.HoaDonModel;
 import gui.models.HoaDon.SearchHoaDonModel;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -29,6 +30,8 @@ public interface IHoaDonService {
     public long getDoanhThuTrong7NgayGanNhat(Date ngayBatDau, Date ngayKetThuc);
     
     public HoaDonModel create(CreateHoaDonModel createHoaDonModel);
+    
+   // Map<String, Long> getDoanhThuTheoThang7NgayGanNhat(Date ngayBatDau, Date ngayKetThuc);
     
     public boolean inBill(int idHoaDon, String filePath);
 }

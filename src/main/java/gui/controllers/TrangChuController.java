@@ -19,7 +19,7 @@ public class TrangChuController {
         this.maNhanVien = maNhanVien;
         
         init();
-        showFormQuanLyPhucVu();
+        showForm(new BaoCaoThongKeController().getView());
     }
     
     private void init(){
