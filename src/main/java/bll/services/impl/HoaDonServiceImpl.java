@@ -13,6 +13,7 @@ import gui.models.HoaDon.CreateHoaDonModel;
 import gui.models.HoaDon.HoaDonFullModel;
 import gui.models.HoaDon.HoaDonModel;
 import gui.models.HoaDon.SearchHoaDonModel;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,8 +28,9 @@ public class HoaDonServiceImpl implements IHoaDonService{
     }
     
     @Override
-    public List<HoaDonModel> getAll() {
+    public List<HoaDonModel> getAll(boolean daHuy) {
         List<HoaDon> listHoaDon = hoaDonRepository.getAllHoaDon();
+        listHoaDon.removeIf(hoaDon -> hoaDon.isDaHuy() != daHuy);
         List<HoaDonModel> listHoaDonModel = HoaDonMapper.toListHoaDonModel(listHoaDon);
     
         return listHoaDonModel;
@@ -52,7 +54,7 @@ public class HoaDonServiceImpl implements IHoaDonService{
 
     @Override
     public boolean huyHoaDon(HoaDonFullModel hoaDonSelected) {
-        if(hoaDonSelected.isDaHuy() ==  TinhTrangHoaDonConstraints.HOP_LE){
+        if(hoaDonSelected.isDaHuy() == TinhTrangHoaDonConstraints.HOP_LE){
             HoaDon hoaDon = hoaDonRepository.huyHoaDon(hoaDonSelected.getId());
             return true;
         } else {
@@ -66,5 +68,29 @@ public class HoaDonServiceImpl implements IHoaDonService{
         HoaDon createdHoaDon = hoaDonRepository.create(hoaDon);
         
         return createdHoaDon.getId() > 0;
+    }
+
+    @Override
+    public long getDoanhThuTrongNgay(Date ngay) {
+        List<HoaDon> listHoaDon = hoaDonRepository.getListHoaDonTrongNgay(ngay);
+        long doanhThuTrongNgay = 0;
+        
+        for(HoaDon hoaDon : listHoaDon) {
+            if(hoaDon.isDaHuy() == TinhTrangHoaDonConstraints.HOP_LE)
+                doanhThuTrongNgay += hoaDon.getTongGia();
+        }
+        return doanhThuTrongNgay;
+    }
+
+    @Override
+    public long getDoanhThuTrong7NgayGanNhat(Date ngayBatDau, Date ngayKetThuc) {
+        List<HoaDon> listHoaDon = hoaDonRepository.getListHoaDonTrong7NgayGanNhat(ngayBatDau, ngayKetThuc);
+        long doanhThuTrong7NgayGanNhat = 0;
+        
+        for(HoaDon hoaDon : listHoaDon) {
+            if(hoaDon.isDaHuy() == TinhTrangHoaDonConstraints.HOP_LE)
+                doanhThuTrong7NgayGanNhat += hoaDon.getTongGia();
+        }
+        return doanhThuTrong7NgayGanNhat;
     }
 }

@@ -158,16 +158,16 @@ public class ThanhToanController {
     }
     
     private void inBillTam(){
-        JFileChooser jFileChooser= new JFileChooser("Downloads");
-        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        boolean result = false; 
-       
-        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            result = donGoi_BUS.inBillTam(idBan, maNhanVien, khachHang.getId(), jFileChooser.getSelectedFile().getAbsolutePath());
-        }
-        
-        if (!result) {
-            JOptionPane.showMessageDialog(view, "In bill tạm thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        JFileChooser jFileChooser= new JFileChooser("Downloads");
+//        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//        boolean result = false; 
+//       
+//        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+//            result = donGoi_BUS.inBillTam(idBan, maNhanVien, khachHang.getId(), jFileChooser.getSelectedFile().getAbsolutePath());
+//        }
+//        
+//        if (!result) {
+//            JOptionPane.showMessageDialog(view, "In bill tạm thất bại","Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }
 }

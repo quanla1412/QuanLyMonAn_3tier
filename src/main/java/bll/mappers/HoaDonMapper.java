@@ -13,6 +13,8 @@ import gui.models.HoaDon.ChiTietHoaDonModel;
 import gui.models.HoaDon.CreateHoaDonModel;
 import gui.models.HoaDon.HoaDonFullModel;
 import gui.models.HoaDon.HoaDonModel;
+import gui.models.KhachHang.KhachHangModel;
+import gui.models.NhanVien.NhanVienModel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +26,16 @@ public class HoaDonMapper {
     public static HoaDonModel toHoaDonModel(HoaDon hoaDon){
         HoaDonModel hoaDonModel = new HoaDonModel();
         hoaDonModel.setId(hoaDon.getId());
-        hoaDonModel.setIdKhachHang(hoaDon.getKhachHang().getId());
-        hoaDonModel.setMaNhanVien(hoaDon.getNhanVien().getMa());
+//        hoaDonModel.setIdKhachHang(hoaDon.getKhachHang().getId());
+//        hoaDonModel.setMaNhanVien(hoaDon.getNhanVien().getMa());
+        NhanVienModel nhanVienModel = NhanVienMapper.toNhanVienModel(hoaDon.getNhanVien());
+        hoaDonModel.setMaNhanVien(nhanVienModel.getMa());
+        
+        if(hoaDon.getKhachHang() != null){
+            KhachHangModel khachHangModel = KhachHangMapper.toKhachHangModel(hoaDon.getKhachHang());
+            hoaDonModel.setIdKhachHang(khachHangModel.getId());
+        }
+        
         hoaDonModel.setNgayGio(hoaDon.getNgayGio());
         hoaDonModel.setTongGia(hoaDon.getTongGia());
         
@@ -41,17 +51,31 @@ public class HoaDonMapper {
     
     public static HoaDonFullModel toHoaDonFullModel(HoaDon hoaDon){
         HoaDonFullModel hoaDonFullModel = new HoaDonFullModel();
-        
+      
         hoaDonFullModel.setId(hoaDon.getId());
-        hoaDonFullModel.setMaNhanVien(hoaDon.getNhanVien().getMa());
-        hoaDonFullModel.setIdKhachHang(hoaDon.getKhachHang().getId());
         hoaDonFullModel.setNgayGio(hoaDon.getNgayGio());
         hoaDonFullModel.setDaHuy(hoaDon.isDaHuy());
-        hoaDonFullModel.setListChiTietHoaDon(ChiTietHoaDonMapper.toListChiTietHoaDonModel(hoaDon.getListChiTietHoaDon()));
         hoaDonFullModel.setTongGia(hoaDon.getTongGia());
         hoaDonFullModel.setUuDai(hoaDon.getUuDai());
+        hoaDonFullModel.setListChiTietHoaDon(ChiTietHoaDonMapper.toListChiTietHoaDonModel(hoaDon.getListChiTietHoaDon()));
+
+        NhanVienModel nhanVienModel = NhanVienMapper.toNhanVienModel(hoaDon.getNhanVien());
+        hoaDonFullModel.setMaNhanVien(nhanVienModel.getMa());
+        
+        if(hoaDon.getKhachHang() != null){
+            KhachHangModel khachHangModel = KhachHangMapper.toKhachHangModel(hoaDon.getKhachHang());
+            hoaDonFullModel.setIdKhachHang(khachHangModel.getId());
+        }
+        
         
         return hoaDonFullModel;
+    }
+    
+    public static List<HoaDonFullModel> toListHoaDonFullModel(List<HoaDon> listHoaDon){
+        List<HoaDonFullModel> listHoaDonFullModel = new ArrayList<>();
+        listHoaDon.forEach(hoaDon -> listHoaDonFullModel.add(toHoaDonFullModel(hoaDon)));
+        
+        return listHoaDonFullModel;
     }
     
     public static HoaDon toHoaDon(CreateHoaDonModel createHoaDonModel){

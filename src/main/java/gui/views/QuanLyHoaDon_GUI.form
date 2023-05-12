@@ -264,7 +264,10 @@
             <Component class="javax.swing.JComboBox" name="cmbTTMASearch">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
+                  <StringArray count="2">
+                    <StringItem index="0" value="H&#x1ee3;p l&#x1ec7;"/>
+                    <StringItem index="1" value="&#x110;&#xe3; hu&#x1ef7;"/>
+                  </StringArray>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[120, 24]"/>

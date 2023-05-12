@@ -27,11 +27,11 @@ public class ChiTietHoaDon implements Serializable {
     @EmbeddedId
     ChiTietHoaDonKey chiTietHoaDonKey;
     
-    @OneToOne
+    @ManyToOne
     @MapsId("idHoaDon")
     @JoinColumn(name = "HD_ID")
     private HoaDon hoaDon;
-    @OneToOne
+    @ManyToOne  
     @MapsId("idMonAn")
     @JoinColumn(name = "MA_ID")
     private MonAn monAn;
