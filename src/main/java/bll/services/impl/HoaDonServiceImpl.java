@@ -32,11 +32,16 @@ import gui.models.HoaDon.CreateHoaDonModel;
 import gui.models.HoaDon.HoaDonFullModel;
 import gui.models.HoaDon.HoaDonModel;
 import gui.models.HoaDon.SearchHoaDonModel;
+import java.util.Date;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -56,8 +61,9 @@ public class HoaDonServiceImpl implements IHoaDonService{
     }
     
     @Override
-    public List<HoaDonModel> getAll() {
+    public List<HoaDonModel> getAll(boolean daHuy) {
         List<HoaDon> listHoaDon = hoaDonRepository.getAllHoaDon();
+        listHoaDon.removeIf(hoaDon -> hoaDon.isDaHuy() != daHuy);
         List<HoaDonModel> listHoaDonModel = HoaDonMapper.toListHoaDonModel(listHoaDon);
     
         return listHoaDonModel;
@@ -81,7 +87,7 @@ public class HoaDonServiceImpl implements IHoaDonService{
 
     @Override
     public boolean huyHoaDon(HoaDonFullModel hoaDonSelected) {
-        if(hoaDonSelected.isDaHuy() ==  TinhTrangHoaDonConstraints.HOP_LE){
+        if(hoaDonSelected.isDaHuy() == TinhTrangHoaDonConstraints.HOP_LE){
             HoaDon hoaDon = hoaDonRepository.huyHoaDon(hoaDonSelected.getId());
             return true;
         } else {
@@ -208,4 +214,52 @@ public class HoaDonServiceImpl implements IHoaDonService{
         }
         return true;
     }
+
+    @Override
+    public long getDoanhThuTrongNgay(Date ngay) {
+        List<HoaDon> listHoaDon = hoaDonRepository.getListHoaDonTrongNgay(ngay);
+        long doanhThuTrongNgay = 0;
+        
+        for(HoaDon hoaDon : listHoaDon) {
+            if(hoaDon.isDaHuy() == TinhTrangHoaDonConstraints.HOP_LE)
+                doanhThuTrongNgay += hoaDon.getTongGia();
+        }
+        return doanhThuTrongNgay;
+    }
+
+    @Override
+    public long getDoanhThuTrong7NgayGanNhat(Date ngayBatDau, Date ngayKetThuc) {
+        List<HoaDon> listHoaDon = hoaDonRepository.getListHoaDonTrong7NgayGanNhat(ngayBatDau, ngayKetThuc);
+        long doanhThuTrong7NgayGanNhat = 0;
+        
+        for(HoaDon hoaDon : listHoaDon) {
+            if(hoaDon.isDaHuy() == TinhTrangHoaDonConstraints.HOP_LE)
+                doanhThuTrong7NgayGanNhat += hoaDon.getTongGia();
+        }
+        return doanhThuTrong7NgayGanNhat;
+    }
+
+//    @Override
+//    public Map<String, Long> getDoanhThuTheoThang7NgayGanNhat(Date ngayBatDau, Date ngayKetThuc) {
+//        Map<String, Long> result = new HashMap<>();
+//        LocalDate fromDate = LocalDate.now().minusDays(7);
+//        LocalDate toDate = LocalDate.now();
+//        ngayBatDau = java.sql.Date.valueOf(fromDate);
+//        ngayKetThuc = java.sql.Date.valueOf(toDate);
+//        ArrayList<HoaDon> listHoaDon = (ArrayList<HoaDon>) hoaDonRepository.getListHoaDonTrong7NgayGanNhat(ngayBatDau, ngayKetThuc);
+//       
+//        
+//        
+//        for (int i = 0; i < listHoaDon.size(); i++)
+//          {
+//            
+//            Long doanhThu = listHoaDon.get(i).getTongGia();
+//            result.put(key, doanhThu);
+//            }
+//        return result;
+//
+//    }
+//    
+//    
+    
 }

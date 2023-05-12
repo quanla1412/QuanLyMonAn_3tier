@@ -5,6 +5,7 @@
 package gui.views;
 
 import com.mycompany.quanlynhahang.Price;
+import gui.models.HoaDon.ChiTietHoaDonModel;
 import gui.models.HoaDon.HoaDonModel;
 import gui.models.MonAn.MonAnModel;
 import java.awt.Component;
@@ -40,6 +41,20 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         }
     }
     
+    public void loadTableChiTietHoaDonById(ArrayList<ChiTietHoaDonModel> listChiTietHoaDon, long totalPrice){
+        int count = 1;
+
+        String col[] = {"ID","Tên món ăn","Giá","Số Lượng","Thành Tiền"};
+        DefaultTableModel tableModel = new DefaultTableModel(col,0);
+        tblDonGoi.setModel(tableModel);
+        for(ChiTietHoaDonModel row : listChiTietHoaDon){
+            Object[] data = {count,row.getTenMonAn(),Price.formatPrice(row.getGia()),row.getSoLuong(),Price.formatPrice(row.getThanhTien())};
+            tableModel.addRow(data);
+            count++;
+        }
+        txtTongTien.setText(Price.formatPrice(totalPrice));
+    }
+    
     class MyRenderer extends DefaultTableCellRenderer {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
@@ -61,19 +76,7 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         }
     }
     
-    public void loadFromDateToDate(){  
-        LocalDate fromDate = LocalDate.now().minusDays(30);
-        LocalDate toDate = LocalDate.now();
-        
-        dtcNgayBatDau.setDate(Date.valueOf(fromDate));
-        dtcNgayCuoiCung.setDate(Date.valueOf(toDate));
-    }
     
-    public void loadTTHDSearch(){
-        cmbTTMASearch.addItem("Tất cả");
-        cmbTTMASearch.addItem("Hợp lệ");
-        cmbTTMASearch.addItem("Đã Huỷ");  
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -276,6 +279,7 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 20, 2, 0);
         pnlBoLocTimKiem.add(jLabel17, gridBagConstraints);
 
+        cmbTTMASearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hợp lệ", "Đã huỷ" }));
         cmbTTMASearch.setMinimumSize(new java.awt.Dimension(120, 24));
         cmbTTMASearch.setPreferredSize(new java.awt.Dimension(120, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();

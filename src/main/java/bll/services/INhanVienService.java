@@ -38,12 +38,16 @@ public interface INhanVienService {
     
     boolean exportAllNhanVienTheoMauImport(String filePath);
     
-    int importNhanVien(String filePath);   
+    int importNhanVien(String filePath);  
+    
     Map<String, Integer> countByGioiTinh(); 
     
     Map<String, Integer> countByTinhTrang();
     
     Map<String, Integer> countByTuoi();
+    
+    Map<String, Long> getDoanhThuTheoThangHienTai();
+    
     boolean dangNhap (TaiKhoanModel taiKhoanModel);
     
     boolean updateTaiKhoanNhanVien(UpdateTaiKhoanNhanVienModel updateMatKhauNhanVienModel);

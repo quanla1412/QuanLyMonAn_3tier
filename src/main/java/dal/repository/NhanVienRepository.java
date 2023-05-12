@@ -45,6 +45,7 @@ public class NhanVienRepository {
         
         Query queryResult = session.createQuery(query);
         ArrayList<NhanVien> result = (ArrayList<NhanVien>) queryResult.getResultList();
+        result.forEach(item -> Hibernate.initialize(item.getListHoaDon()));
         session.close();
         
         return result;

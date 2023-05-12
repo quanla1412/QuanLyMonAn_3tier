@@ -41,6 +41,7 @@ bll\mappers\KhachHangMapper.class
 gui\controllers\QuanLyLoaiMonAnController$1.class
 bll\services\IChucVuService.class
 gui\views\TrangChu_GUI$7.class
+bll\services\IChiTietHoaDonService.class
 dal\repository\KhachHangRepository.class
 gui\models\LoaiMonAn\LoaiMonAnModel.class
 gui\models\MonAn\TinhTrangMonAnModel.class
@@ -208,6 +209,7 @@ gui\views\QuanLyChucVu_GUI.class
 gui\views\TrangChu_GUI$1.class
 bll\mappers\BanMapper.class
 gui\models\LoaiKhachHang\UpdateLoaiKhachHangModel.class
+bll\services\impl\ChiTietHoaDonServiceImpl.class
 gui\views\QuanLyQuyen_GUI.class
 bll\services\impl\TinhTrangMonAnServiceImpl.class
 dal\repository\LoaiMonAnRepository.class

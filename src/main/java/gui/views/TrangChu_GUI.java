@@ -5,10 +5,12 @@
 package gui.views;
 
 import gui.controllers.BaoCaoThongKeController;
+import gui.controllers.QuanLyHoaDonController;
 import gui.controllers.QuanLyKhachHangController;
 import gui.controllers.QuanLyLoaiBanVaBanController;
 import gui.controllers.QuanLyNhanVienController;
 import gui.controllers.QuanLyPhucVuController;
+import gui.controllers.ThanhToanController;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;

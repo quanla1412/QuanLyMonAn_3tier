@@ -6,6 +6,7 @@ package bll.mappers;
 
 import dal.entity.ChiTietHoaDon;
 import gui.models.HoaDon.ChiTietHoaDonModel;
+import gui.models.MonAn.MonAnModel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +17,13 @@ import java.util.List;
 public class ChiTietHoaDonMapper {
     public static ChiTietHoaDonModel toChiTietHoaDonModel(ChiTietHoaDon chiTietHoaDon){
         ChiTietHoaDonModel chiTietHoaDonModel = new ChiTietHoaDonModel();
-        chiTietHoaDonModel.setTenMonAn(chiTietHoaDon.getMonAn().getTen());
+        
+        MonAnModel monAnModel = MonAnMapper.toMonAnModel(chiTietHoaDon.getMonAn());
+        chiTietHoaDonModel.setTenMonAn(monAnModel.getTen());
+//        chiTietHoaDonModel.setTenMonAn(chiTietHoaDon.getMonAn().getTen());
         chiTietHoaDonModel.setSoLuong(chiTietHoaDon.getSoLuong());
         chiTietHoaDonModel.setGia(chiTietHoaDon.getDonGia());
+        
         
         return chiTietHoaDonModel;
     }
