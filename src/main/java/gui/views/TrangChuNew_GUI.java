@@ -7,6 +7,8 @@ package gui.views;
 
 import gui.controllers.QuanLyKhachHangController;
 import gui.controllers.QuanLyLoaiBanVaBanController;
+import gui.controllers.QuanLyNhanVienController;
+import gui.controllers.QuanLyPhucVuController;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -23,14 +25,15 @@ import org.kordamp.ikonli.swing.FontIcon;
  */
 public class TrangChuNew_GUI extends javax.swing.JFrame {
     QuanLyKhachHangController quanLyLoaiBanVaBanController;
-    
+    private final String maNhanVien;
     boolean over;
     
-    public TrangChuNew_GUI() {
+    public TrangChuNew_GUI(String maNhanVien) {
         initComponents();
         prepareIcon();
+        this.maNhanVien = maNhanVien;
         btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
-        showForm(new QuanLyKhachHangController().getView());
+        showForm(new QuanLyPhucVuController().getView());
     }
 
     class jPanelGradient extends JPanel {
@@ -667,11 +670,11 @@ public class TrangChuNew_GUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TrangChuNew_GUI().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new TrangChuNew_GUI().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

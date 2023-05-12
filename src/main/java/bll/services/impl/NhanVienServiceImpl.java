@@ -4,6 +4,8 @@
  */
 package bll.services.impl;
 
+
+import com.mycompany.quanlynhahang.AES;
 import bll.mappers.NhanVienMapper;
 import bll.services.INhanVienSerivice;
 import com.mycompany.quanlynhahang.OpenFile;
@@ -15,7 +17,9 @@ import gui.models.NhanVien.NhanVienFullModel;
 import gui.models.NhanVien.NhanVienModel;
 import gui.models.NhanVien.SearchNhanVienModel;
 import gui.models.NhanVien.TinhTrangNhanVienModel;
+import gui.models.NhanVien.UpdateTaiKhoanNhanVienModel;
 import gui.models.NhanVien.UpdateNhanVienModel;
+import gui.models.TaiKhoanModel;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,14 +39,17 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
+
+
 /**
  *
  * @author dinhn
  */
 public class NhanVienServiceImpl implements INhanVienSerivice{
     private final NhanVienRepository nhanVienRepository;
- 
+    final String secretKey = "quanlynhahang!";
     
+            
     public NhanVienServiceImpl(){
         nhanVienRepository = new NhanVienRepository();
     }
@@ -63,11 +70,13 @@ public class NhanVienServiceImpl implements INhanVienSerivice{
         
         return nhanVienFullModel;
     }
-
+   
     @Override
     public boolean createNhanVien(CreateNhanVienModel createNhanVienModel) {
        NhanVien nhanVien = NhanVienMapper.toNhanVien(createNhanVienModel);
-       nhanVien.setPassWord(nhanVien.getMa());
+       String encryptedpassword = AES.encrypt(nhanVien.getMa(), secretKey);         
+       nhanVien.setPassWord(encryptedpassword);
+      
        NhanVien createNhanVien = nhanVienRepository.createNhanVien(nhanVien);
        
        return true;
@@ -461,6 +470,31 @@ public class NhanVienServiceImpl implements INhanVienSerivice{
             System.out.println(ex);
         }
         return totalSuccess;
+    }
+
+    @Override
+    public boolean updateTaiKhoanNhanVien(UpdateTaiKhoanNhanVienModel updateTaiKhoanNhanVienModel) {
+       NhanVien nhanVien = NhanVienMapper.toNhanVien(updateTaiKhoanNhanVienModel);
+       
+       NhanVien updateTaiKhoanNhanVien = nhanVienRepository.updateTaiKhoanNhanVien(nhanVien);
+       
+       return true;
+    }
+
+    @Override
+    public boolean dangNhap(TaiKhoanModel taiKhoanModel) {
+        NhanVien nhanVien = nhanVienRepository.getByMa(taiKhoanModel.getUsername());
+  
+       if (nhanVien == null)
+           return false;
+       
+        String password = taiKhoanModel.getPassword().trim();
+        String passwordCheck = nhanVien.getPassWord().trim();
+        
+        if(password.equals(passwordCheck))
+            return true;
+        return false;
+        
     }
     
     

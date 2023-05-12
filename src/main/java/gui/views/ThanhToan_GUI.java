@@ -335,90 +335,90 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
 
     private void btnTimKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKhachHangMouseClicked
         // TODO add your handling code here:
-        String sdt = txtSDTKhachHang.getText().trim();
-        if(!CheckHopLe.checkSoDienThoai(sdt)){            
-            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ","Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        khachHang = khachHang_BUS.findKhachHangFullBySDT(sdt);
-        if(khachHang == null){            
-            JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng","Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        lblTenKhachHang.setText("Tên khách hàng: " + khachHang.getTen());
-        lblSDTKhachHang.setText("Số điện thoại: " + khachHang.getSdt());
-        
-        double mucUuDai = khachHang.getLoaiKhachHang().getMucUuDai();
-        double tongThanhToan = Math.round(tongTien - tongTien * mucUuDai/100);
-        long tongThanhToanInt = (long) tongThanhToan;
-        
-        lblMucUuDai.setText(mucUuDai + " %");
-        lblTongThanhToan.setText(Price.formatPrice(tongThanhToanInt));
+//        String sdt = txtSDTKhachHang.getText().trim();
+//        if(!CheckHopLe.checkSoDienThoai(sdt)){            
+//            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ","Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//        
+//        khachHang = khachHang_BUS.findKhachHangFullBySDT(sdt);
+//        if(khachHang == null){            
+//            JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng","Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//        
+//        lblTenKhachHang.setText("Tên khách hàng: " + khachHang.getTen());
+//        lblSDTKhachHang.setText("Số điện thoại: " + khachHang.getSdt());
+//        
+//        double mucUuDai = khachHang.getLoaiKhachHang().getMucUuDai();
+//        double tongThanhToan = Math.round(tongTien - tongTien * mucUuDai/100);
+//        long tongThanhToanInt = (long) tongThanhToan;
+//        
+//        lblMucUuDai.setText(mucUuDai + " %");
+//        lblTongThanhToan.setText(Price.formatPrice(tongThanhToanInt));
     }//GEN-LAST:event_btnTimKhachHangMouseClicked
 
     private void btnInBillTamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInBillTamMouseClicked
-        JFileChooser jFileChooser= new JFileChooser("D:");
-        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        boolean result = false; 
-       
-        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            result = donGoi_BUS.inBillTam(idBan, maNhanVien, khachHang.getId(), jFileChooser.getSelectedFile().getAbsolutePath());
-        }
-        
-        if (!result) {
-            JOptionPane.showMessageDialog(this, "In bill tạm thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        JFileChooser jFileChooser= new JFileChooser("D:");
+//        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//        boolean result = false; 
+//       
+//        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+//            result = donGoi_BUS.inBillTam(idBan, maNhanVien, khachHang.getId(), jFileChooser.getSelectedFile().getAbsolutePath());
+//        }
+//        
+//        if (!result) {
+//            JOptionPane.showMessageDialog(this, "In bill tạm thất bại","Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_btnInBillTamMouseClicked
 
     private void btnThanhToanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToanMouseClicked
         // TODO add your handling code here:
-        CreateHoaDon_DTO createHoaDon_DTO = new CreateHoaDon_DTO();
-        
-        createHoaDon_DTO.setMaNhanVien(maNhanVien);
-        if(khachHang != null){
-            createHoaDon_DTO.setIdKhachHang(khachHang.getId());
-            createHoaDon_DTO.setUuDai(khachHang.getLoaiKhachHang().getMucUuDai());
-        }
-        
-        createHoaDon_DTO.setNgayGio(Timestamp.valueOf(LocalDateTime.now()));
-        createHoaDon_DTO.setTongGia(tongTien);
-        
-        ArrayList<CreateChiTietHoaDon_DTO> listChiTietHoaDon = new ArrayList<>();
-        for(DonGoi_DTO donGoi : listDonGoi){
-            int idMonAn = donGoi.getMonAn().getId();
-            int soLuong = donGoi.getSoLuong();
-            long gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? 
-                    donGoi.getMonAn().getGiaKhuyenMai() :
-                    donGoi.getMonAn().getGia();
-            
-            CreateChiTietHoaDon_DTO cthd = new CreateChiTietHoaDon_DTO(idMonAn, soLuong, gia);
-            listChiTietHoaDon.add(cthd);
-        }
-        createHoaDon_DTO.setListMonAn(listChiTietHoaDon);
-        
-        int idHoaDon = hoaDon_BUS.createHoaDon(createHoaDon_DTO);
-        if(idHoaDon > 0){
-            donGoi_BUS.deleteDonGoi(idBan);
-            
-            boolean result = khachHang_BUS.capNhatSauThanhToan(idHoaDon);
-            if(!result)
-                JOptionPane.showMessageDialog(this, "Cập nhật điểm khách hàng thất bại","Error", JOptionPane.ERROR_MESSAGE);                
-            
-            JFileChooser jFileChooser= new JFileChooser("D:");
-            jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            boolean resultInBill = false; 
-
-            if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-                resultInBill = hoaDon_BUS.inBill(idHoaDon, jFileChooser.getSelectedFile().getAbsolutePath());
-            }  
-            ban_BUS.changeTinhTrangBan(idBan, TinhTrangBanConstraints.DANG_CHUAN_BI);
-            this.dispose();
-        }            
-        else{
-            JOptionPane.showMessageDialog(this, "Thanh toán thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        }
+//        CreateHoaDon_DTO createHoaDon_DTO = new CreateHoaDon_DTO();
+//        
+//        createHoaDon_DTO.setMaNhanVien(maNhanVien);
+//        if(khachHang != null){
+//            createHoaDon_DTO.setIdKhachHang(khachHang.getId());
+//            createHoaDon_DTO.setUuDai(khachHang.getLoaiKhachHang().getMucUuDai());
+//        }
+//        
+//        createHoaDon_DTO.setNgayGio(Timestamp.valueOf(LocalDateTime.now()));
+//        createHoaDon_DTO.setTongGia(tongTien);
+//        
+//        ArrayList<CreateChiTietHoaDon_DTO> listChiTietHoaDon = new ArrayList<>();
+//        for(DonGoi_DTO donGoi : listDonGoi){
+//            int idMonAn = donGoi.getMonAn().getId();
+//            int soLuong = donGoi.getSoLuong();
+//            long gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? 
+//                    donGoi.getMonAn().getGiaKhuyenMai() :
+//                    donGoi.getMonAn().getGia();
+//            
+//            CreateChiTietHoaDon_DTO cthd = new CreateChiTietHoaDon_DTO(idMonAn, soLuong, gia);
+//            listChiTietHoaDon.add(cthd);
+//        }
+//        createHoaDon_DTO.setListMonAn(listChiTietHoaDon);
+//        
+//        int idHoaDon = hoaDon_BUS.createHoaDon(createHoaDon_DTO);
+//        if(idHoaDon > 0){
+//            donGoi_BUS.deleteDonGoi(idBan);
+//            
+//            boolean result = khachHang_BUS.capNhatSauThanhToan(idHoaDon);
+//            if(!result)
+//                JOptionPane.showMessageDialog(this, "Cập nhật điểm khách hàng thất bại","Error", JOptionPane.ERROR_MESSAGE);                
+//            
+//            JFileChooser jFileChooser= new JFileChooser("D:");
+//            jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//            boolean resultInBill = false; 
+//
+//            if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+//                resultInBill = hoaDon_BUS.inBill(idHoaDon, jFileChooser.getSelectedFile().getAbsolutePath());
+//            }  
+//            ban_BUS.changeTinhTrangBan(idBan, TinhTrangBanConstraints.DANG_CHUAN_BI);
+//            this.dispose();
+//        }            
+//        else{
+//            JOptionPane.showMessageDialog(this, "Thanh toán thất bại","Error", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_btnThanhToanMouseClicked
 
     private void btnTimKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKhachHangActionPerformed
