@@ -7,16 +7,14 @@ package gui.views;
 import com.mycompany.quanlynhahang.Price;
 import gui.models.HoaDon.ChiTietHoaDonModel;
 import gui.models.HoaDon.HoaDonModel;
-import gui.models.MonAn.MonAnModel;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -76,7 +74,11 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         }
     }
     
-    
+    public void resetTableDonGoi(){
+        DefaultTableModel model = (DefaultTableModel) tblDonGoi.getModel();
+        while(model.getRowCount() > 0)
+            model.removeRow(0);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

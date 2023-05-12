@@ -210,7 +210,7 @@ public class QuanLyHoaDonController {
             view.txtIdKhachHang.setText("");
             view.dtcNgayGio.setDate(new Date());
             view.txtTinhTrangHoaDon.setText("");
-            view.tblDonGoi.setModel(new DefaultTableModel());
+            view.resetTableDonGoi();
             view.txtTongTien.setText("");
             view.txtUuDai.setText("");
             view.txtThanhTien.setText("");

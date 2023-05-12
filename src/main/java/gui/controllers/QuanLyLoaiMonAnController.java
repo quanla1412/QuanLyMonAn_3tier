@@ -9,6 +9,7 @@ import gui.views.QuanLyLoaiMonAn_GUI;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -37,8 +38,6 @@ public class QuanLyLoaiMonAnController {
         
         loadData();
         view.loadTableLoaiMonAn(listLoaiMonAnModel);
-        view.btnThemLoaiMonAn.addActionListener(e -> createLoaiMonAn());
-        view.btnXoa.addActionListener(e -> deleteLoaiMonAn());
         view.tblLoaiMonAn.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -60,7 +59,7 @@ public class QuanLyLoaiMonAnController {
         listLoaiMonAnModel = (ArrayList<LoaiMonAnModel>) loaiMonAnService.getAll();
     }
     
-    private void createLoaiMonAn(){
+    public void createLoaiMonAn(){
         String tenLoaiMonAn = view.txtTenLoaiMonAn.getText().trim();
         if(tenLoaiMonAn.isBlank()){
             JOptionPane.showMessageDialog(view, "Tên loại món ăn không được để trống","Error", JOptionPane.ERROR_MESSAGE);
@@ -78,7 +77,7 @@ public class QuanLyLoaiMonAnController {
             JOptionPane.showMessageDialog(view, "Thêm loại món ăn mới thất bại","Error", JOptionPane.ERROR_MESSAGE);        
     }
     
-    private void deleteLoaiMonAn(){
+    public void deleteLoaiMonAn(){
         if(loaiMonAnModelSelected == null)
             JOptionPane.showMessageDialog(view, "Bạn chưa chọn loại món ăn muốn xóa","Error", JOptionPane.ERROR_MESSAGE);
         
@@ -96,5 +95,13 @@ public class QuanLyLoaiMonAnController {
         }            
         else
             JOptionPane.showMessageDialog(view, "Xóa thất bại","Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public JButton getBtnThem(){
+        return view.btnThemLoaiMonAn;
+    }
+    
+    public JButton getBtnXoa(){
+        return view.btnXoa;
     }
 }
