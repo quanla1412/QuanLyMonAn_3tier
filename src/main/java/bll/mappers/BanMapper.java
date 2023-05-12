@@ -47,7 +47,8 @@ public class BanMapper {
         return ban;        
     }
     
-    public static Ban toBan(UpdateBanModel updateBanModel){
+
+        public static Ban toBan(UpdateBanModel updateBanModel){
         Ban ban = new Ban();
         
         ban.setId(updateBanModel.getIdBan());
@@ -62,7 +63,6 @@ public class BanMapper {
         
         return ban;        
     }
-    
     public static BanFullModel toBanFullModel(Ban ban){
         BanFullModel banFullModel = new BanFullModel();
         
@@ -75,5 +75,12 @@ public class BanMapper {
         banFullModel.setTinhTrangBan(tinhTrangBanModel);
         
         return banFullModel;
+    }
+
+    public static List<BanFullModel> toListBanFullModel(List<Ban> listBan) {
+        List<BanFullModel> listBanFullModel = new ArrayList<>();
+        listBan.forEach(ban -> listBanFullModel.add(toBanFullModel(ban)) );
+        
+        return listBanFullModel;
     }
 }

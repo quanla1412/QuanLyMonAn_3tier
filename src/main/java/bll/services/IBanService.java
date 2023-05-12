@@ -5,7 +5,9 @@ import gui.models.Ban.BanFullModel;
 import gui.models.Ban.CreateBanModel;
 import gui.models.Ban.UpdateBanModel;
 import gui.models.BanModel;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -18,11 +20,21 @@ public interface IBanService {
     
     BanFullModel getFullById(int id);
     
+    List<BanFullModel> getAllFull();
+    
+    List<BanModel> getByTinhTrang(int idTinhTrangBan);
+    
+    List<BanModel> getByLoaiBan(int idLoaiBan);
+    
+    Map<String, Integer> countByLoaiBan();
+    
+    Map<String, Integer> countByTinhTrang();    
+    
     boolean createBan(CreateBanModel createBanModel);
 
     boolean updateBan(UpdateBanModel updateBanModel);
     
-    Ban changeTinhTrangBan(int idBan, int idTinhTrangBan);
+    boolean changeTinhTrangBan(int idBan, int idTinhTrangBan);
     
     boolean delete(int id);
 }

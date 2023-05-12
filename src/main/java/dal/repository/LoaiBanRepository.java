@@ -27,6 +27,7 @@ public class LoaiBanRepository {
         
         Query queryResult = session.createQuery(query);
         ArrayList<LoaiBan> result = (ArrayList<LoaiBan>) queryResult.getResultList();
+        result.forEach(item -> Hibernate.initialize(item.getListBan()));
         session.close();
         
         return result;
@@ -57,6 +58,7 @@ public class LoaiBanRepository {
 //        queryResult.setParameter("name", name, StringNVarcharType.INSTANCE);
         LoaiBan result;
         try {
+            //Dòng dưới này hình như dư nè Quân Anh Lê
             ArrayList<LoaiBan> resultList = (ArrayList<LoaiBan>) queryResult.getResultList();            
             result = (LoaiBan) queryResult.getSingleResult();            
         } catch (Exception e) {

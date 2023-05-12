@@ -1,14 +1,15 @@
 package bll.services;
 
 import dal.entity.TinhTrangMonAn;
-import java.util.ArrayList;
+import gui.models.MonAn.TinhTrangMonAnModel;
+import java.util.List;
 
 /**
  *
  * @author LeAnhQuan
  */
 public interface ITinhTrangMonAnService {
-    ArrayList<TinhTrangMonAn> getAll();
+    List<TinhTrangMonAnModel> getAll();
     
-    TinhTrangMonAn getById(int id);
+    TinhTrangMonAnModel getById(int id);
 }

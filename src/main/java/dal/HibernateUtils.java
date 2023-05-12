@@ -1,11 +1,21 @@
 package dal;
 
 import dal.entity.Ban;
+import dal.entity.ChiTietHoaDon;
+import dal.entity.ChucNang;
+import dal.entity.HoaDon;
+import dal.entity.ChucVu;
+import dal.entity.DonGoi;
+import dal.entity.KhachHang;
 import dal.entity.LoaiBan;
+import dal.entity.LoaiKhachHang;
 import dal.entity.LoaiMonAn;
 import dal.entity.MonAn;
+import dal.entity.NhanVien;
+import dal.entity.QuyenTaiKhoan;
 import dal.entity.TinhTrangBan;
 import dal.entity.TinhTrangMonAn;
+import dal.entity.TinhTrangNhanVien;
 import java.util.Properties;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -41,6 +51,17 @@ public class HibernateUtils {
         conf.addAnnotatedClass(LoaiMonAn.class);        
         conf.addAnnotatedClass(TinhTrangMonAn.class);
         conf.addAnnotatedClass(MonAn.class);
+        conf.addAnnotatedClass(HoaDon.class);
+        conf.addAnnotatedClass(ChiTietHoaDon.class);
+        conf.addAnnotatedClass(NhanVien.class);
+        conf.addAnnotatedClass(TinhTrangNhanVien.class);
+        conf.addAnnotatedClass(ChucVu.class);
+        conf.addAnnotatedClass(LoaiKhachHang.class);
+        conf.addAnnotatedClass(KhachHang.class);
+        conf.addAnnotatedClass(DonGoi.class);
+        conf.addAnnotatedClass(QuyenTaiKhoan.class);
+        conf.addAnnotatedClass(ChucNang.class);
+
         
         ServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .applySettings(conf.getProperties()).build();

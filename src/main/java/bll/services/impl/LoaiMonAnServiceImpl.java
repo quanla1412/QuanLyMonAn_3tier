@@ -6,6 +6,7 @@ import dal.entity.LoaiMonAn;
 import dal.repository.LoaiMonAnRepository;
 import gui.models.LoaiMonAn.CreateLoaiMonAnModel;
 import gui.models.LoaiMonAn.LoaiMonAnModel;
+import gui.models.MonAn.LoaiMonAnFullModel;
 import java.util.List;
 
 /**
@@ -28,6 +29,14 @@ public class LoaiMonAnServiceImpl implements ILoaiMonAnService{
     }
 
     @Override
+    public List<LoaiMonAnFullModel> getAllFull() {
+        List<LoaiMonAn> listLoaiMonAn = loaiMonAnRepository.getAll();
+        List<LoaiMonAnFullModel> listLoaiMonAnFullModel = LoaiMonAnMapper.toListLoaiMonAnFullModel(listLoaiMonAn);
+        
+        return listLoaiMonAnFullModel;
+    }
+
+    @Override
     public LoaiMonAnModel getById(int id) {
         LoaiMonAn loaiMonAn = loaiMonAnRepository.getById(id);
         LoaiMonAnModel loaiMonAnModel = LoaiMonAnMapper.toLoaiMonAnModel(loaiMonAn);
@@ -36,8 +45,11 @@ public class LoaiMonAnServiceImpl implements ILoaiMonAnService{
     }
 
     @Override
-    public boolean create(CreateLoaiMonAnModel createLoaiMonAnModel) {
+    public boolean create(CreateLoaiMonAnModel createLoaiMonAnModel){ 
+        if(!validateCreate(createLoaiMonAnModel))
+            return false;
         LoaiMonAn loaiMonAn = LoaiMonAnMapper.toLoaiMonAn(createLoaiMonAnModel);
+        
         LoaiMonAn createdLoaiMonAn = loaiMonAnRepository.create(loaiMonAn);
         
         if(createdLoaiMonAn.getId() > 0)
@@ -54,9 +66,22 @@ public class LoaiMonAnServiceImpl implements ILoaiMonAnService{
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(int id) {     
+        LoaiMonAn loaiMonAn = loaiMonAnRepository.getById(id);
+        if(loaiMonAn == null)
+            return false;
+        
+        if (!loaiMonAn.getListMonAn().isEmpty()) {
+            return false;
+        }
+        
         loaiMonAnRepository.delete(id);
+        return true;
     }
     
-    
+    private boolean validateCreate(CreateLoaiMonAnModel createLoaiMonAnModel){
+        LoaiMonAn loaiMonAn = loaiMonAnRepository.getByName(createLoaiMonAnModel.getTen());
+        
+        return loaiMonAn == null;
+    }
 }
