@@ -4,6 +4,7 @@
  */
 package bll.services.impl;
 import bll.mappers.LoaiKhachHangMapper;
+import bll.services.IKhachHangService;
 import bll.services.ILoaiKhachHangService;
 import dal.entity.LoaiKhachHang;
 import dal.repository.LoaiKhachHangRepository;
@@ -17,9 +18,11 @@ import java.util.List;
  */
 public class LoaiKhachHangServiceImpl implements ILoaiKhachHangService{
     private final LoaiKhachHangRepository loaiKhachHangRepository;
+    private final IKhachHangService khachHangService;
 
     public LoaiKhachHangServiceImpl() {
         loaiKhachHangRepository = new LoaiKhachHangRepository();
+        khachHangService = new KhachHangServiceImpl();
     }
     
     @Override
@@ -45,9 +48,12 @@ public class LoaiKhachHangServiceImpl implements ILoaiKhachHangService{
         
         LoaiKhachHang createdLoaiKhachHang = loaiKhachHangRepository.createLoaiKhachHang(loaiKhachHang);
         
-        if(createdLoaiKhachHang.getId() > 0)
-            return true;
-        return false;
+        if(createdLoaiKhachHang.getId() <= 0)
+            return false;
+        
+        khachHangService.updateLoaiKhachHang();
+        
+        return true;
     }
 
     @Override
@@ -59,6 +65,7 @@ public class LoaiKhachHangServiceImpl implements ILoaiKhachHangService{
         
         LoaiKhachHang updatedLoaiKhachHang = loaiKhachHangRepository.updateLoaiKhachHang(loaiKhachHang);
         
+        khachHangService.updateLoaiKhachHang();
         return true;
     }
     public boolean kiemTraCreate(LoaiKhachHang loaiKhachHang){

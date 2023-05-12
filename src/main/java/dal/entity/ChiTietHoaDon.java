@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,44 +25,44 @@ import javax.persistence.Table;
 public class ChiTietHoaDon implements Serializable {
     
     @EmbeddedId
-    ChiTietHoaDonKey idChiTietHoaDon;
+    ChiTietHoaDonKey chiTietHoaDonKey;
     
     @OneToOne
+    @MapsId("idHoaDon")
     @JoinColumn(name = "HD_ID")
-    private HoaDon maHoaDon;
+    private HoaDon hoaDon;
     @OneToOne
+    @MapsId("idMonAn")
     @JoinColumn(name = "MA_ID")
-    private MonAn maMonAn;
-    @JoinColumn(name = "CTHD_SoLuong")
+    private MonAn monAn;
+    @Column(name = "CTHD_SoLuong")
     private int soLuong;
-    @JoinColumn(name = "CTHD_DonGia")
+    @Column(name = "CTHD_DonGia")
     private int donGia;
 
-    public ChiTietHoaDonKey getIdChiTietHoaDon() {
-        return idChiTietHoaDon;
+    public ChiTietHoaDonKey getChiTietHoaDonKey() {
+        return chiTietHoaDonKey;
     }
 
-    public void setIdChiTietHoaDon(ChiTietHoaDonKey idChiTietHoaDon) {
-        this.idChiTietHoaDon = idChiTietHoaDon;
+    public void setChiTietHoaDonKey(ChiTietHoaDonKey chiTietHoaDonKey) {
+        this.chiTietHoaDonKey = chiTietHoaDonKey;
     }
 
-    public HoaDon getMaHoaDon() {
-        return maHoaDon;
+    public HoaDon getHoaDon() {
+        return hoaDon;
     }
 
-    public void setMaHoaDon(HoaDon maHoaDon) {
-        this.maHoaDon = maHoaDon;
+    public void setHoaDon(HoaDon hoaDon) {
+        this.hoaDon = hoaDon;
     }
 
-    public MonAn getMaMonAn() {
-        return maMonAn;
+    public MonAn getMonAn() {
+        return monAn;
     }
 
-    public void setMaMonAn(MonAn maMonAn) {
-        this.maMonAn = maMonAn;
+    public void setMonAn(MonAn monAn) {
+        this.monAn = monAn;
     }
-
-
 
     public int getSoLuong() {
         return soLuong;
@@ -78,6 +79,10 @@ public class ChiTietHoaDon implements Serializable {
     public void setDonGia(int donGia) {
         this.donGia = donGia;
     }
+    
+    public void initChiTietHoaDonKey(){
+        chiTietHoaDonKey = new ChiTietHoaDonKey(this.hoaDon.getId(), this.monAn.getId());
+    }
 }
 
 @Embeddable
@@ -87,4 +92,12 @@ class ChiTietHoaDonKey implements Serializable{
     
     @Column(name = "MA_ID")
     private int idMonAn;
+
+    public ChiTietHoaDonKey() {
+    }
+
+    public ChiTietHoaDonKey(int idHoaDon, int idMonAn) {
+        this.idHoaDon = idHoaDon;
+        this.idMonAn = idMonAn;
+    }
 }

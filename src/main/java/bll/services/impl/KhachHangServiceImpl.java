@@ -30,6 +30,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Cell;
@@ -410,5 +411,34 @@ public class KhachHangServiceImpl implements IKhachHangService {
             System.out.println(ex);
         }
         return totalSuccess;
+    }
+
+    @Override
+    public void updateLoaiKhachHang() {
+        List<KhachHang> listKhachHang = khachHangRepository.getAll();
+        listKhachHang.forEach(khachHang -> updateLoaiKhachHang(khachHang.getId()));
+    }
+
+    @Override
+    public void updateLoaiKhachHang(int idKhachHang) {
+        KhachHang khachHang = khachHangRepository.getById(idKhachHang);
+        List<LoaiKhachHang> listLoaiKhachHang = loaiKhachHangRepository.getAll();
+        
+        listLoaiKhachHang.removeIf(loaiKhachHang -> khachHang.getDiemTichLuy() < loaiKhachHang.getDiemToiThieu());
+        listLoaiKhachHang.sort((a, b) -> Integer.compare(a.getDiemToiThieu(), b.getDiemToiThieu()));
+        Collections.reverse(listLoaiKhachHang);
+        
+        LoaiKhachHang loaiKhachHangFinal = listLoaiKhachHang.get(0);
+        khachHang.setLoaiKhachHang(loaiKhachHangFinal);
+        khachHangRepository.updateLoaiKhachHang(khachHang);
+    }
+
+    @Override
+    public void updateDiemTichLuy(int idKhachHang, int diemTichLuyCongThem) {
+        KhachHang khachHang = khachHangRepository.getById(idKhachHang);
+        khachHang.setDiemTichLuy(khachHang.getDiemTichLuy() + diemTichLuyCongThem);
+        
+        khachHangRepository.updateDiemTichLuy(khachHang);
+        updateLoaiKhachHang(khachHang.getId());
     }
 }

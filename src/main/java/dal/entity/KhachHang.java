@@ -45,15 +45,15 @@ public class KhachHang implements Serializable {
     private Date ngaySinh;
     @Column(name="KH_GioiTinhNam")
     private boolean gioiTinhNam;
-    @OneToMany(mappedBy = "idKhachHang")
-    private List<KhachHang> listKhachHang;
+    @OneToMany(mappedBy = "khachHang")
+    private List<HoaDon> listHoaDon;
 
-    public List<KhachHang> getListKhachHang() {
-        return listKhachHang;
+    public List<HoaDon> getListHoaDon() {
+        return listHoaDon;
     }
 
-    public void setListKhachHang(List<KhachHang> listKhachHang) {
-        this.listKhachHang = listKhachHang;
+    public void setListHoaDon(List<HoaDon> listHoaDon) {
+        this.listHoaDon = listHoaDon;
     }
 
     public int getId() {

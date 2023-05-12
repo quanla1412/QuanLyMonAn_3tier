@@ -21,6 +21,12 @@ import org.hibernate.query.Query;
  * @author tanph
  */
 public class ChiTietHoaDonRepository {
+    private MonAnRepository monAnRepository;
+
+    public ChiTietHoaDonRepository() {
+        monAnRepository = new MonAnRepository();
+    }
+    
     public List<ChiTietHoaDon> getAllChiTietHoaDonById(int idHoaDon){
         Session session = HibernateUtils.getFACTORY().openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();

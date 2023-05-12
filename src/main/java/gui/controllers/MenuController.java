@@ -57,6 +57,9 @@ public class MenuController {
     
     private void loadData(){
         listLoaiMonAnFullModel = (ArrayList<LoaiMonAnFullModel>) loaiMonAnService.getAllFull();
+        listLoaiMonAnFullModel.forEach(loaiMonAnFullModel -> {
+            loaiMonAnFullModel.getListMonAn().removeIf(monAn -> monAn.getTinhTrangMonAn().equals("Đã xóa"));
+        });
     }
     
     private void showDatMon(int idMonAn){

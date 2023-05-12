@@ -5,8 +5,12 @@
 package dal.repository;
 
 import dal.HibernateUtils;
+import dal.entity.DonGoi;
 import dal.entity.HoaDon;
+import dal.entity.KhachHang;
 import dal.entity.LoaiBan;
+import dal.entity.MonAn;
+import dal.entity.NhanVien;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +31,19 @@ import gui.models.HoaDon.SearchHoaDonModel;
  * @author tanph
  */
 public class HoaDonRepository {
+    private NhanVienRepository nhanVienRepository;
+    private KhachHangRepository khachHangRepository;
+    private MonAnRepository monAnRepository;
+    private DonGoiRepository donGoiRepository;
+
+    public HoaDonRepository() {
+        nhanVienRepository = new NhanVienRepository();
+        khachHangRepository = new KhachHangRepository();
+        monAnRepository = new MonAnRepository();
+        donGoiRepository = new DonGoiRepository();
+    }
+    
+    
 
     public List<HoaDon> getAllHoaDon(){
         Session session = HibernateUtils.getFACTORY().openSession();
@@ -115,6 +132,35 @@ public class HoaDonRepository {
         
         session.getTransaction().commit();
         session.close();
+        return hoaDon;
+    }
+    
+    public HoaDon create(HoaDon hoaDon){
+        Session session = HibernateUtils.getFACTORY().openSession();
+        session.getTransaction().begin();
+        
+        NhanVien nhanVien = nhanVienRepository.getByMa(hoaDon.getNhanVien().getMa());
+        hoaDon.setNhanVien(nhanVien);
+        
+        if(hoaDon.getKhachHang() != null){
+            KhachHang khachHang = khachHangRepository.getById(hoaDon.getKhachHang().getId());
+            hoaDon.setKhachHang(khachHang);
+        }
+        
+        int idHoaDon = (int) session.save(hoaDon);
+        hoaDon.setId(idHoaDon);
+        hoaDon.getListChiTietHoaDon().forEach(chiTietHoaDon -> {
+            chiTietHoaDon.setHoaDon(hoaDon);
+            chiTietHoaDon.initChiTietHoaDonKey();
+            
+            MonAn monAn = monAnRepository.getById(chiTietHoaDon.getMonAn().getId());
+            chiTietHoaDon.setMonAn(monAn);
+            
+            session.save(chiTietHoaDon);
+        });
+        
+        session.getTransaction().commit();
+        
         return hoaDon;
     }
 }

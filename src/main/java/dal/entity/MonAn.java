@@ -40,7 +40,7 @@ public class MonAn implements Serializable{
     @ManyToOne
     @JoinColumn(name = "TTMA_ID")
     private TinhTrangMonAn tinhTrangMonAn;
-    @OneToMany(mappedBy = "maHoaDon")
+    @OneToMany(mappedBy = "monAn")
     List<ChiTietHoaDon> listChiTietHoaDon;
     @OneToMany(mappedBy = "monAn")
     private List<DonGoi> listDonGoi;
@@ -118,4 +118,6 @@ public class MonAn implements Serializable{
     public void setListDonGoi(List<DonGoi> listDonGoi) {
         this.listDonGoi = listDonGoi;
     }
+    
+    
 }

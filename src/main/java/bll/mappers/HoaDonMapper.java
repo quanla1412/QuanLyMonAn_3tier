@@ -4,8 +4,13 @@
  */
 package bll.mappers;
 
+import dal.entity.ChiTietHoaDon;
 import dal.entity.HoaDon;
+import dal.entity.KhachHang;
+import dal.entity.MonAn;
+import dal.entity.NhanVien;
 import gui.models.HoaDon.ChiTietHoaDonModel;
+import gui.models.HoaDon.CreateHoaDonModel;
 import gui.models.HoaDon.HoaDonFullModel;
 import gui.models.HoaDon.HoaDonModel;
 import java.util.ArrayList;
@@ -19,8 +24,9 @@ public class HoaDonMapper {
     public static HoaDonModel toHoaDonModel(HoaDon hoaDon){
         HoaDonModel hoaDonModel = new HoaDonModel();
         hoaDonModel.setId(hoaDon.getId());
-        hoaDonModel.setIdKhachHang(hoaDon.getIdKhachHang().getId());
-        hoaDonModel.setMaNhanVien(hoaDon.getMaNhanVien().getMa());
+        if(hoaDon.getKhachHang() != null )
+            hoaDonModel.setIdKhachHang(hoaDon.getKhachHang().getId());
+        hoaDonModel.setMaNhanVien(hoaDon.getNhanVien().getMa());
         hoaDonModel.setNgayGio(hoaDon.getNgayGio());
         hoaDonModel.setTongGia(hoaDon.getTongGia());
         
@@ -38,8 +44,8 @@ public class HoaDonMapper {
         HoaDonFullModel hoaDonFullModel = new HoaDonFullModel();
         
         hoaDonFullModel.setId(hoaDon.getId());
-        hoaDonFullModel.setMaNhanVien(hoaDon.getMaNhanVien().getMa());
-        hoaDonFullModel.setIdKhachHang(hoaDon.getIdKhachHang().getId());
+        hoaDonFullModel.setMaNhanVien(hoaDon.getNhanVien().getMa());
+        hoaDonFullModel.setIdKhachHang(hoaDon.getKhachHang().getId());
         hoaDonFullModel.setNgayGio(hoaDon.getNgayGio());
         hoaDonFullModel.setDaHuy(hoaDon.isDaHuy());
         hoaDonFullModel.setListChiTietHoaDon(ChiTietHoaDonMapper.toListChiTietHoaDonModel(hoaDon.getListChiTietHoaDon()));
@@ -48,4 +54,41 @@ public class HoaDonMapper {
         
         return hoaDonFullModel;
     }
+    
+    public static HoaDon toHoaDon(CreateHoaDonModel createHoaDonModel){
+        HoaDon hoaDon = new HoaDon();
+        
+        NhanVien nhanVien = new NhanVien();
+        nhanVien.setMa(createHoaDonModel.getMaNhanVien());
+        hoaDon.setNhanVien(nhanVien);
+        
+        if(createHoaDonModel.getIdKhachHang() > 0){
+            KhachHang khachHang = new KhachHang();
+            khachHang.setId(createHoaDonModel.getIdKhachHang());
+            
+            hoaDon.setKhachHang(khachHang);
+        }
+        
+        hoaDon.setNgayGio(createHoaDonModel.getNgayGio());
+        hoaDon.setTongGia(createHoaDonModel.getTongGia());
+        hoaDon.setUuDai(createHoaDonModel.getUuDai());
+        hoaDon.setDaHuy(false);
+        
+        List<ChiTietHoaDon> listChiTietHoaDon = new ArrayList<>();
+        createHoaDonModel.getListChiTietHoaDonModel().forEach(chiTietHoaDonModel -> {
+            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
+            
+            MonAn monAn = new MonAn();
+            monAn.setId(chiTietHoaDonModel.getIdMonAn());
+            chiTietHoaDon.setMonAn(monAn);
+            
+            chiTietHoaDon.setSoLuong(chiTietHoaDonModel.getSoLuong());
+            chiTietHoaDon.setDonGia(chiTietHoaDonModel.getDonGia());
+            
+            listChiTietHoaDon.add(chiTietHoaDon);
+        });
+        hoaDon.setListChiTietHoaDon(listChiTietHoaDon);
+        
+        return hoaDon;
+    } 
 }

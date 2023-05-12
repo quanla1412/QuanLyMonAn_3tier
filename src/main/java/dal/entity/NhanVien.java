@@ -51,15 +51,17 @@ public class NhanVien implements Serializable{
     private String passWord;
     @Column(name = "NV_CCCD")
     private String cccd;
-    @OneToMany(mappedBy = "maNhanVien")
-    private List<NhanVien> listNhanVien;
+    @OneToMany(mappedBy = "nhanVien")
+    private List<HoaDon> listHoaDon;
+    @OneToMany(mappedBy = "nhanVien")
+    private List<QuyenTaiKhoan> listQuyenTaiKhoan;
 
-    public List<NhanVien> getListNhanVien() {
-        return listNhanVien;
+    public List<HoaDon> getListHoaDon() {
+        return listHoaDon;
     }
 
-    public void setListNhanVien(List<NhanVien> listNhanVien) {
-        this.listNhanVien = listNhanVien;
+    public void setListHoaDon(List<HoaDon> listHoaDon) {
+        this.listHoaDon = listHoaDon;
     }
 
     public String getMa() {
@@ -151,5 +153,13 @@ public class NhanVien implements Serializable{
     }
      public boolean getGioiTinhNam() {
         return gioiTinhNam;
+    }
+
+    public List<QuyenTaiKhoan> getListQuyenTaiKhoan() {
+        return listQuyenTaiKhoan;
+    }
+
+    public void setListQuyenTaiKhoan(List<QuyenTaiKhoan> listQuyenTaiKhoan) {
+        this.listQuyenTaiKhoan = listQuyenTaiKhoan;
     }
 }

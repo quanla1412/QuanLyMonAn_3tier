@@ -16,7 +16,7 @@ import java.util.List;
 public class ChiTietHoaDonMapper {
     public static ChiTietHoaDonModel toChiTietHoaDonModel(ChiTietHoaDon chiTietHoaDon){
         ChiTietHoaDonModel chiTietHoaDonModel = new ChiTietHoaDonModel();
-        chiTietHoaDonModel.setTenMonAn(chiTietHoaDon.getMaMonAn().getTen());
+        chiTietHoaDonModel.setTenMonAn(chiTietHoaDon.getMonAn().getTen());
         chiTietHoaDonModel.setSoLuong(chiTietHoaDon.getSoLuong());
         chiTietHoaDonModel.setGia(chiTietHoaDon.getDonGia());
         

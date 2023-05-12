@@ -158,57 +158,20 @@ public class QuanLyLoaiKhachHangController {
     }
     private void deleteLoaiKhachHang(){
         if(loaiKhachHangSelected == null){
-            JOptionPane.showMessageDialog(view, "Bạn chưa chọn bàn muốn xóa","Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(view, "Bạn chưa chọn khách hàng muốn xóa","Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa bàn \"" + loaiKhachHangSelected.getId()+ "\" không ?", "Xóa dữ liệu bàn!", JOptionPane.OK_CANCEL_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa khách hàng " + loaiKhachHangSelected.getId()+ "\" không ?", "Xóa dữ liệu bàn!", JOptionPane.OK_CANCEL_OPTION);
 
         if(confirm == JOptionPane.CANCEL_OPTION)
             return;
         
         boolean result = loaiKhachHangService.delete(loaiKhachHangSelected.getId());
         if(result){
-                JOptionPane.showMessageDialog(view, "Xóa bàn thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(view, "Xóa khách hàng thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 loaiKhachHangSelected = null;
         } else
             JOptionPane.showMessageDialog(view, "Xóa thất bại","Error", JOptionPane.ERROR_MESSAGE);
         resetLoaiKhachHang();
-    }
-    public static void main(String args[]) {
-            /* Set the Nimbus look and feel */
-            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-            /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-             * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-             */
-            try {
-                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                        break;
-                    }
-                }
-            } catch (ClassNotFoundException ex) {
-                java.util.logging.Logger.getLogger(QuanLyLoaiKhachHang_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (InstantiationException ex) {
-                java.util.logging.Logger.getLogger(QuanLyLoaiKhachHang_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                java.util.logging.Logger.getLogger(QuanLyLoaiKhachHang_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-                java.util.logging.Logger.getLogger(QuanLyLoaiKhachHang_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            }
-            //</editor-fold>
-            //</editor-fold>
-            //</editor-fold>
-            //</editor-fold>
-
-            /* Create and display the form */
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new QuanLyLoaiKhachHangController().setVisible(true);
-                }
-            });
-        }
-    private void setVisible(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

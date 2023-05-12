@@ -306,11 +306,6 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         getContentPane().add(btnThanhToan, gridBagConstraints);
 
         btnInBillTam.setText("In bill tạm");
-        btnInBillTam.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnInBillTamMouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -330,13 +325,13 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
     private void btnInBillTamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInBillTamMouseClicked
 
     }//GEN-LAST:event_btnInBillTamMouseClicked
-
+                                        
     private void btnThanhToanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToanMouseClicked
-        // TODO add your handling code here:
+        // TODO add your handling code here
     }//GEN-LAST:event_btnThanhToanMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnInBillTam;
+    public javax.swing.JButton btnInBillTam;
     public javax.swing.JButton btnSearch;
     public javax.swing.JButton btnThanhToan;
     private javax.swing.JLabel jLabel1;

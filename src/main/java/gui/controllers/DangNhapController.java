@@ -44,7 +44,7 @@ public class DangNhapController {
         TaiKhoanModel taiKhoanModel = new TaiKhoanModel(username, password);
         
         if(nhanVienService.dangNhap(taiKhoanModel)){
-            TrangChuController trangChu_GUI = new TrangChuController();
+            TrangChuController trangChu_GUI = new TrangChuController(username);
             view.dispose();
         } else {
             JOptionPane.showMessageDialog(view, "Đăng nhập thất bại","Error", JOptionPane.ERROR_MESSAGE);

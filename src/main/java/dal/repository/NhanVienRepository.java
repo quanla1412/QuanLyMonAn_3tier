@@ -17,6 +17,7 @@ import java.lang.String;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -53,6 +54,7 @@ public class NhanVienRepository {
         Session session = HibernateUtils.getFACTORY().openSession();
         
         NhanVien nhanVien= session.get(NhanVien.class, ma);
+        Hibernate.initialize(nhanVien.getListQuyenTaiKhoan());
         
         session.close();
         

@@ -4,6 +4,7 @@
  */
 package bll.services;
 
+import gui.models.HoaDon.CreateHoaDonModel;
 import gui.models.HoaDon.HoaDonFullModel;
 import gui.models.HoaDon.HoaDonModel;
 import gui.models.HoaDon.SearchHoaDonModel;
@@ -21,4 +22,8 @@ public interface IHoaDonService {
     public List<HoaDonModel> search(SearchHoaDonModel searchHoaDonModel);
     
     public boolean huyHoaDon(HoaDonFullModel hoaDonSelected);
+    
+    public HoaDonModel create(CreateHoaDonModel createHoaDonModel);
+    
+    public boolean inBill(int idHoaDon, String filePath);
 }

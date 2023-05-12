@@ -159,4 +159,29 @@ public class KhachHangRepository {
         return khachHang != null;
     }
     
+    public void updateLoaiKhachHang(KhachHang data){
+        Session session = HibernateUtils.getFACTORY().openSession();
+        KhachHang khachHang = session.get(KhachHang.class, data.getId());
+        session.getTransaction().begin();
+        
+        khachHang.setLoaiKhachHang(data.getLoaiKhachHang());
+        
+        session.save(khachHang);
+        session.getTransaction().commit();
+        
+        session.close();
+    }
+    
+    public void updateDiemTichLuy(KhachHang data){
+        Session session = HibernateUtils.getFACTORY().openSession();
+        KhachHang khachHang = session.get(KhachHang.class, data.getId());
+        session.getTransaction().begin();
+        
+        khachHang.setDiemTichLuy(data.getDiemTichLuy());
+        
+        session.save(khachHang);
+        session.getTransaction().commit();
+        
+        session.close();
+    }
 }

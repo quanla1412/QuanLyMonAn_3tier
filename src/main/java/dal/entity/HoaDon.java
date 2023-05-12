@@ -5,8 +5,6 @@
 package dal.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -15,8 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -48,7 +44,7 @@ public class HoaDon implements Serializable{
     private float uuDai;
     @Column (name = "HD_DaHuy")
     private boolean daHuy;
-    @OneToMany(mappedBy = "maHoaDon")
+    @OneToMany(mappedBy = "hoaDon")
     List<ChiTietHoaDon> listChiTietHoaDon;
 
     public List<ChiTietHoaDon> getListChiTietHoaDon() {
@@ -67,20 +63,20 @@ public class HoaDon implements Serializable{
         this.id = id;
     }
 
-    public NhanVien getMaNhanVien() {
+    public NhanVien getNhanVien() {
         return nhanVien;
     }
 
-    public void setMaNhanVien(NhanVien maNhanVien) {
-        this.nhanVien = maNhanVien;
+    public void setNhanVien(NhanVien nhanVien) {
+        this.nhanVien = nhanVien;
     }
 
-    public KhachHang getIdKhachHang() {
+    public KhachHang getKhachHang() {
         return khachHang;
     }
 
-    public void setIdKhachHang(KhachHang idKhachHang) {
-        this.khachHang = idKhachHang;
+    public void setKhachHang(KhachHang khachHang) {
+        this.khachHang = khachHang;
     }
 
     public Date getNgayGio() {
