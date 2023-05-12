@@ -4,17 +4,20 @@
  */
 package dal.repository;
 
+import com.mycompany.quanlynhahang.AES;
 import dal.HibernateUtils;
 import dal.entity.ChucVu;
 import dal.entity.NhanVien;
 import dal.entity.TinhTrangNhanVien;
 import gui.models.NhanVien.SearchNhanVienModel;
+import gui.models.TaiKhoanModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.String;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -25,7 +28,7 @@ import org.hibernate.query.Query;
 public class NhanVienRepository {
     private ChucVuRepository chucVuRepository;
     private TinhTrangNhanVienRepository tinhTrangNhanVienRepository;
-    
+    final String secretKey = "quanlynhahang!";
     
     
     public NhanVienRepository(){
@@ -51,6 +54,7 @@ public class NhanVienRepository {
         Session session = HibernateUtils.getFACTORY().openSession();
         
         NhanVien nhanVien= session.get(NhanVien.class, ma);
+        Hibernate.initialize(nhanVien.getListQuyenTaiKhoan());
         
         session.close();
         
@@ -167,22 +171,41 @@ public class NhanVienRepository {
         return getByNhieuMa(nma);
     }
     
+    
+    
     public boolean hasMaNV(String ma) {
         Session session = HibernateUtils.getFACTORY().openSession();
         NhanVien nhanVien = null;
-        try {
+       
             String hql = "FROM NhanVien NV WHERE NV.ma = :ma";
             Query query = session.createQuery(hql);
             query.setParameter("ma", ma);
             nhanVien = (NhanVien) query.uniqueResult();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
+       
             session.close();
-        }
+        
         return nhanVien != null;
     }
+    
  
+    
+    
+    public NhanVien updateTaiKhoanNhanVien (NhanVien data){
+        Session session = HibernateUtils.getFACTORY().openSession();
+        NhanVien nhanVien = session.get(NhanVien.class, data.getMa());
+        
+        session.getTransaction().begin();
+        String encryptedpassword = AES.encrypt(data.getPassWord(), secretKey);      
+        
+        nhanVien.setPassWord(encryptedpassword);
+         
+        session.save(nhanVien);
+        session.getTransaction().commit();
+        
+        session.close();
+        
+        return nhanVien;
+    } 
     
     
 }

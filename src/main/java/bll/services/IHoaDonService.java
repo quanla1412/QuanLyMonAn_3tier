@@ -24,9 +24,11 @@ public interface IHoaDonService {
     
     public boolean huyHoaDon(HoaDonFullModel hoaDonSelected);
     
-    public boolean create(CreateHoaDonModel createHoaDonModel);
-    
     public long getDoanhThuTrongNgay(Date ngay);
     
     public long getDoanhThuTrong7NgayGanNhat(Date ngayBatDau, Date ngayKetThuc);
+    
+    public HoaDonModel create(CreateHoaDonModel createHoaDonModel);
+    
+    public boolean inBill(int idHoaDon, String filePath);
 }

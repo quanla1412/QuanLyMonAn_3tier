@@ -17,8 +17,10 @@ public interface ILoaiKhachHangService {
     List<LoaiKhachHangModel> getAll();
     
     LoaiKhachHangModel getById(int id);
+    
     boolean createLoaiKhachHang(CreateLoaiKhachHangModel createLoaiKhachHangModel);
     
     boolean updateLoaiKhachHang(UpdateLoaiKhachHangModel updateLoaiKhachHangModel);
+    
     boolean delete(int id);
 }

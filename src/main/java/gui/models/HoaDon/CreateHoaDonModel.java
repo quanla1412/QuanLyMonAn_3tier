@@ -14,6 +14,7 @@ public class CreateHoaDonModel {
     private Date ngayGio;
     private long tongGia;
     private float uuDai;
+    private int idBan;
     private ArrayList<CreateChiTietHoaDonModel> listChiTietHoaDonModel;
 
     public String getMaNhanVien() {
@@ -62,5 +63,13 @@ public class CreateHoaDonModel {
 
     public void setListChiTietHoaDonModel(ArrayList<CreateChiTietHoaDonModel> listChiTietHoaDonModel) {
         this.listChiTietHoaDonModel = listChiTietHoaDonModel;
+    }
+
+    public int getIdBan() {
+        return idBan;
+    }
+
+    public void setIdBan(int idBan) {
+        this.idBan = idBan;
     }
 }

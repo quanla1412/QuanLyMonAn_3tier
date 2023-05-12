@@ -21,11 +21,14 @@ import javax.swing.JOptionPane;
 import bll.services.INhanVienService;
 import bll.services.impl.HoaDonServiceImpl;
 import bll.services.impl.NhanVienServiceImpl;
+import gui.constraints.TinhTrangBanConstraints;
 import gui.models.HoaDon.CreateChiTietHoaDonModel;
 import gui.models.HoaDon.CreateHoaDonModel;
+import gui.models.HoaDon.HoaDonModel;
 import gui.models.NhanVien.NhanVienFullModel;
 import gui.models.NhanVien.NhanVienModel;
 import java.util.Date;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 /**
@@ -46,7 +49,7 @@ public class ThanhToanController {
     private DonGoiMasterModel donGoiMasterModel;
     private int tongThanhToan;
     KhachHangFullModel khachHangFullModel = null;
-    private String maNhanVien;
+    private final String maNhanVien;
     NhanVienFullModel nhanVienFullModel;
 
     public ThanhToanController(int idBan, String maNhanVien) {
@@ -75,7 +78,7 @@ public class ThanhToanController {
         view.setVisible(true);
 
         loadThongTin();
-        view.btnThanhToan.addActionListener(e -> thanhToan());
+        view.btnInBillTam.addActionListener(e -> inBillTam());
     }
 
     void show(int idBan) {    
@@ -87,6 +90,10 @@ public class ThanhToanController {
         view.toFront();  
         loadThongTin();
         tinhTongThanhToan();
+    }
+    
+    public JButton getBtnThanhToan(){
+        return view.btnThanhToan;
     }
     
     private void loadThongTin(){
@@ -126,7 +133,7 @@ public class ThanhToanController {
         view.lblTongThanhToan.setText(Price.formatPrice(tongThanhToan));
     }
     
-    private void thanhToan(){
+    public void thanhToan(){
         CreateHoaDonModel createHoaDonModel = new CreateHoaDonModel();
         
         if(khachHangFullModel != null){
@@ -135,7 +142,8 @@ public class ThanhToanController {
         }
         createHoaDonModel.setMaNhanVien(maNhanVien);
         createHoaDonModel.setNgayGio(new Date());
-        createHoaDonModel.setTongGia(tongThanhToan);        
+        createHoaDonModel.setTongGia(tongThanhToan);   
+        createHoaDonModel.setIdBan(idBan);
         
         ArrayList<CreateChiTietHoaDonModel> listChiTietHoaDonModel = new ArrayList<>();
         donGoiMasterModel.getListDonGoiModel().forEach(donGoiModel -> {
@@ -149,25 +157,38 @@ public class ThanhToanController {
         });
         createHoaDonModel.setListChiTietHoaDonModel(listChiTietHoaDonModel);
         
-        boolean result = hoaDonService.create(createHoaDonModel);
-        if(result){
+        HoaDonModel result = hoaDonService.create(createHoaDonModel);
+        if(result != null){
             JOptionPane.showMessageDialog(view, "Thanh toán thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
+            JFileChooser jFileChooser= new JFileChooser("D:");
+            jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            boolean resultInBill = false; 
+
+            if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                resultInBill = hoaDonService.inBill(result.getId(), jFileChooser.getSelectedFile().getAbsolutePath());
+            }  
+            if (resultInBill)
+                view.dispose();
+            else
+                JOptionPane.showMessageDialog(view, "In bill thất bại","Error", JOptionPane.ERROR_MESSAGE);
+                       
+        } else 
             JOptionPane.showMessageDialog(view, "Thanh toán thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        }
+        
     }
     
     private void inBillTam(){
-//        JFileChooser jFileChooser= new JFileChooser("Downloads");
-//        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-//        boolean result = false; 
-//       
-//        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-//            result = donGoi_BUS.inBillTam(idBan, maNhanVien, khachHang.getId(), jFileChooser.getSelectedFile().getAbsolutePath());
-//        }
-//        
-//        if (!result) {
-//            JOptionPane.showMessageDialog(view, "In bill tạm thất bại","Error", JOptionPane.ERROR_MESSAGE);
-//        }
+        JFileChooser jFileChooser= new JFileChooser("D:\\");
+        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        boolean result = false; 
+       
+        int idKhachHang = khachHangFullModel == null ? 0 : khachHangFullModel.getId();
+        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            result = donGoiService.inBillTam(idBan, idKhachHang, maNhanVien, jFileChooser.getSelectedFile().getAbsolutePath());
+        }
+        
+        if (!result) {
+            JOptionPane.showMessageDialog(view, "In bill tạm thất bại","Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

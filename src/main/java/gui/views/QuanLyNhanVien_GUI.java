@@ -124,11 +124,6 @@ public class QuanLyNhanVien_GUI extends javax.swing.JPanel {
         jPanel2.setMaximumSize(new java.awt.Dimension(2147483647, 160));
         jPanel2.setMinimumSize(new java.awt.Dimension(604, 160));
         jPanel2.setPreferredSize(new java.awt.Dimension(500, 160));
-        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel2MouseClicked(evt);
-            }
-        });
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setText("Nhập Mã hoặc Tên");
@@ -424,11 +419,6 @@ public class QuanLyNhanVien_GUI extends javax.swing.JPanel {
     pnlThemNhanVien.add(jLabel10, gridBagConstraints);
 
     txtMaNV.setPreferredSize(new java.awt.Dimension(150, 22));
-    txtMaNV.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            txtMaNVActionPerformed(evt);
-        }
-    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 1;
     gridBagConstraints.gridy = 0;
@@ -439,11 +429,6 @@ public class QuanLyNhanVien_GUI extends javax.swing.JPanel {
     pnlThemNhanVien.add(txtMaNV, gridBagConstraints);
 
     txtSDTNV.setPreferredSize(new java.awt.Dimension(150, 22));
-    txtSDTNV.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            txtSDTNVActionPerformed(evt);
-        }
-    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 1;
     gridBagConstraints.gridy = 7;
@@ -590,16 +575,6 @@ public class QuanLyNhanVien_GUI extends javax.swing.JPanel {
     btnQuanLyChucVu.setMaximumSize(new java.awt.Dimension(140, 24));
     btnQuanLyChucVu.setMinimumSize(new java.awt.Dimension(140, 24));
     btnQuanLyChucVu.setPreferredSize(new java.awt.Dimension(140, 24));
-    btnQuanLyChucVu.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            btnQuanLyChucVuMouseClicked(evt);
-        }
-    });
-    btnQuanLyChucVu.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btnQuanLyChucVuActionPerformed(evt);
-        }
-    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.insets = new java.awt.Insets(4, 4, 12, 4);
     jPanel7.add(btnQuanLyChucVu, gridBagConstraints);
@@ -608,29 +583,6 @@ public class QuanLyNhanVien_GUI extends javax.swing.JPanel {
 
     add(jPanel4);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel2MouseClicked
-
-    private void txtMaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaNVActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaNVActionPerformed
-
-    private void txtSDTNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSDTNVActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSDTNVActionPerformed
-
-    private void btnQuanLyChucVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyChucVuMouseClicked
-        if(quanLyChucVuController == null ){
-            quanLyChucVuController = new QuanLyChucVuController();
-        }
-        
-    }//GEN-LAST:event_btnQuanLyChucVuMouseClicked
-
-    private void btnQuanLyChucVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLyChucVuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyChucVuActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,10 +1,6 @@
 
 package com.mycompany.quanlynhahang;
 
-import bll.services.IBanService;
-import bll.services.ILoaiBanService;
-import bll.services.impl.BanServiceImpl;
-import bll.services.impl.LoaiBanServiceImpl;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import dal.HibernateUtils;
 import dal.entity.LoaiBan;
@@ -16,7 +12,6 @@ import gui.views.QuanLyLoaiMonAn_GUI;
 import gui.views.TrangChu_GUI;
 import java.util.ArrayList;
 import javax.swing.UIManager;
-import org.hibernate.Session;
 
 /**
  *
@@ -30,6 +25,6 @@ public class QuanLyNhaHang {
         } catch(Exception ex){
             System.out.println(ex);
         }
-        TrangChuController trangChuController = new TrangChuController();
+        TrangChuController trangChuController = new TrangChuController("maittt");
     }
 }

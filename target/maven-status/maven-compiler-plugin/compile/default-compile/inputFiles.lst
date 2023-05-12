@@ -1,16 +1,22 @@
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\ILoaiMonAnService.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\controllers\DoiMatKhauController.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\com\mycompany\quanlynhahang\AES.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\IChiTietHoaDonService.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\entity\TinhTrangBan.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\impl\DonGoiServiceImpl.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\TaiKhoan\TaiKhoanModel.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\TaiKhoan\QuyenTaiKhoanModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\IDonGoiService.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\KhachHang\SearchKhachHangModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\impl\TinhTrangBanServiceImpl.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\repository\ChucNangRepository.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\repository\MonAnRepository.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\controllers\DatMonController.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\com\mycompany\quanlynhahang\OpenFile.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\NhanVien\UpdateNhanVienModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\views\QuanLyKhachHang_GUI.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\mappers\TinhTrangNhanVienMapper.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\controllers\DangNhapController.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\LoaiBan\UpdateLoaiBanModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\impl\LoaiMonAnServiceImpl.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\MonAn\UpdateMonAnModel.java
@@ -22,6 +28,8 @@ D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\com\mycompany\quanlynhahang\Price.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\MonAn\MonAnModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\mappers\ChiTietHoaDonMapper.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\mappers\QuyenTaiKhoanMapper.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\controllers\QuanLyQuyenController.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\mappers\TinhTrangBanMapper.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\IHoaDonService.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\Ban\TinhTrangBanModel.java
@@ -31,7 +39,6 @@ D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\control
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\MonAn\MonAnFullModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\controllers\QuanLyLoaiKhachHangController.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\KhachHang\UpdateKhachHangModel.java
-D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\CheckHople.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\impl\MonAnServiceImpl.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\mappers\LoaiMonAnMapper.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\HoaDon\CreateHoaDonModel.java
@@ -44,6 +51,7 @@ D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\mappers
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\impl\LoaiKhachHangServiceImpl.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\views\DatMon_GUI.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\views\QuanLyChucVu_GUI.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\views\DangNhap_GUI.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\impl\HoaDonServiceImpl.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\impl\LoaiBanServiceImpl.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\MonAn\SearchMonAnModel.java
@@ -53,6 +61,7 @@ D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\entity\DonGoi.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\repository\LoaiBanRepository.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\constraints\ChucNangConstraints.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\views\DoiMatKhau_GUI.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\controllers\ThanhToanController.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\Ban\BanModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\repository\BanRepository.java
@@ -71,11 +80,13 @@ D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\reposit
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\ILoaiBanService.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\IBanService.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\impl\KhachHangServiceImpl.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\impl\QuyenTaiKhoanServiceImpl.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\com\mycompany\quanlynhahang\CheckHopLe.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\mappers\LoaiBanMapper.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\ITinhTrangMonAnService.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\entity\KhachHang.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\DonGoi\DonGoiMasterModel.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\repository\QuyenTaiKhoanRepository.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\controllers\MenuController.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\NhanVien\CreateChucVuModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\mappers\TinhTrangMonAnMapper.java
@@ -88,6 +99,8 @@ D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\views\Q
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\controllers\TrangChuController.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\HibernateUtils.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\IKhachHangService.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\entity\ChucNang.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\TaiKhoanModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\KhachHang\KhachHangFullModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\views\Menu_GUI.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\entity\TinhTrangNhanVien.java
@@ -111,10 +124,12 @@ D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\reposit
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\ILoaiKhachHangService.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\entity\ChiTietHoaDon.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\repository\ChucVuRepository.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\NhanVien\UpdateTaiKhoanNhanVienModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\controllers\QuanLyLoaiMonAnController.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\HoaDon\HoaDonFullModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\IChucVuService.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\Ban\BanFullModel.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\TaiKhoan\UpdateQuyenTaiKhoanModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\views\ThanhToan_GUI.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\Ban\UpdateBanModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\HoaDon\SearchHoaDonModel.java
@@ -123,6 +138,7 @@ D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\constra
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\mappers\DonGoiMapper.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\entity\TinhTrangMonAn.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\NhanVien\CreateNhanVienModel.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\views\QuanLyQuyen_GUI.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\impl\TinhTrangNhanVienServiceImpl.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\entity\NhanVien.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\views\TrangChu_GUI.java
@@ -139,6 +155,7 @@ D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\entity\
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\views\QuanLyLoaiBanVaBan_GUI.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\repository\NhanVienRepository.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\impl\TinhTrangMonAnServiceImpl.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\dal\entity\QuyenTaiKhoan.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\LoaiKhachHang\CreateLoaiKhachHangModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\HoaDon\CreateChiTietHoaDonModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\ITinhTrangBanService.java
@@ -146,6 +163,7 @@ D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\mappers\ChucVuMapper.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\HoaDon\ChiTietHoaDonModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\mappers\NhanVienMapper.java
+D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\bll\services\IQuyenTaiKhoanService.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\LoaiBan\CreateLoaiBanModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\models\KhachHang\KhachHangModel.java
 D:\Anh_Quan\Tai_lieu\PTPMTMHPhanLop\DoAn\QuanLyNhaHang\src\main\java\gui\views\QuanLyLoaiMonAn_GUI.java

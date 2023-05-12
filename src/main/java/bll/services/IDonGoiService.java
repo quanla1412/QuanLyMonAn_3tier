@@ -24,6 +24,8 @@ public interface IDonGoiService {
 
     public boolean update(UpdateDonGoiModel updateDonGoiModel);
     
+    public boolean delete(int idBan);
+    
     public boolean delete(int idBan, int idMonAn);
     
     public boolean inBillTam(int idBan, int KhachHang, String maNhanVien, String filePath);

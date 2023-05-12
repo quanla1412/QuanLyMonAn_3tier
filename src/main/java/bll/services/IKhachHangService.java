@@ -37,9 +37,16 @@ public interface IKhachHangService {
     Map<String, Integer> countByGioiTinh();
     
     Map<String, Integer> countByTuoi();
+    
     boolean exportKhachHang(ArrayList<KhachHangModel> listKhachHangModels, String filePath);
     
     boolean exportAllKhachHangTheoMauImport(String filePath);
     
     int importKhachHang(String filePath);
+    
+    void updateLoaiKhachHang();
+    
+    void updateLoaiKhachHang(int idKhachHang);
+    
+    void updateDiemTichLuy(int idKhachHang, int diemTichLuyCongThem);
 }

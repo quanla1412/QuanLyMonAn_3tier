@@ -13,7 +13,7 @@ import bll.services.impl.HoaDonServiceImpl;
 import bll.services.impl.KhachHangServiceImpl;
 import bll.services.impl.NhanVienServiceImpl;
 import com.mycompany.quanlynhahang.Price;
-import gui.constraint.TinhTrangHoaDonConstraints;
+import gui.constraints.TinhTrangHoaDonConstraints;
 import gui.models.HoaDon.ChiTietHoaDonModel;
 import gui.models.HoaDon.HoaDonFullModel;
 import gui.models.HoaDon.HoaDonModel;

@@ -26,8 +26,6 @@ public class HoaDonMapper {
     public static HoaDonModel toHoaDonModel(HoaDon hoaDon){
         HoaDonModel hoaDonModel = new HoaDonModel();
         hoaDonModel.setId(hoaDon.getId());
-//        hoaDonModel.setIdKhachHang(hoaDon.getKhachHang().getId());
-//        hoaDonModel.setMaNhanVien(hoaDon.getNhanVien().getMa());
         NhanVienModel nhanVienModel = NhanVienMapper.toNhanVienModel(hoaDon.getNhanVien());
         hoaDonModel.setMaNhanVien(nhanVienModel.getMa());
         
@@ -35,7 +33,6 @@ public class HoaDonMapper {
             KhachHangModel khachHangModel = KhachHangMapper.toKhachHangModel(hoaDon.getKhachHang());
             hoaDonModel.setIdKhachHang(khachHangModel.getId());
         }
-        
         hoaDonModel.setNgayGio(hoaDon.getNgayGio());
         hoaDonModel.setTongGia(hoaDon.getTongGia());
         
@@ -88,6 +85,8 @@ public class HoaDonMapper {
         if(createHoaDonModel.getIdKhachHang() > 0){
             KhachHang khachHang = new KhachHang();
             khachHang.setId(createHoaDonModel.getIdKhachHang());
+            
+            hoaDon.setKhachHang(khachHang);
         }
         
         hoaDon.setNgayGio(createHoaDonModel.getNgayGio());

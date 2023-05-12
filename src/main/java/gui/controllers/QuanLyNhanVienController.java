@@ -4,6 +4,7 @@
  */
 package gui.controllers;
 
+import com.mycompany.quanlynhahang.AES;
 import bll.services.IChucVuService;
 import bll.services.ITinhTrangNhanVienService;
 import bll.services.impl.ChucVuServiceImpl;
@@ -42,18 +43,20 @@ public class QuanLyNhanVienController {
     private final IChucVuService chucVuService;
     private final ITinhTrangNhanVienService tinhTrangNhanVienService;
     
+    private DoiMatKhauController doiMatKhauController;
+    
     private QuanLyNhanVien_GUI view;
+    
+    private QuanLyChucVuController quanLyChucVuController = null;
+    private QuanLyQuyenController quanLyQuyenController = null;
     
     private ArrayList<NhanVienModel> listNhanVienModel;
     private NhanVienFullModel nhanVienSelected = null;
     
     private ArrayList<TinhTrangNhanVienModel> listTinhTrangNhanVienModel;
     private TinhTrangNhanVienModel tinhTrangNhanVienSelected = null;
-    
     private ArrayList<ChucVuModel> listChucVuModel;
     private ChucVuModel chucVuSelected = null;
-    
-    
     private boolean dangThemNhanVien = true;
     
     public QuanLyNhanVienController(){
@@ -80,6 +83,7 @@ public class QuanLyNhanVienController {
         view.btnTimKiemNhanVien.addActionListener(e -> search());
         view.btnThemNV.addActionListener(e -> changeModeNhanVien(true));
         view.btnSuaNV.addActionListener(e -> changeModeNhanVien(false));
+        view.btnDoiMatKhau.setEnabled(false);
         view.btnLuu.addActionListener(e -> saveNhanVien());
         view.btnXoaNV.addActionListener(e -> deleteNhanVien());
         view.btnResetThemNV.addActionListener(e -> resetNhanVien());
@@ -87,6 +91,10 @@ public class QuanLyNhanVienController {
         view.btnExportNV.addActionListener(e -> exportNhanVien());
         view.btnExportMauImport.addActionListener(e -> exportAllNhanVienTheoMauImport());
         view.btnImportNV.addActionListener(e -> importNhanVien());
+        view.btnPhanQuyen.addActionListener(e -> showQuanLyQuyen());
+        view.btnQuanLyChucVu.addActionListener(e -> showQuanLyChucVu());
+        
+        view.btnDoiMatKhau.addActionListener(e -> showDoiMatKhau());
         
         view.tblDanhSachNV.addMouseListener(new MouseAdapter(){
             @Override
@@ -95,7 +103,7 @@ public class QuanLyNhanVienController {
                 String selectedNhanVienMa = view.tblDanhSachNV.getValueAt(selectedRow, 0).toString();
                 
                 nhanVienSelected = nhanVienService.getByMa(selectedNhanVienMa);
-
+                view.btnDoiMatKhau.setEnabled(true);
                 if(!dangThemNhanVien)
                     loadDetailNhanVien();  
             }
@@ -388,5 +396,30 @@ public class QuanLyNhanVienController {
         
         view.loadTableNhanVien(result);
     }
+    private void showDoiMatKhau(){        
+        if(doiMatKhauController == null){
+            doiMatKhauController = new DoiMatKhauController(nhanVienSelected.getMa());
+        } else {
+            doiMatKhauController.show(nhanVienSelected.getMa());
+        }
+    }
     
+    
+    private void showQuanLyQuyen(){
+        if(nhanVienSelected == null){
+                JOptionPane.showMessageDialog(view, "Vui lòng chọn nhân viên muốn thay đổi quyền","Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        if(quanLyQuyenController == null)
+            quanLyQuyenController = new QuanLyQuyenController(nhanVienSelected.getMa());
+       else 
+            quanLyQuyenController.show(nhanVienSelected.getMa());
+    }
+    
+    private void showQuanLyChucVu(){
+        if(quanLyChucVuController == null )
+            quanLyChucVuController = new QuanLyChucVuController();
+        else
+            quanLyChucVuController.show();
+    }
 }

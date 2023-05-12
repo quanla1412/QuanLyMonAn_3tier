@@ -318,95 +318,20 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnTimKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKhachHangMouseClicked
+
+    }//GEN-LAST:event_btnTimKhachHangMouseClicked
+
+    private void btnInBillTamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInBillTamMouseClicked
+
+    }//GEN-LAST:event_btnInBillTamMouseClicked
+                                        
     private void btnThanhToanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToanMouseClicked
-        // TODO add your handling code here:
-//        CreateHoaDon_DTO createHoaDon_DTO = new CreateHoaDon_DTO();
-//        
-//        createHoaDon_DTO.setMaNhanVien(maNhanVien);
-//        if(khachHang != null){
-//            createHoaDon_DTO.setIdKhachHang(khachHang.getId());
-//            createHoaDon_DTO.setUuDai(khachHang.getLoaiKhachHang().getMucUuDai());
-//        }
-//        
-//        createHoaDon_DTO.setNgayGio(Timestamp.valueOf(LocalDateTime.now()));
-//        createHoaDon_DTO.setTongGia(tongTien);
-//        
-//        ArrayList<CreateChiTietHoaDon_DTO> listChiTietHoaDon = new ArrayList<>();
-//        for(DonGoi_DTO donGoi : listDonGoi){
-//            int idMonAn = donGoi.getMonAn().getId();
-//            int soLuong = donGoi.getSoLuong();
-//            long gia = donGoi.getMonAn().getGiaKhuyenMai() > 0 ? 
-//                    donGoi.getMonAn().getGiaKhuyenMai() :
-//                    donGoi.getMonAn().getGia();
-//            
-//            CreateChiTietHoaDon_DTO cthd = new CreateChiTietHoaDon_DTO(idMonAn, soLuong, gia);
-//            listChiTietHoaDon.add(cthd);
-//        }
-//        createHoaDon_DTO.setListMonAn(listChiTietHoaDon);
-//        
-//        int idHoaDon = hoaDon_BUS.createHoaDon(createHoaDon_DTO);
-//        if(idHoaDon > 0){
-//            donGoi_BUS.deleteDonGoi(idBan);
-//            
-//            boolean result = khachHang_BUS.capNhatSauThanhToan(idHoaDon);
-//            if(!result)
-//                JOptionPane.showMessageDialog(this, "Cập nhật điểm khách hàng thất bại","Error", JOptionPane.ERROR_MESSAGE);                
-//            
-//            JFileChooser jFileChooser= new JFileChooser("D:");
-//            jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-//            boolean resultInBill = false; 
-//
-//            if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-//                resultInBill = hoaDon_BUS.inBill(idHoaDon, jFileChooser.getSelectedFile().getAbsolutePath());
-//            }  
-//            ban_BUS.changeTinhTrangBan(idBan, TinhTrangBanConstraints.DANG_CHUAN_BI);
-//            this.dispose();
-//        }            
-//        else{
-//            JOptionPane.showMessageDialog(this, "Thanh toán thất bại","Error", JOptionPane.ERROR_MESSAGE);
-//        }
+        // TODO add your handling code here
     }//GEN-LAST:event_btnThanhToanMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ThanhToan_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ThanhToan_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ThanhToan_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ThanhToan_GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-//                new ThanhToan_GUI().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnInBillTam;
+    public javax.swing.JButton btnInBillTam;
     public javax.swing.JButton btnSearch;
     public javax.swing.JButton btnThanhToan;
     private javax.swing.JLabel jLabel1;

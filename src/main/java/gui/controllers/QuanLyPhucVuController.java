@@ -298,5 +298,9 @@ public class QuanLyPhucVuController {
         } else {
             thanhToanController.show(banSelected.getId());
         }
+        thanhToanController.getBtnThanhToan().addActionListener(e -> {
+            thanhToanController.thanhToan();
+            reset();
+        });
     }
 }
