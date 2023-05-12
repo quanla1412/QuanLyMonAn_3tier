@@ -550,7 +550,6 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
         jPanel5.add(lblTongGia, gridBagConstraints);
 
         btnResetDonGoi.setText("Reset");
-        btnResetDonGoi.setEnabled(false);
         btnResetDonGoi.setMaximumSize(new java.awt.Dimension(120, 28));
         btnResetDonGoi.setMinimumSize(new java.awt.Dimension(120, 28));
         btnResetDonGoi.setPreferredSize(new java.awt.Dimension(120, 28));

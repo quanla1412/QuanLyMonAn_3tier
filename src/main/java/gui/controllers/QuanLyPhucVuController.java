@@ -110,9 +110,11 @@ public class QuanLyPhucVuController {
     }
     
     private void loadDetailBan(){
-        loadThongTinBan();
-        loadChucNang();
-        loadDonGoi();
+        if(banSelected != null){
+            loadThongTinBan();
+            loadChucNang();
+            loadDonGoi();            
+        }
     }
     
     private void loadThongTinBan(){
@@ -133,7 +135,6 @@ public class QuanLyPhucVuController {
                 view.btnSuaDonGoi.setEnabled(false);
                 view.btnXoa.setEnabled(false);
                 view.btnThanhToan.setEnabled(false);
-                view.btnResetDonGoi.setEnabled(false);
                 
                 view.cmbBanSanSang.setSelectedIndex(-1);
                 view.cmbBanSanSang.setEnabled(false);
@@ -147,7 +148,6 @@ public class QuanLyPhucVuController {
                 view.btnSuaDonGoi.setEnabled(true);
                 view.btnXoa.setEnabled(true);
                 view.btnThanhToan.setEnabled(true);
-                view.btnResetDonGoi.setEnabled(true);
                 
                 view.cmbBanSanSang.setSelectedIndex(-1);
                 view.cmbBanSanSang.setEnabled(true);
@@ -162,7 +162,6 @@ public class QuanLyPhucVuController {
                 view.btnSuaDonGoi.setEnabled(false);
                 view.btnXoa.setEnabled(false);
                 view.btnThanhToan.setEnabled(false);
-                view.btnResetDonGoi.setEnabled(false);
                 
                 view.cmbBanSanSang.setSelectedIndex(-1);
                 view.cmbBanSanSang.setEnabled(false);
@@ -176,7 +175,6 @@ public class QuanLyPhucVuController {
                 view.btnSuaDonGoi.setEnabled(false);
                 view.btnXoa.setEnabled(false);
                 view.btnThanhToan.setEnabled(false);  
-                view.btnResetDonGoi.setEnabled(false);
                 
                 view.cmbBanSanSang.setSelectedIndex(-1);
                 view.cmbBanSanSang.setEnabled(false);
@@ -216,7 +214,7 @@ public class QuanLyPhucVuController {
         }
     }
     
-    private void reset(){
+    public void reset(){
         loadData();
         loadDanhSachBan();
         loadDetailBan();        
@@ -244,15 +242,17 @@ public class QuanLyPhucVuController {
     }
     
     private void showMenu(){        
-        if(menuController == null)
+        if(menuController == null){
             menuController = new MenuController(banSelected.getId());
+            
+            menuController.getBtnDatMon().addActionListener(e -> {
+                menuController.datMon();
+                reset();
+            });
+        }
         else
-            menuController.show();
+            menuController.show(banSelected.getId());
         
-        menuController.getBtnDatMon().addActionListener(e -> {
-            menuController.datMon();
-            reset();
-        });
     }
     
     private void suaDonGoi(){
@@ -295,12 +295,13 @@ public class QuanLyPhucVuController {
         }
         if (thanhToanController == null) {
             thanhToanController = new ThanhToanController(banSelected.getId(), maNhanVien);
+            
+            thanhToanController.getBtnThanhToan().addActionListener(e -> {
+                thanhToanController.thanhToan();
+                reset();
+            });
         } else {
             thanhToanController.show(banSelected.getId());
         }
-        thanhToanController.getBtnThanhToan().addActionListener(e -> {
-            thanhToanController.thanhToan();
-            reset();
-        });
     }
 }

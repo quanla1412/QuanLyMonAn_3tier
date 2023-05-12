@@ -6,6 +6,7 @@ import bll.services.ITinhTrangBanService;
 import bll.services.impl.BanServiceImpl;
 import bll.services.impl.LoaiBanServiceImpl;
 import bll.services.impl.TinhTrangBanServiceImpl;
+import gui.constraints.TinhTrangBanConstraints;
 import gui.models.Ban.BanFullModel;
 import gui.models.Ban.CreateBanModel;
 import gui.models.Ban.TinhTrangBanModel;
@@ -19,6 +20,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -84,7 +86,6 @@ public class QuanLyLoaiBanVaBanController {
         view.loadComboBoxTinhTrangBan(listTinhTrangBanModel);
         view.btnThemBan.addActionListener(e -> changeModeBan(true));
         view.btnSuaBan.addActionListener(e -> changeModeBan(false));
-        view.btnLuuBan.addActionListener(e -> saveBan());
         view.btnResetBan.addActionListener(e -> resetBan());
         view.btnXoaBan.addActionListener(e -> deleteBan());
         
@@ -164,7 +165,7 @@ public class QuanLyLoaiBanVaBanController {
         return error;
     }
     
-    private void saveBan(){
+    public void saveBan(){
         String error = validateSaveBan();
         if(error.length()> 0){
             JOptionPane.showMessageDialog(view, error, "Error", JOptionPane.ERROR_MESSAGE);
@@ -174,7 +175,7 @@ public class QuanLyLoaiBanVaBanController {
         int idLoaiBan = listLoaiBanModel.get(view.cmbLoaiBan.getSelectedIndex()).getId();
         int idTinhTrangBan = listTinhTrangBanModel.get(view.cmbTinhTrangBan.getSelectedIndex()).getId();
         if(dangThemBan){
-            CreateBanModel createBanModel = new CreateBanModel(idLoaiBan, idTinhTrangBan);
+            CreateBanModel createBanModel = new CreateBanModel(idTinhTrangBan, idLoaiBan);
 
             boolean result = banService.createBan(createBanModel);
             if(result){
@@ -186,6 +187,10 @@ public class QuanLyLoaiBanVaBanController {
             }
         } 
         else {
+            if(banSelected.getTinhTrangBan().getId() == TinhTrangBanConstraints.DANG_PHUC_VU){
+                JOptionPane.showMessageDialog(view, "Bàn đang phục vụ, không thể sửa","Error", JOptionPane.ERROR_MESSAGE);
+                return;                
+            }
             UpdateBanModel updateBanModel = new UpdateBanModel(banSelected.getId(), idLoaiBan, idTinhTrangBan);
 
             boolean result = banService.updateBan(updateBanModel);
@@ -316,5 +321,9 @@ public class QuanLyLoaiBanVaBanController {
         } else
             JOptionPane.showMessageDialog(view, "Xóa thất bại","Error", JOptionPane.ERROR_MESSAGE);
         resetBan();
+    }
+    
+    public JButton getBtnLuuBan(){
+        return view.btnThemBan;
     }
 }

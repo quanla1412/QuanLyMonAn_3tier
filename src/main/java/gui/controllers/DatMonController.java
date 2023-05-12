@@ -38,8 +38,6 @@ public class DatMonController {
         
         init();
     }
-    
-    
 
     public DatMonController(int idBan, int idMonAn) {
         monAnService = new MonAnServiceImpl();
@@ -79,6 +77,10 @@ public class DatMonController {
             view.spnSoLuong.setValue(donGoiModel.getSoLuong());
             if(donGoiModel.getGhiChu() != null && !donGoiModel.getGhiChu().isBlank())
                 view.txaGhiChu.setText(donGoiModel.getGhiChu());
+        } else {
+            view.lblSoLuongHienTai.setText("0");
+            view.spnSoLuong.setValue(0);
+            view.txaGhiChu.setText("");            
         }
         
         view.lblTinhTrangMonAn.setText(monAn.getTinhTrangMonAnModel().getTen());
@@ -144,6 +146,5 @@ public class DatMonController {
 
             }
         }
-        
     }
 }
