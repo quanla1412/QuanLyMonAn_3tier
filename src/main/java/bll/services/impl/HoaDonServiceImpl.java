@@ -34,10 +34,14 @@ import gui.models.HoaDon.HoaDonModel;
 import gui.models.HoaDon.SearchHoaDonModel;
 import java.util.Date;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -234,4 +238,28 @@ public class HoaDonServiceImpl implements IHoaDonService{
         }
         return doanhThuTrong7NgayGanNhat;
     }
+
+//    @Override
+//    public Map<String, Long> getDoanhThuTheoThang7NgayGanNhat(Date ngayBatDau, Date ngayKetThuc) {
+//        Map<String, Long> result = new HashMap<>();
+//        LocalDate fromDate = LocalDate.now().minusDays(7);
+//        LocalDate toDate = LocalDate.now();
+//        ngayBatDau = java.sql.Date.valueOf(fromDate);
+//        ngayKetThuc = java.sql.Date.valueOf(toDate);
+//        ArrayList<HoaDon> listHoaDon = (ArrayList<HoaDon>) hoaDonRepository.getListHoaDonTrong7NgayGanNhat(ngayBatDau, ngayKetThuc);
+//       
+//        
+//        
+//        for (int i = 0; i < listHoaDon.size(); i++)
+//          {
+//            
+//            Long doanhThu = listHoaDon.get(i).getTongGia();
+//            result.put(key, doanhThu);
+//            }
+//        return result;
+//
+//    }
+//    
+//    
+    
 }
