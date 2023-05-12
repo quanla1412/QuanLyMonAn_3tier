@@ -487,7 +487,9 @@ public class NhanVienServiceImpl implements INhanVienService{
 
     @Override
     public boolean updateTaiKhoanNhanVien(UpdateTaiKhoanNhanVienModel updateTaiKhoanNhanVienModel) {
-       NhanVien nhanVien = NhanVienMapper.toNhanVien(updateTaiKhoanNhanVienModel);
+       NhanVien nhanVien = NhanVienMapper.toNhanVien(updateTaiKhoanNhanVienModel);       
+       String encryptedpassword = AES.encrypt(nhanVien.getPassWord(), secretKey);         
+       nhanVien.setPassWord(encryptedpassword);
        
        NhanVien updateTaiKhoanNhanVien = nhanVienRepository.updateTaiKhoanNhanVien(nhanVien);
        
@@ -498,13 +500,12 @@ public class NhanVienServiceImpl implements INhanVienService{
     public boolean dangNhap(TaiKhoanModel taiKhoanModel) {
         NhanVien nhanVien = nhanVienRepository.getByMa(taiKhoanModel.getUsername());
   
-       if (nhanVien == null)
+        if (nhanVien == null)
            return false;
        
-        String password = taiKhoanModel.getPassword().trim();
-        String passwordCheck = nhanVien.getPassWord().trim();
+        String passwordCheck = AES.decrypt(nhanVien.getPassWord().trim(), secretKey);
         
-        if(password.equals(passwordCheck))
+        if(taiKhoanModel.getPassword().equals(passwordCheck))
             return true;
         return false;
         

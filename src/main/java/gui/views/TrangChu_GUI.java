@@ -17,6 +17,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -33,9 +34,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
     public TrangChu_GUI() {
         initComponents();
         prepareIcon();
-//        this.maNhanVien = maNhanVien;
-        btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
-//        showForm(new QuanLyPhucVuController().getView());
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     class jPanelGradient extends JPanel {
@@ -107,6 +106,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Quản lý nhà hàng\n");
         setMinimumSize(new java.awt.Dimension(1600, 800));
 
         pnlForm.setLayout(new java.awt.BorderLayout());
@@ -143,23 +143,6 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         //jButton1.setBorder(new java.awt.Color(0,0,0,1));
         btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,1));
         //jButton1.setContentAreaFilled(false);
-        btnQuanLyPhucVu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnQuanLyPhucVuMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnQuanLyPhucVuMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnQuanLyPhucVuMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnQuanLyPhucVuMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnQuanLyPhucVuMouseReleased(evt);
-            }
-        });
 
         btnQuanLyBan.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnQuanLyBan.setForeground(new java.awt.Color(255, 255, 255));
@@ -171,23 +154,6 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         btnQuanLyBan.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnQuanLyBan.setIconTextGap(12);
         btnQuanLyBan.setBackground(new java.awt.Color(0,0,0,1));
-        btnQuanLyBan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnQuanLyBanMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnQuanLyBanMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnQuanLyBanMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnQuanLyBanMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnQuanLyBanMouseReleased(evt);
-            }
-        });
 
         btnQuanLyMonAn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnQuanLyMonAn.setForeground(new java.awt.Color(255, 255, 255));
@@ -199,23 +165,6 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         btnQuanLyMonAn.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnQuanLyMonAn.setIconTextGap(12);
         btnQuanLyMonAn.setBackground(new java.awt.Color(0,0,0,1));
-        btnQuanLyMonAn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnQuanLyMonAnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnQuanLyMonAnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnQuanLyMonAnMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnQuanLyMonAnMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnQuanLyMonAnMouseReleased(evt);
-            }
-        });
 
         btnQuanLyHoaDon.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnQuanLyHoaDon.setForeground(new java.awt.Color(255, 255, 255));
@@ -227,23 +176,6 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         btnQuanLyHoaDon.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnQuanLyHoaDon.setIconTextGap(12);
         btnQuanLyHoaDon.setBackground(new java.awt.Color(0,0,0,1));
-        btnQuanLyHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnQuanLyHoaDonMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnQuanLyHoaDonMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnQuanLyHoaDonMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnQuanLyHoaDonMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnQuanLyHoaDonMouseReleased(evt);
-            }
-        });
 
         btnQuanLyNhanVien.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnQuanLyNhanVien.setForeground(new java.awt.Color(255, 255, 255));
@@ -255,23 +187,6 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         btnQuanLyNhanVien.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnQuanLyNhanVien.setIconTextGap(12);
         btnQuanLyNhanVien.setBackground(new java.awt.Color(0,0,0,1));
-        btnQuanLyNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnQuanLyNhanVienMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnQuanLyNhanVienMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnQuanLyNhanVienMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnQuanLyNhanVienMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnQuanLyNhanVienMouseReleased(evt);
-            }
-        });
 
         btnQuanLyKhachHang.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnQuanLyKhachHang.setForeground(new java.awt.Color(255, 255, 255));
@@ -283,28 +198,6 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         btnQuanLyKhachHang.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnQuanLyKhachHang.setIconTextGap(12);
         btnQuanLyKhachHang.setBackground(new java.awt.Color(0,0,0,1));
-        btnQuanLyKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnQuanLyKhachHangMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnQuanLyKhachHangMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnQuanLyKhachHangMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnQuanLyKhachHangMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnQuanLyKhachHangMouseReleased(evt);
-            }
-        });
-        btnQuanLyKhachHang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuanLyKhachHangActionPerformed(evt);
-            }
-        });
 
         btnBaoCaoThongKe.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnBaoCaoThongKe.setForeground(new java.awt.Color(255, 255, 255));
@@ -316,23 +209,6 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         btnBaoCaoThongKe.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnBaoCaoThongKe.setIconTextGap(12);
         btnBaoCaoThongKe.setBackground(new java.awt.Color(0,0,0,1));
-        btnBaoCaoThongKe.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnBaoCaoThongKeMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnBaoCaoThongKeMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnBaoCaoThongKeMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnBaoCaoThongKeMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnBaoCaoThongKeMouseReleased(evt);
-            }
-        });
 
         btnDangXuat.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnDangXuat.setForeground(new java.awt.Color(255, 255, 255));
@@ -344,23 +220,6 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         btnDangXuat.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnDangXuat.setIconTextGap(12);
         btnDangXuat.setBackground(new java.awt.Color(0,0,0,1));
-        btnDangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDangXuatMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDangXuatMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnDangXuatMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnDangXuatMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnDangXuatMouseReleased(evt);
-            }
-        });
 
         jSeparator2.setForeground(new java.awt.Color(204, 204, 204));
 
@@ -439,196 +298,19 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnQuanLyPhucVuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyPhucVuMouseClicked
-        btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,100));
-    }//GEN-LAST:event_btnQuanLyPhucVuMouseClicked
-
-    private void btnQuanLyPhucVuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyPhucVuMouseEntered
-        //        jButton1.setBackground(new java.awt.Color(0,0,0,40));
-        //        over = true;
-    }//GEN-LAST:event_btnQuanLyPhucVuMouseEntered
-
-    private void btnQuanLyPhucVuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyPhucVuMouseExited
-        //        jButton1.setBackground(new java.awt.Color(0,0,0,0));
-        //        over = false;
-    }//GEN-LAST:event_btnQuanLyPhucVuMouseExited
-
-    private void btnQuanLyPhucVuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyPhucVuMousePressed
-        //        jButton1.setBackground(new java.awt.Color(0,0,0,100));
-    }//GEN-LAST:event_btnQuanLyPhucVuMousePressed
-
-    private void btnQuanLyPhucVuMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyPhucVuMouseReleased
-        btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,0));
-    }//GEN-LAST:event_btnQuanLyPhucVuMouseReleased
-
-    private void btnQuanLyBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyBanMouseClicked
-        btnQuanLyBan.setBackground(new java.awt.Color(0,0,0,100));
-    }//GEN-LAST:event_btnQuanLyBanMouseClicked
-
-    private void btnQuanLyBanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyBanMouseEntered
-
-    }//GEN-LAST:event_btnQuanLyBanMouseEntered
-
-    private void btnQuanLyBanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyBanMouseExited
-
-    }//GEN-LAST:event_btnQuanLyBanMouseExited
-
-    private void btnQuanLyBanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyBanMousePressed
-
-    }//GEN-LAST:event_btnQuanLyBanMousePressed
-
-    private void btnQuanLyBanMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyBanMouseReleased
-        btnQuanLyPhucVu.setBackground(new java.awt.Color(0,0,0,0));
-    }//GEN-LAST:event_btnQuanLyBanMouseReleased
-
-    private void btnQuanLyMonAnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyMonAnMouseClicked
-        resetColorButton();
-        btnQuanLyMonAn.setBackground(new java.awt.Color(0,0,0,100));
-//        showForm(new QuanLyMonAn_GUI_PanelForm());
-    }//GEN-LAST:event_btnQuanLyMonAnMouseClicked
-
-    private void btnQuanLyMonAnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyMonAnMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyMonAnMouseEntered
-
-    private void btnQuanLyMonAnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyMonAnMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyMonAnMouseExited
-
-    private void btnQuanLyMonAnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyMonAnMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyMonAnMousePressed
-
-    private void btnQuanLyMonAnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyMonAnMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyMonAnMouseReleased
-
-    private void btnQuanLyHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyHoaDonMouseClicked
-        resetColorButton();
-        btnQuanLyHoaDon.setBackground(new java.awt.Color(0,0,0,100));
-//        showForm(new QuanLyHoaDon_GUI_PanelForm());
-    }//GEN-LAST:event_btnQuanLyHoaDonMouseClicked
-
-    private void btnQuanLyHoaDonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyHoaDonMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyHoaDonMouseEntered
-
-    private void btnQuanLyHoaDonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyHoaDonMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyHoaDonMouseExited
-
-    private void btnQuanLyHoaDonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyHoaDonMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyHoaDonMousePressed
-
-    private void btnQuanLyHoaDonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyHoaDonMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyHoaDonMouseReleased
-
-    private void btnQuanLyNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyNhanVienMouseClicked
-        resetColorButton();
-        btnQuanLyNhanVien.setBackground(new java.awt.Color(0,0,0,100));
-//        showForm(new QuanLyNhanVien_GUI_PanelForm());
-    }//GEN-LAST:event_btnQuanLyNhanVienMouseClicked
-
-    private void btnQuanLyNhanVienMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyNhanVienMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyNhanVienMouseEntered
-
-    private void btnQuanLyNhanVienMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyNhanVienMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyNhanVienMouseExited
-
-    private void btnQuanLyNhanVienMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyNhanVienMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyNhanVienMousePressed
-
-    private void btnQuanLyNhanVienMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyNhanVienMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyNhanVienMouseReleased
-
-    private void btnQuanLyKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyKhachHangMouseClicked
-        resetColorButton();
-        btnQuanLyKhachHang.setBackground(new java.awt.Color(0,0,0,100));
-//        showForm(new QuanLyKhachHang_GUI_PanelForm());
-    }//GEN-LAST:event_btnQuanLyKhachHangMouseClicked
-
-    private void btnQuanLyKhachHangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyKhachHangMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyKhachHangMouseEntered
-
-    private void btnQuanLyKhachHangMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyKhachHangMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyKhachHangMouseExited
-
-    private void btnQuanLyKhachHangMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyKhachHangMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyKhachHangMousePressed
-
-    private void btnQuanLyKhachHangMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyKhachHangMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyKhachHangMouseReleased
-
-    private void btnQuanLyKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLyKhachHangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuanLyKhachHangActionPerformed
-
-    private void btnBaoCaoThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBaoCaoThongKeMouseClicked
-        resetColorButton();
-        btnBaoCaoThongKe.setBackground(new java.awt.Color(0,0,0,100));
-//        showForm(new BaoCaoThongKe_GUI_PanelForm());
-    }//GEN-LAST:event_btnBaoCaoThongKeMouseClicked
-
-    private void btnBaoCaoThongKeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBaoCaoThongKeMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBaoCaoThongKeMouseEntered
-
-    private void btnBaoCaoThongKeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBaoCaoThongKeMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBaoCaoThongKeMouseExited
-
-    private void btnBaoCaoThongKeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBaoCaoThongKeMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBaoCaoThongKeMousePressed
-
-    private void btnBaoCaoThongKeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBaoCaoThongKeMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBaoCaoThongKeMouseReleased
-
-    private void btnDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseClicked
-        resetColorButton();
-        btnDangXuat.setBackground(new java.awt.Color(0,0,0,100));
-    }//GEN-LAST:event_btnDangXuatMouseClicked
-
-    private void btnDangXuatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDangXuatMouseEntered
-
-    private void btnDangXuatMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDangXuatMouseExited
-
-    private void btnDangXuatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDangXuatMousePressed
-
-    private void btnDangXuatMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangXuatMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDangXuatMouseReleased
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBaoCaoThongKe;
-    private javax.swing.JButton btnDangXuat;
+    public javax.swing.JButton btnBaoCaoThongKe;
+    public javax.swing.JButton btnDangXuat;
     public javax.swing.JButton btnQuanLyBan;
-    private javax.swing.JButton btnQuanLyHoaDon;
-    private javax.swing.JButton btnQuanLyKhachHang;
-    private javax.swing.JButton btnQuanLyMonAn;
-    private javax.swing.JButton btnQuanLyNhanVien;
+    public javax.swing.JButton btnQuanLyHoaDon;
+    public javax.swing.JButton btnQuanLyKhachHang;
+    public javax.swing.JButton btnQuanLyMonAn;
+    public javax.swing.JButton btnQuanLyNhanVien;
     public javax.swing.JButton btnQuanLyPhucVu;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblLogo;
-    private javax.swing.JLabel lblTenNhanVien;
+    public javax.swing.JLabel lblTenNhanVien;
     public javax.swing.JPanel pnlForm;
     private javax.swing.JPanel pnlMenu;
     // End of variables declaration//GEN-END:variables

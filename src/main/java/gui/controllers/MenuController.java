@@ -38,6 +38,10 @@ public class MenuController {
         view.setVisible(true);
         datMonController = new DatMonController();
         
+        loadMonAn();    
+    }
+    
+    private void loadMonAn(){
         view.loadMonAn(listLoaiMonAnFullModel);
         view.listBtnDatMon.forEach(btnDatMon -> btnDatMon.addMouseListener(new MouseAdapter(){
             @Override
@@ -45,11 +49,14 @@ public class MenuController {
                 int idMonAn = Integer.parseInt(btnDatMon.getName());
                 showDatMon(idMonAn);
             }
-            
         }));
     }
 
-    public void show(){
+    public void show(int idBan){
+        this.idBan = idBan;
+        loadData();
+        loadMonAn();
+        
         view.setVisible(true);
         view.setState(JFrame.NORMAL);
         view.toFront();

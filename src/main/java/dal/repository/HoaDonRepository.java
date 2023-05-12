@@ -35,13 +35,11 @@ public class HoaDonRepository {
     private NhanVienRepository nhanVienRepository;
     private KhachHangRepository khachHangRepository;
     private MonAnRepository monAnRepository;
-    private DonGoiRepository donGoiRepository;
 
     public HoaDonRepository() {
         nhanVienRepository = new NhanVienRepository();
         khachHangRepository = new KhachHangRepository();
         monAnRepository = new MonAnRepository();
-        donGoiRepository = new DonGoiRepository();
     }
     
 

@@ -196,10 +196,7 @@ public class NhanVienRepository {
         NhanVien nhanVien = session.get(NhanVien.class, data.getMa());
         
         session.getTransaction().begin();
-        String encryptedpassword = AES.encrypt(data.getPassWord(), secretKey);      
-        
-        nhanVien.setPassWord(encryptedpassword);
-         
+        nhanVien.setPassWord(data.getPassWord());
         session.save(nhanVien);
         session.getTransaction().commit();
         

@@ -28,6 +28,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import gui.controllers.QuanLyLoaiKhachHangController;
 
 /**
  *
@@ -36,6 +37,8 @@ import javax.swing.JOptionPane;
 public class QuanLyKhachHangController {
     private final IKhachHangService khachHangService;
     private final ILoaiKhachHangService loaiKhachHangService;
+    
+    private QuanLyLoaiKhachHangController quanLyLoaiKhachHangController;
     
     private QuanLyKhachHang_GUI view;
     private boolean dangThemKhachHang = true;
@@ -285,5 +288,14 @@ public class QuanLyKhachHangController {
         
         listKhachHangModel = (ArrayList<KhachHangModel>) khachHangService.search(searchKhachHangModel);
         view.loadTableKhachHang(listKhachHangModel);
+    }
+    
+    private void loadLoaiKhachHang(){
+        if(quanLyLoaiKhachHangController == null){
+            quanLyLoaiKhachHangController = new QuanLyLoaiKhachHangController();
+        } else {
+            quanLyLoaiKhachHangController.show();
+        }
+        
     }
 }

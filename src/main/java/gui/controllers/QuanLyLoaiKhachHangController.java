@@ -15,6 +15,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -64,6 +65,12 @@ public class QuanLyLoaiKhachHangController {
                     loadDetailLoaiKhachHang();  
             }
         });
+    }
+    
+    public void show(){
+        view.setVisible(true);
+        view.setState(JFrame.NORMAL);
+        view.toFront();        
     }
     
     private void loadData(){

@@ -105,8 +105,8 @@ public class DonGoiServiceImpl implements IDonGoiService {
             return false;
         
         banCu.getListDonGoi().forEach(donGoi -> {
-            donGoi.setBan(banMoi);
             donGoiRepository.delete(donGoi);
+            donGoi.setBan(banMoi);
             donGoiRepository.create(donGoi);
         });
         
@@ -212,7 +212,7 @@ public class DonGoiServiceImpl implements IDonGoiService {
             String hoTenKH = khachHangFullModel != null ? khachHangFullModel.getTen(): "";
             String sdtKH = khachHangFullModel != null ? khachHangFullModel.getSdt(): "";
             
-            String infoString = "Bàn \n" + idBan
+            String infoString = "Bàn " + idBan + "\n"
                     + "Mã nhân viên: " + maNhanVien + "\n"
                     + "Tên nhân viên: " +  nhanVienFullModel.getHoTen() + "\n"
                     + "Tên khách hàng: " + hoTenKH + "\n"
