@@ -77,9 +77,9 @@ public class QuanLyHoaDonController {
                     return;
                 int idHoaDon = (int) view.tblDanhSachHoaDon.getValueAt(row, 0);
                 hoaDonSelected = hoaDonService.getHoaDonFullById(idHoaDon);
-                resetForm();
-                
-                
+//                resetForm();
+//                
+//                
             }
         });
         

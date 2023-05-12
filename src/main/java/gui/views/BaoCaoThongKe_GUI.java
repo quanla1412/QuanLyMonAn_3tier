@@ -24,165 +24,165 @@ public class BaoCaoThongKe_GUI extends javax.swing.JPanel {
     public BaoCaoThongKe_GUI() {
         initComponents();        
     }
-    public void showPieChartDoanhThuTheoNhanVienNamHienTai(){
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        listDoanhThuTheoNguoi = thongKe_BUS.getAllDoanhThuTheoNhanVien();        
-        
-        for(DoanhThuNguoi_DTO doanhThu : listDoanhThuTheoNguoi){
-        dataset.setValue(doanhThu.getTongTien(), "Doanh thu", doanhThu.getHoTen());
-        }
-        // Create the chart
-        JFreeChart chart = ChartFactory.createBarChart(
-            "Thống kê Top 5 nhân viên có doanh thu cao nhất", // Tiêu đề biểu đồ
-            "Tên nhân viên",                           // Tên trục x
-            "Doanh thu (Triệu VNĐ)",                // Tên trục y
-            dataset,                          // Dữ liệu
-            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
-            true,                             // Legend
-            true,                             // Tooltips
-            false                             // URLs
-        );
-        
-        // Create the chart panel and add it to the main panel
-        ChartPanel chartPanel = new ChartPanel(chart);
-        this.pnlBieuDo.removeAll();
-        this.pnlBieuDo.add(chartPanel);
-        this.pnlBieuDo.validate();
-        this.pnlBieuDo.repaint();
-     }
-    public void showPieChartDoanhThuTheoKhachHangNamHienTai(){
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        listDoanhThuTheoNguoi = thongKe_BUS.getAllDoanhThuTheoKhachHang();        
-        
-        for(DoanhThuNguoi_DTO doanhThu : listDoanhThuTheoNguoi){
-        dataset.setValue(doanhThu.getTongTien(), "Doanh thu", doanhThu.getHoTen());
-        }
-        // Create the chart
-        JFreeChart chart = ChartFactory.createBarChart(
-            "Thống kê Top 5 khách hàng thân thiết", // Tiêu đề biểu đồ
-            "Tên khách hàng",                           // Tên trục x
-            "Doanh thu (Triệu VNĐ)",                // Tên trục y
-            dataset,                          // Dữ liệu
-            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
-            true,                             // Legend
-            true,                             // Tooltips
-            false                             // URLs
-        );
-        
-        // Create the chart panel and add it to the main panel
-        ChartPanel chartPanel = new ChartPanel(chart);
-        this.pnlBieuDo.removeAll();
-        this.pnlBieuDo.add(chartPanel);
-        this.pnlBieuDo.validate();
-        this.pnlBieuDo.repaint();
-     }
-    public void showPieChartDoanhThuTheo7NgayGanNhat(){
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        listDoanhThuTheoNgay = thongKe_BUS.getAllDoanhThuTheo7NgayGanNhat();        
-        
-        for(DoanhThuNgay_DTO doanhThu : listDoanhThuTheoNgay){
-        dataset.setValue(doanhThu.getTongTien(), "Doanh thu", doanhThu.getDate());
-        }
-        // Create the chart
-        JFreeChart chart = ChartFactory.createBarChart(
-            "Thống kê doanh thu theo 7 ngày gần nhất", // Tiêu đề biểu đồ
-            "Ngày",                           // Tên trục x
-            "Doanh thu (Triệu VNĐ)",                // Tên trục y
-            dataset,                          // Dữ liệu
-            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
-            true,                             // Legend
-            true,                             // Tooltips
-            false                             // URLs
-        );
-        
-        // Create the chart panel and add it to the main panel
-        ChartPanel chartPanel = new ChartPanel(chart);
-        this.pnlBieuDo.removeAll();
-        this.pnlBieuDo.add(chartPanel);
-        this.pnlBieuDo.validate();
-        this.pnlBieuDo.repaint();
-     }
-    public void showPieChartDoanhThuNamHienTai(){
-         DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
-        listDoanhThuTheoThang = thongKe_BUS.getAllDoanhThuTheoThang();        
-        
-        
-        for(DoanhThuThang_DTO doanhThu : listDoanhThuTheoThang){
-            dataset.addValue(doanhThu.getTongTien(), "Sales",doanhThu.getThang());
-        }
-        // Create the chart
-        JFreeChart chart = ChartFactory.createLineChart(
-            "Thống kê doanh thu các tháng của năm hiện tại",  // Tiêu đề biểu đồ
-            "Month",          // Tiêu đề trục hoành
-            "% so với tháng đầu tiên ",      // Tiêu đề trục tung
-            dataset           // Dataset
-        );
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
-        renderer.setBaseShapesVisible(true);
-        renderer.setBaseItemLabelGenerator((CategoryItemLabelGenerator) new StandardCategoryItemLabelGenerator("{2}", new DecimalFormat("0.00")));
-        renderer.setBaseItemLabelsVisible(true);
-        renderer.setBaseItemLabelFont(new Font("Tahoma", Font.BOLD, 12));
-        renderer.setBasePositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BASELINE_LEFT));
-        // Create the chart panel and add it to the main panel
-        ChartPanel chartPanel = new ChartPanel(chart);
-        this.pnlBieuDo.removeAll();
-        this.pnlBieuDo.add(chartPanel);
-        this.pnlBieuDo.validate();
-        this.pnlBieuDo.repaint();
-     }
-    public void showPieChartDoanhThuTheoLoaiMonAnNamHienTai(){
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        listDoanhThuTheoLMA = thongKe_BUS.getAllDoanhThuTheoLoaiMonAn();        
-        
-        for(DoanhThuTheoLoaiMonAn_DTO doanhThu : listDoanhThuTheoLMA){
-        dataset.setValue(doanhThu.getTongTien(), "Doanh thu", doanhThu.getTenLMA());
-        }
-        // Create the chart
-        JFreeChart chart = ChartFactory.createBarChart(
-            "Thống kê doanh thu theo loại món ăn của năm hiện tại", // Tiêu đề biểu đồ
-            "Tên loại món ăn",                           // Tên trục x
-            "Doanh thu (Triệu VNĐ)",                // Tên trục y
-            dataset,                          // Dữ liệu
-            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
-            true,                             // Legend
-            true,                             // Tooltips
-            false                             // URLs
-        );
-        
-        // Create the chart panel and add it to the main panel
-        ChartPanel chartPanel = new ChartPanel(chart);
-        this.pnlBieuDo.removeAll();
-        this.pnlBieuDo.add(chartPanel);
-        this.pnlBieuDo.validate();
-        this.pnlBieuDo.repaint();
-     }
-    public void showPieChartTieuThuMonAnThangHienTai(){
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        listSoLuongTheoMonAn = thongKe_BUS.getAllSoLuongTheoMonAnTheoThang();        
-        
-        for(SoLuongTheoMonAn_DTO doanhThu : listSoLuongTheoMonAn){
-        dataset.setValue(doanhThu.getSoLuong(), "Doanh thu", doanhThu.getTenMonAn());
-        }
-        // Create the chart
-        JFreeChart chart = ChartFactory.createBarChart(
-            "Top 5 món ăn bán chạy nhất tháng hiện tại", // Tiêu đề biểu đồ
-            "Tên món ăn",                           // Tên trục x
-            "Số lượng",                // Tên trục y
-            dataset,                          // Dữ liệu
-            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
-            true,                             // Legend
-            true,                             // Tooltips
-            false                             // URLs
-        );
-        
-        // Create the chart panel and add it to the main panel
-        ChartPanel chartPanel = new ChartPanel(chart);
-        this.pnlBieuDo.removeAll();
-        this.pnlBieuDo.add(chartPanel);
-        this.pnlBieuDo.validate();
-        this.pnlBieuDo.repaint();
-     } 
+//    public void showPieChartDoanhThuTheoNhanVienNamHienTai(){
+//        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+//        listDoanhThuTheoNguoi = thongKe_BUS.getAllDoanhThuTheoNhanVien();        
+//        
+//        for(DoanhThuNguoi_DTO doanhThu : listDoanhThuTheoNguoi){
+//        dataset.setValue(doanhThu.getTongTien(), "Doanh thu", doanhThu.getHoTen());
+//        }
+//        // Create the chart
+//        JFreeChart chart = ChartFactory.createBarChart(
+//            "Thống kê Top 5 nhân viên có doanh thu cao nhất", // Tiêu đề biểu đồ
+//            "Tên nhân viên",                           // Tên trục x
+//            "Doanh thu (Triệu VNĐ)",                // Tên trục y
+//            dataset,                          // Dữ liệu
+//            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
+//            true,                             // Legend
+//            true,                             // Tooltips
+//            false                             // URLs
+//        );
+//        
+//        // Create the chart panel and add it to the main panel
+//        ChartPanel chartPanel = new ChartPanel(chart);
+//        this.pnlBieuDo.removeAll();
+//        this.pnlBieuDo.add(chartPanel);
+//        this.pnlBieuDo.validate();
+//        this.pnlBieuDo.repaint();
+//     }
+//    public void showPieChartDoanhThuTheoKhachHangNamHienTai(){
+//        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+//        listDoanhThuTheoNguoi = thongKe_BUS.getAllDoanhThuTheoKhachHang();        
+//        
+//        for(DoanhThuNguoi_DTO doanhThu : listDoanhThuTheoNguoi){
+//        dataset.setValue(doanhThu.getTongTien(), "Doanh thu", doanhThu.getHoTen());
+//        }
+//        // Create the chart
+//        JFreeChart chart = ChartFactory.createBarChart(
+//            "Thống kê Top 5 khách hàng thân thiết", // Tiêu đề biểu đồ
+//            "Tên khách hàng",                           // Tên trục x
+//            "Doanh thu (Triệu VNĐ)",                // Tên trục y
+//            dataset,                          // Dữ liệu
+//            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
+//            true,                             // Legend
+//            true,                             // Tooltips
+//            false                             // URLs
+//        );
+//        
+//        // Create the chart panel and add it to the main panel
+//        ChartPanel chartPanel = new ChartPanel(chart);
+//        this.pnlBieuDo.removeAll();
+//        this.pnlBieuDo.add(chartPanel);
+//        this.pnlBieuDo.validate();
+//        this.pnlBieuDo.repaint();
+//     }
+//    public void showPieChartDoanhThuTheo7NgayGanNhat(){
+//        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+//        listDoanhThuTheoNgay = thongKe_BUS.getAllDoanhThuTheo7NgayGanNhat();        
+//        
+//        for(DoanhThuNgay_DTO doanhThu : listDoanhThuTheoNgay){
+//        dataset.setValue(doanhThu.getTongTien(), "Doanh thu", doanhThu.getDate());
+//        }
+//        // Create the chart
+//        JFreeChart chart = ChartFactory.createBarChart(
+//            "Thống kê doanh thu theo 7 ngày gần nhất", // Tiêu đề biểu đồ
+//            "Ngày",                           // Tên trục x
+//            "Doanh thu (Triệu VNĐ)",                // Tên trục y
+//            dataset,                          // Dữ liệu
+//            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
+//            true,                             // Legend
+//            true,                             // Tooltips
+//            false                             // URLs
+//        );
+//        
+//        // Create the chart panel and add it to the main panel
+//        ChartPanel chartPanel = new ChartPanel(chart);
+//        this.pnlBieuDo.removeAll();
+//        this.pnlBieuDo.add(chartPanel);
+//        this.pnlBieuDo.validate();
+//        this.pnlBieuDo.repaint();
+//     }
+//    public void showPieChartDoanhThuNamHienTai(){
+//         DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
+//        listDoanhThuTheoThang = thongKe_BUS.getAllDoanhThuTheoThang();        
+//        
+//        
+//        for(DoanhThuThang_DTO doanhThu : listDoanhThuTheoThang){
+//            dataset.addValue(doanhThu.getTongTien(), "Sales",doanhThu.getThang());
+//        }
+//        // Create the chart
+//        JFreeChart chart = ChartFactory.createLineChart(
+//            "Thống kê doanh thu các tháng của năm hiện tại",  // Tiêu đề biểu đồ
+//            "Month",          // Tiêu đề trục hoành
+//            "% so với tháng đầu tiên ",      // Tiêu đề trục tung
+//            dataset           // Dataset
+//        );
+//        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+//        LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
+//        renderer.setBaseShapesVisible(true);
+//        renderer.setBaseItemLabelGenerator((CategoryItemLabelGenerator) new StandardCategoryItemLabelGenerator("{2}", new DecimalFormat("0.00")));
+//        renderer.setBaseItemLabelsVisible(true);
+//        renderer.setBaseItemLabelFont(new Font("Tahoma", Font.BOLD, 12));
+//        renderer.setBasePositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BASELINE_LEFT));
+//        // Create the chart panel and add it to the main panel
+//        ChartPanel chartPanel = new ChartPanel(chart);
+//        this.pnlBieuDo.removeAll();
+//        this.pnlBieuDo.add(chartPanel);
+//        this.pnlBieuDo.validate();
+//        this.pnlBieuDo.repaint();
+//     }
+//    public void showPieChartDoanhThuTheoLoaiMonAnNamHienTai(){
+//        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+//        listDoanhThuTheoLMA = thongKe_BUS.getAllDoanhThuTheoLoaiMonAn();        
+//        
+//        for(DoanhThuTheoLoaiMonAn_DTO doanhThu : listDoanhThuTheoLMA){
+//        dataset.setValue(doanhThu.getTongTien(), "Doanh thu", doanhThu.getTenLMA());
+//        }
+//        // Create the chart
+//        JFreeChart chart = ChartFactory.createBarChart(
+//            "Thống kê doanh thu theo loại món ăn của năm hiện tại", // Tiêu đề biểu đồ
+//            "Tên loại món ăn",                           // Tên trục x
+//            "Doanh thu (Triệu VNĐ)",                // Tên trục y
+//            dataset,                          // Dữ liệu
+//            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
+//            true,                             // Legend
+//            true,                             // Tooltips
+//            false                             // URLs
+//        );
+//        
+//        // Create the chart panel and add it to the main panel
+//        ChartPanel chartPanel = new ChartPanel(chart);
+//        this.pnlBieuDo.removeAll();
+//        this.pnlBieuDo.add(chartPanel);
+//        this.pnlBieuDo.validate();
+//        this.pnlBieuDo.repaint();
+//     }
+//    public void showPieChartTieuThuMonAnThangHienTai(){
+//        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+//        listSoLuongTheoMonAn = thongKe_BUS.getAllSoLuongTheoMonAnTheoThang();        
+//        
+//        for(SoLuongTheoMonAn_DTO doanhThu : listSoLuongTheoMonAn){
+//        dataset.setValue(doanhThu.getSoLuong(), "Doanh thu", doanhThu.getTenMonAn());
+//        }
+//        // Create the chart
+//        JFreeChart chart = ChartFactory.createBarChart(
+//            "Top 5 món ăn bán chạy nhất tháng hiện tại", // Tiêu đề biểu đồ
+//            "Tên món ăn",                           // Tên trục x
+//            "Số lượng",                // Tên trục y
+//            dataset,                          // Dữ liệu
+//            PlotOrientation.HORIZONTAL,         // Hướng biểu đồ
+//            true,                             // Legend
+//            true,                             // Tooltips
+//            false                             // URLs
+//        );
+//        
+//        // Create the chart panel and add it to the main panel
+//        ChartPanel chartPanel = new ChartPanel(chart);
+//        this.pnlBieuDo.removeAll();
+//        this.pnlBieuDo.add(chartPanel);
+//        this.pnlBieuDo.validate();
+//        this.pnlBieuDo.repaint();
+//     } 
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

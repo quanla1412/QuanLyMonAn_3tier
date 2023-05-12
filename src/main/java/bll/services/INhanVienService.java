@@ -4,12 +4,14 @@
  */
 package bll.services;
 
-import dal.entity.NhanVien;
+
 import gui.models.NhanVien.CreateNhanVienModel;
 import gui.models.NhanVien.NhanVienFullModel;
 import gui.models.NhanVien.NhanVienModel;
 import gui.models.NhanVien.SearchNhanVienModel;
+import gui.models.NhanVien.UpdateTaiKhoanNhanVienModel;
 import gui.models.NhanVien.UpdateNhanVienModel;
+import gui.models.TaiKhoanModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,11 +39,12 @@ public interface INhanVienService {
     boolean exportAllNhanVienTheoMauImport(String filePath);
     
     int importNhanVien(String filePath);   
-    
     Map<String, Integer> countByGioiTinh(); 
     
     Map<String, Integer> countByTinhTrang();
     
     Map<String, Integer> countByTuoi();
+    boolean dangNhap (TaiKhoanModel taiKhoanModel);
     
+    boolean updateTaiKhoanNhanVien(UpdateTaiKhoanNhanVienModel updateMatKhauNhanVienModel);
 }
