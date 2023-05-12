@@ -9,7 +9,7 @@ package gui.models.NhanVien;
  * @author dinhn
  */
 public class UpdateNhanVienModel {
-     private String ma;
+    private String ma;
     private int idTinhTrangNhanVien;
     private int idChucVu;
     private String hoTen;
