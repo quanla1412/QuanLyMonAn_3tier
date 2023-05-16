@@ -61,8 +61,6 @@ public class NhanVienRepository {
         return nhanVien;
     }
     
-    
-    
      public NhanVien createNhanVien(NhanVien nhanVien){
         Session session = HibernateUtils.getFACTORY().openSession();
         
@@ -143,7 +141,7 @@ public class NhanVienRepository {
         ArrayList<String> conditions = new ArrayList<>();
         
         if(searchNhanVienModel.getMaOrhoTen() != null && !searchNhanVienModel.getMaOrhoTen().isBlank())
-                conditions.add("(NV.ma LIKE '%" + searchNhanVienModel.getMaOrhoTen()+ "%' OR NV.hoTen LIKE '%" + searchNhanVienModel.getMaOrhoTen()+ "%')");
+                conditions.add("(NV.ma LIKE '%" + searchNhanVienModel.getMaOrhoTen()+ "%' OR NV.hoTen LIKE :ten)");
             
         if(searchNhanVienModel.getChucVu()> 0)
             conditions.add("CV.id = "+ searchNhanVienModel.getChucVu());
@@ -163,7 +161,8 @@ public class NhanVienRepository {
             whereSql = " WHERE ";
         String finalSql = sql + whereSql + String.join(" AND ", conditions);
         
-        javax.persistence.Query query = session.createQuery(finalSql);
+        javax.persistence.Query query = session.createQuery(finalSql)
+                .setParameter("ten", "%" + searchNhanVienModel.getMaOrhoTen() + "%");
         List<String> nma = query.getResultList();
         
         session.close();           

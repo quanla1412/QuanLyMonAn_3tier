@@ -121,7 +121,7 @@ public class KhachHangRepository {
         ArrayList<String> conditions = new ArrayList<>();
         
         if(searchKhachHangModel.getIdOrName()!= null && !searchKhachHangModel.getIdOrName().isBlank())
-            conditions.add("(KH.id LIKE '%" + searchKhachHangModel.getIdOrName() + "%' OR KH.ten LIKE '%" + searchKhachHangModel.getIdOrName() + "%')");
+            conditions.add("(KH.id LIKE '%" + searchKhachHangModel.getIdOrName() + "%' OR KH.ten LIKE :ten)");
         if(searchKhachHangModel.getIdLoaiKhachHang()>0)
             conditions.add("LKH.id = "+ searchKhachHangModel.getIdLoaiKhachHang());
         if(searchKhachHangModel.getSdt()!= null &&!searchKhachHangModel.getSdt().isBlank())
@@ -136,7 +136,8 @@ public class KhachHangRepository {
             whereSql = " WHERE ";
         String finalSql = sql + whereSql + String.join(" AND ", conditions);
         
-        javax.persistence.Query query = session.createQuery(finalSql);
+        javax.persistence.Query query = session.createQuery(finalSql)
+                .setParameter("ten", "%" + searchKhachHangModel.getIdOrName() + "%");
         List<Integer> ids = query.getResultList();
         
        session.close();
