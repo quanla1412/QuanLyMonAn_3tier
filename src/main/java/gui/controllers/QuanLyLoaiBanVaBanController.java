@@ -87,7 +87,6 @@ public class QuanLyLoaiBanVaBanController {
         view.btnThemBan.addActionListener(e -> changeModeBan(true));
         view.btnSuaBan.addActionListener(e -> changeModeBan(false));
         view.btnResetBan.addActionListener(e -> resetBan());
-        view.btnXoaBan.addActionListener(e -> deleteBan());
         
         view.tblBan.addMouseListener(new MouseAdapter(){
             @Override
@@ -157,8 +156,9 @@ public class QuanLyLoaiBanVaBanController {
             errorList.add("Số lượng chỗ ngồi không được để trống");            
         } else if(!NumberUtils.isCreatable(soChoNgoi)){
             errorList.add("Số lượng chỗ ngồi phải nhập đúng định dạng");
-        } else if(NumberUtils.toInt(soChoNgoi) <= 0)
-            errorList.add("Số lượng chỗ ngồi không được bé hơn 0");
+        } else if(NumberUtils.toInt(soChoNgoi) <= 0 || NumberUtils.toInt(soChoNgoi) > 50){
+            errorList.add("Số lượng chỗ ngồi không được bé hơn 0 hoặc lớn hơn 50");            
+        }
         
         String error = String.join("\n", errorList);
         
@@ -259,6 +259,15 @@ public class QuanLyLoaiBanVaBanController {
             TinhTrangBanModel tinhTrangBanModel = banSelected.getTinhTrangBan();
             int indexTinhTrangBan = listTinhTrangBanModel.indexOf(tinhTrangBanModel);
             view.cmbTinhTrangBan.setSelectedIndex(indexTinhTrangBan);
+            
+            
+            if(banSelected.getTinhTrangBan().getId() == TinhTrangBanConstraints.DANG_PHUC_VU){
+                view.cmbLoaiBan.setEnabled(false);
+                view.cmbTinhTrangBan.setEnabled(false);
+            } else {          
+                view.cmbLoaiBan.setEnabled(true);      
+                view.cmbTinhTrangBan.setEnabled(true);
+            }
         }                     
     }
     
@@ -305,7 +314,7 @@ public class QuanLyLoaiBanVaBanController {
         resetLoaiBan();
     }
     
-    private void deleteBan(){
+    public void deleteBan(){
         if(banSelected == null)
             JOptionPane.showMessageDialog(view, "Bạn chưa chọn bàn muốn xóa","Error", JOptionPane.ERROR_MESSAGE);
         
@@ -324,6 +333,10 @@ public class QuanLyLoaiBanVaBanController {
     }
     
     public JButton getBtnLuuBan(){
-        return view.btnThemBan;
+        return view.btnLuuBan;
+    }
+    
+    public JButton getBtnXoaBan(){
+        return view.btnXoaBan;
     }
 }

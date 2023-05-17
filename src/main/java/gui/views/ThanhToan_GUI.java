@@ -61,7 +61,7 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         lblSDTKhachHang = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         tblDonGoi = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -208,8 +208,7 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         getContentPane().add(jPanel1, gridBagConstraints);
 
-        jScrollPane1.setMinimumSize(new java.awt.Dimension(452, 360));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 360));
+        jScrollPane2.setMinimumSize(new java.awt.Dimension(452, 360));
 
         tblDonGoi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -222,17 +221,15 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
                 "ID Món ăn", "Tên món ăn", "Đơn giá", "Số lượng", "Thành tiền"
             }
         ));
-        tblDonGoi.setMinimumSize(new java.awt.Dimension(200, 80));
-        tblDonGoi.setPreferredSize(new java.awt.Dimension(200, 80));
-        tblDonGoi.setRequestFocusEnabled(false);
-        jScrollPane1.setViewportView(tblDonGoi);
+        jScrollPane2.setViewportView(tblDonGoi);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(4, 20, 4, 20);
-        getContentPane().add(jScrollPane1, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 20);
+        getContentPane().add(jScrollPane2, gridBagConstraints);
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
@@ -341,7 +338,7 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     public javax.swing.JLabel lblMucUuDai;
@@ -351,7 +348,7 @@ public class ThanhToan_GUI extends javax.swing.JFrame {
     public javax.swing.JLabel lblTitleBan;
     public javax.swing.JLabel lblTongThanhToan;
     public javax.swing.JLabel lblTongTien;
-    private javax.swing.JTable tblDonGoi;
+    public javax.swing.JTable tblDonGoi;
     public javax.swing.JTextField txtSoDienThoai;
     // End of variables declaration//GEN-END:variables
 }

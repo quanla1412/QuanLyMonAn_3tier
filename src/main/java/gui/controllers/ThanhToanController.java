@@ -80,13 +80,14 @@ public class ThanhToanController {
 
     void show(int idBan) {    
         this.idBan = idBan;
+        khachHangFullModel = null;
         loadData();      
+        loadThongTin();
+        tinhTongThanhToan();
         
         view.setVisible(true);
         view.setState(JFrame.NORMAL);
         view.toFront();  
-        loadThongTin();
-        tinhTongThanhToan();
     }
     
     public JButton getBtnThanhToan(){
@@ -99,6 +100,10 @@ public class ThanhToanController {
         view.lblTongTien.setText(Price.formatPrice(donGoiMasterModel.getTotal()));
         view.btnSearch.addActionListener(e -> timKhachHang());
         view.lblNhanVien.setText("Nhân viên lập hóa đơn: " + nhanVienFullModel.getHoTen());
+        view.txtSoDienThoai.setText("");
+        view.lblTenKhachHang.setText("Tên khách hàng: ");
+        view.lblSDTKhachHang.setText("Số điện thoại: ");
+        view.lblMucUuDai.setText("0.0 %");
     }
     
     private void timKhachHang(){
@@ -148,7 +153,7 @@ public class ThanhToanController {
             
             createChiTietHoaDonModel.setIdMonAn(donGoiModel.getMonAn().getId());
             createChiTietHoaDonModel.setSoLuong(donGoiModel.getSoLuong());
-            createChiTietHoaDonModel.setDonGia(donGoiModel.getThanhTien());
+            createChiTietHoaDonModel.setDonGia(donGoiModel.getGia());
             
             listChiTietHoaDonModel.add(createChiTietHoaDonModel);
         });
@@ -164,10 +169,9 @@ public class ThanhToanController {
             if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
                 resultInBill = hoaDonService.inBill(result.getId(), jFileChooser.getSelectedFile().getAbsolutePath());
             }  
-            if (resultInBill)
-                view.dispose();
-            else
+            if (!resultInBill)
                 JOptionPane.showMessageDialog(view, "In bill thất bại","Error", JOptionPane.ERROR_MESSAGE);
+            view.dispose();
                        
         } else 
             JOptionPane.showMessageDialog(view, "Thanh toán thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);

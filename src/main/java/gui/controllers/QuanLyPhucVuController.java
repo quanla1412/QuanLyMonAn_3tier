@@ -260,15 +260,16 @@ public class QuanLyPhucVuController {
             JOptionPane.showMessageDialog(view, "Chưa chọn món ăn","Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if(datMonController == null)
-            datMonController = new DatMonController(banSelected.getId(), idDonGoiItemSelected);
+        if(datMonController == null){
+            datMonController = new DatMonController(banSelected.getId(), idDonGoiItemSelected);            
+            datMonController.getBtnDatMon().addActionListener(e -> {
+                datMonController.datMon();
+                reset();
+            });
+        }
         else
             datMonController.show(banSelected.getId(), idDonGoiItemSelected);
         
-        datMonController.getBtnDatMon().addActionListener(e -> {
-            datMonController.datMon();
-            reset();
-        });
     }  
     
     

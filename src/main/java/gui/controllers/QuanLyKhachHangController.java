@@ -157,6 +157,11 @@ public class QuanLyKhachHangController {
         loadDetailKhachHang();  
     }
     
+    public void reset(){
+        resetTable();
+        resetKhachHangForm();
+    }
+    
     private void resetTable(){
         loadData();
         view.loadTableKhachHang(listKhachHangModel);

@@ -10,7 +10,7 @@ import java.util.Date;
 public class HoaDonModel {
     private int id;
     private String maNhanVien;
-    private int idKhachHang;
+    private Integer idKhachHang;
     private Date ngayGio;
     private long tongGia;
     
@@ -41,7 +41,7 @@ public class HoaDonModel {
         this.maNhanVien = maNhanVien;
     }
 
-    public int getIdKhachHang() {
+    public Integer getIdKhachHang() {
         return idKhachHang;
     }
 

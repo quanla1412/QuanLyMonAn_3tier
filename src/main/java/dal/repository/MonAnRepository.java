@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -46,6 +47,7 @@ public class MonAnRepository {
         Session session = HibernateUtils.getFACTORY().openSession();
         
         MonAn monAn = session.get(MonAn.class, id);
+        Hibernate.initialize(monAn.getListDonGoi());
         
         session.close();
         return monAn;
@@ -98,7 +100,7 @@ public class MonAnRepository {
         ArrayList<String> conditions = new ArrayList<>();
         
         if(searchMonAnModel.getIdOrName() != null && !searchMonAnModel.getIdOrName().isBlank())
-                conditions.add("(MA.id LIKE '%" + searchMonAnModel.getIdOrName() + "%' OR MA.ten LIKE '%" + searchMonAnModel.getIdOrName() + "%')");
+                conditions.add("(MA.id LIKE '%" + searchMonAnModel.getIdOrName() + "%' OR MA.ten LIKE :ten)");
             
         if(searchMonAnModel.getIdLoaiMonAn() > 0)
             conditions.add("LMA.id = "+ searchMonAnModel.getIdLoaiMonAn());
@@ -117,7 +119,8 @@ public class MonAnRepository {
             whereSql = " WHERE ";
         String finalSql = sql + whereSql + String.join(" AND ", conditions);
         
-        javax.persistence.Query query = session.createQuery(finalSql);
+        javax.persistence.Query query = session.createQuery(finalSql)
+                .setParameter("ten", "%" + searchMonAnModel.getIdOrName() + "%");
         List<Integer> ids = query.getResultList();
         
         session.close();           

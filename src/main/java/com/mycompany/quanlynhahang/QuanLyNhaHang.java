@@ -26,6 +26,6 @@ public class QuanLyNhaHang {
         } catch(Exception ex){
             System.out.println(ex);
         }
-        DangNhapController dangNhapController = new DangNhapController();
+        TrangChuController dangNhapController = new TrangChuController("maittt");
     }
 }

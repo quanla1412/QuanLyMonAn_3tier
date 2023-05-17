@@ -57,6 +57,9 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
             pnlDanhSachBan.add(button);
             listBtnBan.add(button);
         }
+        
+        pnlDanhSachBan.revalidate();
+        pnlDanhSachBan.repaint();
     } 
     
     public void loadComboBoxBanSanSang(ArrayList<BanModel> listBanModel){

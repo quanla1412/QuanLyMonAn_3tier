@@ -28,9 +28,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 
@@ -40,7 +40,6 @@ import javax.swing.table.TableModel;
  */
 public class QuanLyHoaDonController {
     private QuanLyHoaDon_GUI view;
-    private QuanLyHoaDonController quanLyHoaDonController;
     
     private final IHoaDonService hoaDonService;
     private final IKhachHangService khachHangService;
@@ -93,9 +92,9 @@ public class QuanLyHoaDonController {
         
         view.btnTimKiem.addActionListener(e -> searchHoaDon());
         view.btnReset.addActionListener(e -> resetTable());
-        view.btnHuyHoaDon.addActionListener(e -> huyHoaDon());
         
         view.tblDanhSachHoaDon.addMouseListener(new MouseAdapter(){
+            @Override
             public void mouseClicked(MouseEvent e) {
                 int row = view.tblDanhSachHoaDon.getSelectedRow();
                 if(row < 0)
@@ -162,7 +161,7 @@ public class QuanLyHoaDonController {
         view.loadTableHoaDon(listHoaDonModel);
     }
     
-    private void huyHoaDon(){
+    public void huyHoaDon(){
         if(view.btnHuyHoaDon.isEnabled()){
             int indexRow = view.tblDanhSachHoaDon.getSelectedRow();
             TableModel model = view.tblDanhSachHoaDon.getModel();
@@ -210,7 +209,7 @@ public class QuanLyHoaDonController {
             view.txtIdKhachHang.setText("");
             view.dtcNgayGio.setDate(new Date());
             view.txtTinhTrangHoaDon.setText("");
-            view.tblDonGoi.setModel(new DefaultTableModel());
+            view.resetTableDonGoi();
             view.txtTongTien.setText("");
             view.txtUuDai.setText("");
             view.txtThanhTien.setText("");
@@ -222,7 +221,10 @@ public class QuanLyHoaDonController {
         
         view.txtMaHoaDon.setText(Integer.toString(hoaDonSelected.getId()));
         view.txtIdNhanVien.setText(hoaDonSelected.getMaNhanVien());
-        view.txtIdKhachHang.setText(Integer.toString(hoaDonSelected.getIdKhachHang()));
+        if(hoaDonSelected.getIdKhachHang() != null)
+            view.txtIdKhachHang.setText(Integer.toString(hoaDonSelected.getIdKhachHang()));
+        else
+            view.txtIdKhachHang.setText("");            
         view.dtcNgayGio.setDate(hoaDonSelected.getNgayGio());
         
         if(hoaDonSelected.isDaHuy() == TinhTrangHoaDonConstraints.DA_HUY){
@@ -261,11 +263,7 @@ public class QuanLyHoaDonController {
         view.lblDoanhThu7NgayGanNhat.setText("7 ngày gần nhất: " + Price.formatPrice(hoaDonService.getDoanhThuTrong7NgayGanNhat(ngayBatDau,ngayKetThuc)));
     }
     
-//    private void loadTTHDSearch(){
-//        view.cmbTTMASearch.addItem("Tất cả");
-//        view.cmbTTMASearch.addItem("Hợp lệ");
-//        view.cmbTTMASearch.addItem("Đã Huỷ");  
-//    }
-    
-
+    public JButton getBtnHuyHoaDon(){
+        return view.btnHuyHoaDon;
+    }
 }

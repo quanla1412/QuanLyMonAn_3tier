@@ -204,6 +204,8 @@ public class QuanLyMonAnController {
         String titlePanel = dangThemMonAn ? "Thêm món ăn mới" : "Sửa món ăn";
         view.pnlThemSuaMonAn.setBorder(new TitledBorder(titlePanel));
         view.btnLuu.setEnabled(dangThemMonAn);
+        
+        resetForm();
     }
     
     private void saveMonAn(){
@@ -369,6 +371,18 @@ public class QuanLyMonAnController {
     private void showQuanLyLoaiMonAn(){        
         if(quanLyLoaiMonAnController == null){
             quanLyLoaiMonAnController = new QuanLyLoaiMonAnController();
+            quanLyLoaiMonAnController.getBtnThem().addActionListener(e -> {
+                quanLyLoaiMonAnController.createLoaiMonAn();
+                listLoaiMonAnModel = (ArrayList<LoaiMonAnModel>) loaiMonAnService.getAll();
+                view.loadComboBoxLoaiMonAn(listLoaiMonAnModel);
+                
+            });            
+            quanLyLoaiMonAnController.getBtnXoa().addActionListener(e -> {
+                quanLyLoaiMonAnController.deleteLoaiMonAn();
+                listLoaiMonAnModel = (ArrayList<LoaiMonAnModel>) loaiMonAnService.getAll();
+                view.loadComboBoxLoaiMonAn(listLoaiMonAnModel);
+                
+            });
         } else {
             quanLyLoaiMonAnController.show();
         }

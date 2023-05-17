@@ -9,6 +9,7 @@ import dal.entity.TinhTrangBan;
 import dal.repository.BanRepository;
 import dal.repository.LoaiBanRepository;
 import dal.repository.TinhTrangBanRepository;
+import gui.constraints.TinhTrangBanConstraints;
 import gui.models.Ban.BanFullModel;
 import gui.models.Ban.CreateBanModel;
 import gui.models.Ban.UpdateBanModel;
@@ -101,6 +102,10 @@ public class BanServiceImpl implements IBanService{
 
     @Override
     public boolean delete(int id) {
+        Ban ban = banRepository.getById(id);
+        if(ban.getTinhTrangBan().getId() == TinhTrangBanConstraints.DANG_PHUC_VU)
+            return false;
+        
         banRepository.delete(id);
         
         return true;

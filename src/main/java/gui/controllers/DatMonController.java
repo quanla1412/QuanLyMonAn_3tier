@@ -84,7 +84,7 @@ public class DatMonController {
         }
         
         view.lblTinhTrangMonAn.setText(monAn.getTinhTrangMonAnModel().getTen());
-        if(monAn.getTinhTrangMonAnModel().getId() == TinhTrangMonAnConstraints.HET)
+        if(monAn.getTinhTrangMonAnModel().getId() == TinhTrangMonAnConstraints.HET && donGoiModel == null)
             view.btnDatMon.setEnabled(false);
         else
             view.btnDatMon.setEnabled(true);
@@ -111,8 +111,8 @@ public class DatMonController {
         }
         
         int soLuong = Integer.parseInt(view.spnSoLuong.getValue().toString());
-        if(soLuong < 1){
-            JOptionPane.showMessageDialog(view, "Số lượng món phải lớn hơn 0","Error", JOptionPane.ERROR_MESSAGE);
+        if(soLuong < 1 || soLuong > 1000){
+            JOptionPane.showMessageDialog(view, "Số lượng món phải lớn hơn 0 và nhỏ hơn 1000","Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -134,6 +134,7 @@ public class DatMonController {
                 JOptionPane.showMessageDialog(view, "Thêm món ăn mới thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
+            
             UpdateDonGoiModel updateDonGoiModel = new UpdateDonGoiModel(idBan, monAn.getId(), soLuong, ghiChu);
 
             boolean result = donGoiService.update(updateDonGoiModel);

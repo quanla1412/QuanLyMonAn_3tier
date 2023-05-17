@@ -89,10 +89,16 @@ public class HoaDonServiceImpl implements IHoaDonService{
     public boolean huyHoaDon(HoaDonFullModel hoaDonSelected) {
         if(hoaDonSelected.isDaHuy() == TinhTrangHoaDonConstraints.HOP_LE){
             HoaDon hoaDon = hoaDonRepository.huyHoaDon(hoaDonSelected.getId());
-            return true;
-        } else {
-            return false;
+            
+            if(hoaDon.isDaHuy()){
+                if(hoaDon.getKhachHang() != null){
+                    int diemTichLuy = Price.getDiemTichLuy(hoaDon.getTongGia());
+                    khachHangService.updateDiemTichLuy(hoaDon.getKhachHang().getId(), -diemTichLuy);
+                }
+                return true;
+            }            
         }
+        return false;
     }
 
     @Override
@@ -182,8 +188,8 @@ public class HoaDonServiceImpl implements IHoaDonService{
             int total = 0;
             for(int i = 0; i < hoaDon.getListChiTietHoaDon().size(); i++){
                 ChiTietHoaDon cthd = hoaDon.getListChiTietHoaDon().get(i);
-                int gia = cthd.getDonGia();
-                int thanhTien = cthd.getSoLuong() * gia;
+                long gia = cthd.getDonGia();
+                long thanhTien = cthd.getSoLuong() * gia;
                 total += thanhTien;
                 
                 table.addCell(Integer.toString(i + 1));

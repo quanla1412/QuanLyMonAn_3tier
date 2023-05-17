@@ -3,6 +3,7 @@ package bll.services.impl;
 import bll.mappers.DonGoiMapper;
 import bll.services.IDonGoiService;
 import bll.services.IKhachHangService;
+import bll.services.IMonAnService;
 import bll.services.INhanVienService;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -21,7 +22,9 @@ import dal.entity.Ban;
 import dal.entity.DonGoi;
 import dal.repository.BanRepository;
 import dal.repository.DonGoiRepository;
+import dal.repository.MonAnRepository;
 import dal.repository.NhanVienRepository;
+import gui.constraints.TinhTrangMonAnConstraints;
 import gui.models.DonGoi.CreateDonGoiModel;
 import gui.models.DonGoi.DonGoiMasterModel;
 import gui.models.DonGoi.DonGoiModel;
@@ -43,12 +46,14 @@ public class DonGoiServiceImpl implements IDonGoiService {
     private DonGoiRepository donGoiRepository;
     private INhanVienService nhanVienService;
     private IKhachHangService khachHangService;
+    private MonAnRepository monAnRepository;
 
     public DonGoiServiceImpl() {
         banRepository = new BanRepository();
         donGoiRepository = new DonGoiRepository();
         nhanVienService = new NhanVienServiceImpl();
         khachHangService = new KhachHangServiceImpl();
+        monAnRepository = new MonAnRepository();
     }
     
 
@@ -140,8 +145,15 @@ public class DonGoiServiceImpl implements IDonGoiService {
     
     @Override
     public boolean update(UpdateDonGoiModel updateDonGoiModel) {
+        DonGoi donGoiOld = donGoiRepository.getByKey(updateDonGoiModel.getIdBan(), updateDonGoiModel.getIdMA());
+        if(updateDonGoiModel.getSoLuong() > donGoiOld.getSoLuong() && donGoiOld.getMonAn().getTinhTrangMonAn().getId() == TinhTrangMonAnConstraints.HET){
+            return false;
+        }
         DonGoi donGoi = DonGoiMapper.toDonGoi(updateDonGoiModel);
         DonGoi updatedDonGoi = donGoiRepository.update(donGoi);
+        
+        
+        monAnRepository.updateTinhTrang(updateDonGoiModel.getIdMA(), TinhTrangMonAnConstraints.CON_PHUC_VU);
         
         return true;
     }
