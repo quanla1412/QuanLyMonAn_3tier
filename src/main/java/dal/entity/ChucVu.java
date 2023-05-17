@@ -33,6 +33,7 @@ public class ChucVu implements Serializable{
     public List<NhanVien> getListNhanVien() {
         return listNhanVien;
     }
+    
 
     public void setListNhanVien(List<NhanVien> listNhanVien) {
         this.listNhanVien = listNhanVien;

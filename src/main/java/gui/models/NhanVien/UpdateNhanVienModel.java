@@ -16,8 +16,9 @@ public class UpdateNhanVienModel {
     private String email;
     private String soDienThoai ;
     private String diaChi ;
+    private String CCCD;
 
-    public UpdateNhanVienModel(String ma, int idTinhTrangNhanVien, int idChucVu, String hoTen, String email, String soDienThoai, String diaChi) {
+    public UpdateNhanVienModel(String ma, int idTinhTrangNhanVien, int idChucVu, String hoTen, String email, String soDienThoai, String diaChi, String cccd) {
         this.ma = ma;
         this.idTinhTrangNhanVien = idTinhTrangNhanVien;
         this.idChucVu = idChucVu;
@@ -25,6 +26,7 @@ public class UpdateNhanVienModel {
         this.email = email;
         this.soDienThoai = soDienThoai;
         this.diaChi = diaChi;
+        this.CCCD = cccd;
     }
 
     public String getMa() {
@@ -82,5 +84,14 @@ public class UpdateNhanVienModel {
     public void setDiaChi(String diaChi) {
         this.diaChi = diaChi;
     }
+
+    public String getCCCD() {
+        return CCCD;
+    }
+
+    public void setCCCD(String CCCD) {
+        this.CCCD = CCCD;
+    }
+    
     
 }

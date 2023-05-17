@@ -4,7 +4,6 @@
  */
 package gui.controllers;
 
-import com.mycompany.quanlynhahang.AES;
 import bll.services.IChucVuService;
 import bll.services.ITinhTrangNhanVienService;
 import bll.services.impl.ChucVuServiceImpl;
@@ -84,6 +83,7 @@ public class QuanLyNhanVienController {
         view.btnThemNV.addActionListener(e -> changeModeNhanVien(true));
         view.btnSuaNV.addActionListener(e -> changeModeNhanVien(false));
         view.btnDoiMatKhau.setEnabled(false);
+        view.btnPhanQuyen.setEnabled(false);
         view.btnLuu.addActionListener(e -> saveNhanVien());
         view.btnXoaNV.addActionListener(e -> deleteNhanVien());
         view.btnResetThemNV.addActionListener(e -> resetNhanVien());
@@ -104,6 +104,7 @@ public class QuanLyNhanVienController {
                 
                 nhanVienSelected = nhanVienService.getByMa(selectedNhanVienMa);
                 view.btnDoiMatKhau.setEnabled(true);
+                view.btnPhanQuyen.setEnabled(true);
                 if(!dangThemNhanVien)
                     loadDetailNhanVien();  
             }
@@ -215,6 +216,7 @@ public class QuanLyNhanVienController {
         view.btnSuaNV.setEnabled(dangThemNhanVien);
         view.txtMaNV.setEnabled(dangThemNhanVien);
         view.jdcNgaySinh.setEnabled(dangThemNhanVien);
+        view.txtHoTenNV.setEnabled(dangThemNhanVien);
         view.cmbGioiTinhNVThemSua.setEnabled(dangThemNhanVien);
         view.txtCCCD.setEnabled(dangThemNhanVien);
         
@@ -256,7 +258,7 @@ public class QuanLyNhanVienController {
             }
         } 
         else {
-            UpdateNhanVienModel updateNhanVienModel = new UpdateNhanVienModel (nhanVienSelected.getMa(), idTinhTrangNhanVien, idChucVu, hoTen, email, sdt, diaChi);
+            UpdateNhanVienModel updateNhanVienModel = new UpdateNhanVienModel (nhanVienSelected.getMa(), idTinhTrangNhanVien, idChucVu, hoTen, email, sdt, diaChi, CCCD);
 
             boolean result = nhanVienService.updateNhanVien(updateNhanVienModel);
             if(result){

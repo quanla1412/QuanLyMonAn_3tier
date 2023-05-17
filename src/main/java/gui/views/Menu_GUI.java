@@ -23,7 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import org.apache.commons.math3.analysis.function.Ceil;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignI;
 import org.kordamp.ikonli.swing.FontIcon;
 
@@ -151,7 +150,7 @@ public class Menu_GUI extends javax.swing.JFrame {
             int soHang = (soLuongItem + 3) / 4;
             int size = soHang * (375 + 5) - 5 ;
             pnlCategory.setPreferredSize(new Dimension(820, size));
-            pnlCategory.setMaximumSize(new Dimension(820, 32767));
+            pnlCategory.setMaximumSize(new Dimension(820, size));
             pnlCategory.setMinimumSize(new Dimension(820, 600));
             
             

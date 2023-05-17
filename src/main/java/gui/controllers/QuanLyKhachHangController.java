@@ -62,7 +62,7 @@ public class QuanLyKhachHangController {
         view.setVisible(true);
         
         loadData();
-        loadDetailKhachHang();
+      
         view.loadTableKhachHang(listKhachHangModel);
         view.loadComboBoxTimKiemLoaiKH(listLoaiKhachHangModel);
         view.loadComboBoxThemSuaLoaiKH(listLoaiKhachHangModel);
@@ -76,7 +76,7 @@ public class QuanLyKhachHangController {
         view.btnExport.addActionListener(e -> exportKhachHang());
         view.btnExportMauImport.addActionListener(e -> exportAllKhachHangTheoMauImport());
         view.btnImport.addActionListener(e -> importNhanVien());
-        
+        view.btnQLLKH.addActionListener(e -> loadLoaiKhachHang());
         
         view.tblKhachHang.addMouseListener(new MouseAdapter(){
             @Override
@@ -141,10 +141,12 @@ public class QuanLyKhachHangController {
     private void loadData(){
         listKhachHangModel = (ArrayList<KhachHangModel>) khachHangService.getAll();
         listLoaiKhachHangModel = (ArrayList<LoaiKhachHangModel>) loaiKhachHangService.getAll();
+        
     }
     private void changeModeKhachHang(boolean dangThemKhachHang){        
         this.dangThemKhachHang = dangThemKhachHang;
-        
+        view.txtHoTen.setEnabled(dangThemKhachHang);
+        view.jdcNgaySinh.setEnabled(dangThemKhachHang);
         view.btnThem.setEnabled(!dangThemKhachHang);
         view.btnSua.setEnabled(dangThemKhachHang);
         
@@ -153,7 +155,11 @@ public class QuanLyKhachHangController {
         view.pnlThemSuaKhachHang.repaint();
         resetKhachHangForm();
     }
-    private void resetKhachHangForm(){     
+    private void resetKhachHangForm(){
+        loadData();
+        view.loadTableKhachHang(listKhachHangModel);
+        view.loadComboBoxTimKiemLoaiKH(listLoaiKhachHangModel);
+        view.loadComboBoxThemSuaLoaiKH(listLoaiKhachHangModel);
         loadDetailKhachHang();  
     }
     
@@ -223,6 +229,7 @@ public class QuanLyKhachHangController {
             boolean result = khachHangService.createKhachHang(createKhachHangModel);
             if(result){
                 JOptionPane.showMessageDialog(view, "Thêm khách hàng mới thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                loadData();
             }
             else{
                 JOptionPane.showMessageDialog(view, "Thêm khách hàng mới thất bại","Error", JOptionPane.ERROR_MESSAGE);
@@ -236,6 +243,7 @@ public class QuanLyKhachHangController {
             if(result){
                 JOptionPane.showMessageDialog(view, "Sửa khách hàng thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 khachHangSelected = khachHangService.getById(khachHangSelected.getId());
+                loadData();
             }
             else{
                 JOptionPane.showMessageDialog(view, "Sửa khách hàng thất bại","Error", JOptionPane.ERROR_MESSAGE);

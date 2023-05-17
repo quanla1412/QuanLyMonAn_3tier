@@ -115,6 +115,6 @@ public class MonAnServiceImpl implements IMonAnService{
         
         monAnRepository.delete(id);
         
-        return monAnRepository.getById(id) == null;
+        return true;
     }
 }

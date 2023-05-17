@@ -8,11 +8,7 @@ import gui.models.NhanVien.NhanVienModel;
 import gui.models.NhanVien.TinhTrangNhanVienModel;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 public class QuanLyNhanVien_GUI extends javax.swing.JPanel {
     private QuanLyChucVuController quanLyChucVuController;
