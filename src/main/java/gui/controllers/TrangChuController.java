@@ -80,6 +80,12 @@ public class TrangChuController {
                         quanLyLoaiBanVaBanController.saveBan();
                         quanLyPhucVuController.reset();
                     });
+            
+            quanLyLoaiBanVaBanController.getBtnXoaBan()
+                    .addActionListener(e -> {
+                        quanLyLoaiBanVaBanController.deleteBan();
+                        quanLyPhucVuController.reset();                        
+                    });
         }
         
         changeButtonChoosed(view.btnQuanLyBan);
