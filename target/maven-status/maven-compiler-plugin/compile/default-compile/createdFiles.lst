@@ -105,7 +105,6 @@ gui\views\QuanLyKhachHang_GUI$15.class
 gui\views\QuanLyLoaiKhachHang_GUI$1.class
 bll\services\impl\TinhTrangNhanVienServiceImpl.class
 bll\mappers\HoaDonMapper.class
-gui\views\DoiMatKhau_GUI$1.class
 gui\models\HoaDon\HoaDonFullModel.class
 gui\controllers\QuanLyLoaiBanVaBanController$2.class
 dal\entity\HoaDon.class
@@ -191,7 +190,6 @@ gui\views\QuanLyMonAn_GUI$MyRenderer.class
 gui\models\DonGoi\UpdateDonGoiModel.class
 gui\views\QuanLyLoaiKhachHang_GUI$8.class
 gui\models\DonGoi\CreateDonGoiModel.class
-gui\views\QuanLyChucVu_GUI$2.class
 gui\views\QuanLyKhachHang_GUI$10.class
 gui\views\QuanLyKhachHang_GUI$5.class
 com\mycompany\quanlynhahang\OpenFile.class
