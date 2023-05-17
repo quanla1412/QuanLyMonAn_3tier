@@ -42,6 +42,7 @@ public class HibernateUtils {
         prop.put(Environment.USER, "sa");
         prop.put(Environment.PASS, "sa");
         prop.put(Environment.SHOW_SQL, "true");
+        prop.put(Environment.POOL_SIZE, "100");
         
         conf.setProperties(prop);
         

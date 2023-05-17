@@ -15,7 +15,7 @@ import java.util.List;
 public class HoaDonFullModel {
     private int id;
     private String maNhanVien;
-    private int idKhachHang;
+    private Integer idKhachHang;
     private Date ngayGio;
     private boolean daHuy;
     private List<ChiTietHoaDonModel> listChiTietHoaDon;
@@ -53,7 +53,7 @@ public class HoaDonFullModel {
         this.maNhanVien = maNhanVien;
     }
 
-    public int getIdKhachHang() {
+    public Integer getIdKhachHang() {
         return idKhachHang;
     }
 

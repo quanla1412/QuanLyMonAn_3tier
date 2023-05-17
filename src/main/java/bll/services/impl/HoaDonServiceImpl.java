@@ -85,10 +85,16 @@ public class HoaDonServiceImpl implements IHoaDonService{
     public boolean huyHoaDon(HoaDonFullModel hoaDonSelected) {
         if(hoaDonSelected.isDaHuy() == TinhTrangHoaDonConstraints.HOP_LE){
             HoaDon hoaDon = hoaDonRepository.huyHoaDon(hoaDonSelected.getId());
-            return true;
-        } else {
-            return false;
+            
+            if(hoaDon.isDaHuy()){
+                if(hoaDon.getKhachHang() != null){
+                    int diemTichLuy = Price.getDiemTichLuy(hoaDon.getTongGia());
+                    khachHangService.updateDiemTichLuy(hoaDon.getKhachHang().getId(), -diemTichLuy);
+                }
+                return true;
+            }            
         }
+        return false;
     }
 
     @Override

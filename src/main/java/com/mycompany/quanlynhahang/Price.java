@@ -23,4 +23,8 @@ public class Price {
         
         return result.toString();
     }
+    
+    public static int getDiemTichLuy(long gia){
+        return (int) gia/10000;
+    }
 }

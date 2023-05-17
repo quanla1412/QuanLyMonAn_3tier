@@ -15,7 +15,7 @@ import javax.swing.JComponent;
 public class TrangChuController {
     private TrangChu_GUI view;
     
-    private INhanVienService nhanVienService;
+    private final INhanVienService nhanVienService;
     
     private QuanLyPhucVuController quanLyPhucVuController = null;
     private QuanLyLoaiBanVaBanController quanLyLoaiBanVaBanController = null;
@@ -95,8 +95,15 @@ public class TrangChuController {
     }
     
     private void showFormQuanLyHoaDon(){
-        if(quanLyHoaDonController == null)
-            quanLyHoaDonController = new QuanLyHoaDonController();
+        if(quanLyHoaDonController == null){
+            quanLyHoaDonController = new QuanLyHoaDonController();            
+            quanLyHoaDonController.getBtnHuyHoaDon()
+                .addActionListener(e -> {
+                    quanLyHoaDonController.huyHoaDon();
+                    if(quanLyKhachHangController != null)
+                        quanLyKhachHangController.reset();
+                });
+        }
         
         changeButtonChoosed(view.btnQuanLyHoaDon);
         showForm(quanLyHoaDonController.getView());
