@@ -167,27 +167,7 @@ public class HoaDonRepository {
         return hoaDon;
     }
     
-    public List<HoaDon> getListHoaDonTrongNgay(Date ngay){
-        Session session = HibernateUtils.getFACTORY().openSession();
-        session.getTransaction().begin();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<HoaDon> query = builder.createQuery(HoaDon.class);
-        Root<HoaDon> hoaDonEntry = query.from(HoaDon.class);
-        query = query.select(hoaDonEntry);
-
-        Predicate predicate = builder.equal(hoaDonEntry.get("ngayGio").as(Date.class), ngay);
-        query = query.where(predicate);
-        
-        Query queryResult = session.createQuery(query);
-        List<HoaDon> listHoaDon = queryResult.getResultList();
-        
-        session.getTransaction().commit();
-        session.close();
-        
-        return listHoaDon;
-    }
-    
-    public List<HoaDon> getListHoaDonTrong7NgayGanNhat(Date ngayBatDau, Date ngayKetThuc){
+    public List<HoaDon> getListHoaDonbyDates(Date ngayBatDau, Date ngayKetThuc){
         Session session = HibernateUtils.getFACTORY().openSession();
         session.getTransaction().begin();
         CriteriaBuilder builder = session.getCriteriaBuilder();
