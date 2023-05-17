@@ -417,8 +417,17 @@ public class QuanLyNhanVienController {
     }
     
     private void showQuanLyChucVu(){
-        if(quanLyChucVuController == null )
+        if(quanLyChucVuController == null ){
             quanLyChucVuController = new QuanLyChucVuController();
+            quanLyChucVuController.getBtnLuu().addActionListener(e -> {
+                quanLyChucVuController.saveChucVu();
+                resetNhanVien();
+            });
+            quanLyChucVuController.getBtnXoa().addActionListener(e -> {
+                quanLyChucVuController.deleteChucVu();
+                resetNhanVien();
+            });
+        }
         else
             quanLyChucVuController.show();
     }

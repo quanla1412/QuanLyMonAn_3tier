@@ -8,14 +8,13 @@ import bll.services.IChucVuService;
 import bll.services.impl.ChucVuServiceImpl;
 import gui.models.NhanVien.ChucVuModel;
 import gui.models.NhanVien.CreateChucVuModel;
-import gui.models.NhanVien.SearchNhanVienModel;
 import gui.models.NhanVien.UpdateChucVuModel;
 import gui.views.QuanLyChucVu_GUI;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -51,8 +50,6 @@ public class QuanLyChucVuController {
         
         view.btnThemChucVu.addActionListener(e -> changeModeChucVu(true));
         view.btnSuaChucVu.addActionListener(e -> changeModeChucVu(false));
-        view.btnLuuChucVu.addActionListener(e -> saveChucVu());
-        view.btnXoaChucVu.addActionListener(e -> deleteChucVu());
         view.btnResetChucVu.addActionListener(e ->resetChucVu());
         view.tblDanhSachChucVu.addMouseListener(new MouseAdapter(){
             @Override
@@ -73,7 +70,7 @@ public class QuanLyChucVuController {
         listChucVuModel = (ArrayList<ChucVuModel>) chucVuService.getAll();
     }
 
-    private void saveChucVu(){
+    public void saveChucVu(){
         String error = validateSaveChucVu();
         if(error.length()> 0){
             JOptionPane.showMessageDialog(view, error,"Error", JOptionPane.ERROR_MESSAGE);
@@ -151,7 +148,7 @@ public class QuanLyChucVuController {
     }
     
      
-     private void deleteChucVu(){
+    public void deleteChucVu(){
         if(chucVuSelected == null)
             JOptionPane.showMessageDialog(view, "Bạn chưa chọn chức vụ muốn xóa","Error", JOptionPane.ERROR_MESSAGE);
         
@@ -169,7 +166,7 @@ public class QuanLyChucVuController {
         resetChucVu();
     }
 
-    void show() {
+    public void show() {
         view.setVisible(true);
         view.setState(JFrame.NORMAL);
         view.toFront();
@@ -178,7 +175,13 @@ public class QuanLyChucVuController {
         view.loadTableChucVu(listChucVuModel);
     }
 
-   
+    public JButton getBtnLuu(){
+        return view.btnLuuChucVu;
+    }
+
+    public JButton getBtnXoa(){
+        return view.btnXoaChucVu;
+    }
      
      
      
