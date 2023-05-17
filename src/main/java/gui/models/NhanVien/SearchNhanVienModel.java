@@ -9,7 +9,7 @@ package gui.models.NhanVien;
  * @author dinhn
  */
 public class SearchNhanVienModel {
-     private String maOrhoTen;
+    private String maOrhoTen;
     private int gioiTinh;
     private int chucVu;
     private int[] tinhTrang;

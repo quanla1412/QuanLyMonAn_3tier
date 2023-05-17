@@ -150,4 +150,6 @@ public class TrangChuController {
         DangNhapController dangNhapController = new DangNhapController();
         view.dispose();
     }
+
+    
 }
