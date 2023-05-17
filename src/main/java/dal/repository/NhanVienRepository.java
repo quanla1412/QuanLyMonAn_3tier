@@ -45,6 +45,7 @@ public class NhanVienRepository {
         
         Query queryResult = session.createQuery(query);
         ArrayList<NhanVien> result = (ArrayList<NhanVien>) queryResult.getResultList();
+        result.forEach(item -> Hibernate.initialize(item.getListHoaDon()));
         session.close();
         
         return result;
@@ -194,10 +195,7 @@ public class NhanVienRepository {
         NhanVien nhanVien = session.get(NhanVien.class, data.getMa());
         
         session.getTransaction().begin();
-        String encryptedpassword = AES.encrypt(data.getPassWord(), secretKey);      
-        
-        nhanVien.setPassWord(encryptedpassword);
-         
+        nhanVien.setPassWord(data.getPassWord());
         session.save(nhanVien);
         session.getTransaction().commit();
         

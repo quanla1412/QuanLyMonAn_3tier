@@ -15,6 +15,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -38,6 +39,7 @@ public class KhachHangRepository {
         
         Query queryResult = session.createQuery(query);
         List<KhachHang> result = queryResult.getResultList();
+        result.forEach(item -> Hibernate.initialize(item.getListHoaDon()));
         session.close();
         
         return result;

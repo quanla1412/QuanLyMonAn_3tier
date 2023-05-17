@@ -22,7 +22,7 @@
           <Font name="Segoe UI" size="16" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="14">
+          <StringArray count="10">
             <StringItem index="0" value="Th&#x1ed1;ng k&#xea; b&#xe0;n theo s&#x1ed1; l&#x1b0;&#x1ee3;ng"/>
             <StringItem index="1" value="Th&#x1ed1;ng k&#xea; b&#xe0;n theo t&#xec;nh tr&#x1ea1;ng b&#xe0;n"/>
             <StringItem index="2" value="Th&#x1ed1;ng k&#xea; kh&#xe1;ch h&#xe0;ng theo b&#x1ead;c"/>
@@ -31,12 +31,8 @@
             <StringItem index="5" value="Th&#x1ed1;ng k&#xea; nh&#xe2;n vi&#xea;n theo gi&#x1edb;i t&#xed;nh"/>
             <StringItem index="6" value="Th&#x1ed1;ng k&#xea; nh&#xe2;n vi&#xea;n theo t&#xec;nh tr&#x1ea1;ng"/>
             <StringItem index="7" value="Th&#x1ed1;ng k&#xea; nh&#xe2;n vi&#xea;n theo &#x111;&#x1ed9; tu&#x1ed5;i"/>
-            <StringItem index="8" value="Th&#x1ed1;ng k&#xea; doanh thu theo nh&#xe2;n vi&#xea;n ( n&#x103;m hi&#x1ec7;n t&#x1ea1;i )"/>
-            <StringItem index="9" value="Th&#x1ed1;ng k&#xea; kh&#xe1;ch h&#xe0;ng th&#xe2;n thi&#x1ebf;t ( n&#x103;m hi&#x1ec7;n t&#x1ea1;i )"/>
-            <StringItem index="10" value="Th&#x1ed1;ng k&#xea; doanh thu 7 ng&#xe0;y g&#x1ea7;n nh&#x1ea5;t"/>
-            <StringItem index="11" value="Th&#x1ed1;ng k&#xea; doanh thu n&#x103;m hi&#x1ec7;n t&#x1ea1;i"/>
-            <StringItem index="12" value="Th&#x1ed1;ng k&#xea; doanh thu theo lo&#x1ea1;i m&#xf3;n &#x103;n"/>
-            <StringItem index="13" value="Th&#x1ed1;ng k&#xea; l&#x1b0;&#x1ee3;ng ti&#xea;u th&#x1ee5; theo m&#xf3;n &#x103;n ( th&#xe1;ng hi&#x1ec7;n t&#x1ea1;i )"/>
+            <StringItem index="8" value="Th&#x1ed1;ng k&#xea; doanh thu theo nh&#xe2;n vi&#xea;n ( th&#xe1;ng hi&#x1ec7;n t&#x1ea1;i )"/>
+            <StringItem index="9" value="Th&#x1ed1;ng k&#xea; chi ti&#xea;u kh&#xe1;ch h&#xe0;ng ( th&#xe1;ng hi&#x1ec7;n t&#x1ea1;i )"/>
           </StringArray>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">

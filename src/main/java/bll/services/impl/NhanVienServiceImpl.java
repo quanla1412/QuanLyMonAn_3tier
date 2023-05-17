@@ -37,11 +37,15 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import bll.services.INhanVienService;
+import dal.entity.HoaDon;
 import dal.entity.TinhTrangNhanVien;
+import dal.repository.HoaDonRepository;
 import dal.repository.TinhTrangNhanVienRepository;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.Period;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -483,7 +487,9 @@ public class NhanVienServiceImpl implements INhanVienService{
 
     @Override
     public boolean updateTaiKhoanNhanVien(UpdateTaiKhoanNhanVienModel updateTaiKhoanNhanVienModel) {
-       NhanVien nhanVien = NhanVienMapper.toNhanVien(updateTaiKhoanNhanVienModel);
+       NhanVien nhanVien = NhanVienMapper.toNhanVien(updateTaiKhoanNhanVienModel);       
+       String encryptedpassword = AES.encrypt(nhanVien.getPassWord(), secretKey);         
+       nhanVien.setPassWord(encryptedpassword);
        
        NhanVien updateTaiKhoanNhanVien = nhanVienRepository.updateTaiKhoanNhanVien(nhanVien);
        
@@ -494,13 +500,12 @@ public class NhanVienServiceImpl implements INhanVienService{
     public boolean dangNhap(TaiKhoanModel taiKhoanModel) {
         NhanVien nhanVien = nhanVienRepository.getByMa(taiKhoanModel.getUsername());
   
-       if (nhanVien == null)
+        if (nhanVien == null)
            return false;
        
-        String password = taiKhoanModel.getPassword().trim();
-        String passwordCheck = nhanVien.getPassWord().trim();
+        String passwordCheck = AES.decrypt(nhanVien.getPassWord().trim(), secretKey);
         
-        if(password.equals(passwordCheck))
+        if(taiKhoanModel.getPassword().equals(passwordCheck))
             return true;
         return false;
         
@@ -567,6 +572,29 @@ public class NhanVienServiceImpl implements INhanVienService{
         if(conLai>0) result.put("Từ 40 trở lên", conLai);
         
         return result;
+    }
+
+    @Override
+    public Map<String, Long> getDoanhThuTheoThangHienTai() {
+       Map<String, Long> result = new HashMap<>();
+       ArrayList<NhanVien> listNhanVien = (ArrayList<NhanVien>) nhanVienRepository.getAll();
+      java.util.Date date= new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int month = cal.get(Calendar.MONTH);
+       
+       for (NhanVien nhanVien : listNhanVien){
+           List<HoaDon> listHoaDon =  nhanVien.getListHoaDon();
+           listHoaDon.removeIf(hoaDon -> hoaDon.getNgayGio().getMonth() == month);
+           long total = 0;
+           for (int i = 0; i < listHoaDon.size() ;i++){
+              HoaDon hoaDon = listHoaDon.get(i);
+              total += hoaDon.getTongGia();
+           }
+           result.put(nhanVien.getHoTen(), total / 1000000);
+
+       }
+       return result;
     }
     
 }

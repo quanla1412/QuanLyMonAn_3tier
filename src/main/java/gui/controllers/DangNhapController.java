@@ -8,7 +8,6 @@ import bll.services.INhanVienService;
 import bll.services.impl.NhanVienServiceImpl;
 import gui.models.TaiKhoanModel;
 import gui.views.DangNhap_GUI;
-import gui.views.TrangChu_GUI;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,8 +20,8 @@ public class DangNhapController {
     
 
     public DangNhapController(){
-    nhanVienService = new NhanVienServiceImpl();
-     init();
+        nhanVienService = new NhanVienServiceImpl();
+        init();
     }
 
      public DangNhap_GUI getView(){

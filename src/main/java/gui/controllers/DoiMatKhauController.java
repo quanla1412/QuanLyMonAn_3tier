@@ -41,13 +41,17 @@ public class DoiMatKhauController {
         view.btnSuccess.addActionListener(e -> doiMatKhau());
     }
     
-    public void show(String ma){
+    public void show(String maNhanVien){
+        this.maNhanVien = maNhanVien;
+        view.txtPassword.setText("");
+        view.txtRetypePassword.setText("");
+        
         view.setVisible(true);
         view.setState(JFrame.NORMAL);
         view.toFront();
     }
     
-    private void doiMatKhau (){
+    private void doiMatKhau(){
         String password = new String(view.txtPassword.getPassword());
         String retypePassword = new String(view.txtRetypePassword.getPassword());
         if (password.isBlank())
