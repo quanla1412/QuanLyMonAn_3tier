@@ -16,6 +16,7 @@ import java.util.List;
 import java.lang.String;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -191,9 +192,6 @@ public class NhanVienRepository {
         return nhanVien != null;
     }
     
- 
-    
-    
     public NhanVien updateTaiKhoanNhanVien (NhanVien data){
         Session session = HibernateUtils.getFACTORY().openSession();
         NhanVien nhanVien = session.get(NhanVien.class, data.getMa());
@@ -207,6 +205,4 @@ public class NhanVienRepository {
         
         return nhanVien;
     } 
-    
-    
 }

@@ -149,7 +149,9 @@ public class QuanLyNhanVienController {
             JOptionPane.showMessageDialog(view, "Cập nhật " + totalSuccess + " nhân viên","Import danh sách nhân viên", JOptionPane.INFORMATION_MESSAGE);
 
             loadData();
-        }else {
+            resetTable();
+            resetNhanVien();
+        } else {
             JOptionPane.showMessageDialog(view, "Import file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
         }
     }
