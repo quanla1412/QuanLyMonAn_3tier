@@ -12,6 +12,8 @@ public class TrangChuController {
     
     private QuanLyPhucVuController quanLyPhucVuController = null;
     private QuanLyLoaiBanVaBanController quanLyLoaiBanVaBanController = null;
+    private QuanLyMonAnController quanLyMonAnController = null;
+    
     
     String maNhanVien;
     
@@ -28,6 +30,7 @@ public class TrangChuController {
         
         view.btnQuanLyPhucVu.addActionListener(e -> showFormQuanLyPhucVu());
         view.btnQuanLyBan.addActionListener(e -> showFormQuanLyBan());
+        view.btnQuanLyMonAn.addActionListener(e -> showFormQuanLyMonAn());
     }
     
     private void showForm(JComponent com){
@@ -51,4 +54,10 @@ public class TrangChuController {
         showForm(quanLyLoaiBanVaBanController.getView());
     }
     
+    private void showFormQuanLyMonAn(){
+        if (quanLyMonAnController == null)
+        
+            quanLyMonAnController = new QuanLyMonAnController();
+        showForm(quanLyMonAnController.getView());
+    }
 }

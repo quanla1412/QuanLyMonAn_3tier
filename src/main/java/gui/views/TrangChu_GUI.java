@@ -620,9 +620,9 @@ public class TrangChu_GUI extends javax.swing.JFrame {
     private javax.swing.JButton btnBaoCaoThongKe;
     private javax.swing.JButton btnDangXuat;
     public javax.swing.JButton btnQuanLyBan;
-    private javax.swing.JButton btnQuanLyHoaDon;
+    public javax.swing.JButton btnQuanLyHoaDon;
     private javax.swing.JButton btnQuanLyKhachHang;
-    private javax.swing.JButton btnQuanLyMonAn;
+    public javax.swing.JButton btnQuanLyMonAn;
     private javax.swing.JButton btnQuanLyNhanVien;
     public javax.swing.JButton btnQuanLyPhucVu;
     private javax.swing.JSeparator jSeparator1;

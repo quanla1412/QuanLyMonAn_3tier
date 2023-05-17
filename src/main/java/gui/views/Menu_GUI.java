@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import org.apache.commons.math3.analysis.function.Ceil;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignI;
 import org.kordamp.ikonli.swing.FontIcon;
 
@@ -59,10 +60,7 @@ public class Menu_GUI extends javax.swing.JFrame {
             
             scrMenu.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
             
-            pnlCategory.setPreferredSize(new Dimension(820, 600));
-            pnlCategory.setMaximumSize(new Dimension(820, 600));
-            pnlCategory.setMinimumSize(new Dimension(820, 600));
-            
+          
             ArrayList<MonAnModel> listMonAn = loaiMonAn.getListMonAn();
             for(MonAnModel monAn : listMonAn){
                 JPanel pnlItem = new JPanel(new GridBagLayout());
@@ -145,11 +143,27 @@ public class Menu_GUI extends javax.swing.JFrame {
                 listBtnDatMon.add(btnDatMon);
                 
                 pnlCategory.add(pnlItem);
+                
+ 
             }
+            
+            int soLuongItem = pnlCategory.getComponentCount();
+            int soHang = (soLuongItem + 3) / 4;
+            int size = soHang * (375 + 5) - 5 ;
+            pnlCategory.setPreferredSize(new Dimension(820, size));
+            pnlCategory.setMaximumSize(new Dimension(820, 32767));
+            pnlCategory.setMinimumSize(new Dimension(820, 600));
+            
+            
+            scrMenu.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            scrMenu.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             scrMenu.setViewportView(pnlCategory);
             tabMenu.add(loaiMonAn.getTen(), scrMenu);
         }
     }
+    
+   
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -237,14 +251,13 @@ public class Menu_GUI extends javax.swing.JFrame {
         tabMenu.setMinimumSize(new java.awt.Dimension(822, 420));
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setMaximumSize(new java.awt.Dimension(822, 32767));
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(800, 32767));
         jScrollPane1.setMinimumSize(new java.awt.Dimension(822, 600));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(822, 900));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(900, 600));
 
-        jPanel1.setMaximumSize(new java.awt.Dimension(822, 600));
+        jPanel1.setMaximumSize(new java.awt.Dimension(822, 32767));
         jPanel1.setMinimumSize(new java.awt.Dimension(822, 600));
         jPanel1.setPreferredSize(new java.awt.Dimension(822, 600));
-        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 12));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel3.setMinimumSize(new java.awt.Dimension(240, 360));
@@ -256,13 +269,7 @@ public class Menu_GUI extends javax.swing.JFrame {
         jLabel2.setMaximumSize(new java.awt.Dimension(200, 200));
         jLabel2.setMinimumSize(new java.awt.Dimension(200, 200));
         jLabel2.setPreferredSize(new java.awt.Dimension(200, 200));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-        gridBagConstraints.insets = new java.awt.Insets(8, 8, 8, 8);
-        jPanel3.add(jLabel2, gridBagConstraints);
+        jPanel3.add(jLabel2, new java.awt.GridBagConstraints());
 
         jButton1.setText("Đặt ngay");
         jButton1.setMaximumSize(new java.awt.Dimension(100, 24));
@@ -874,6 +881,8 @@ public class Menu_GUI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jPanel1);
 
         tabMenu.addTab("Món Nóng", jScrollPane1);
+
+        jPanel2.setMaximumSize(new java.awt.Dimension(822, 32767));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
