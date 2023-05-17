@@ -188,8 +188,8 @@ public class HoaDonServiceImpl implements IHoaDonService{
             int total = 0;
             for(int i = 0; i < hoaDon.getListChiTietHoaDon().size(); i++){
                 ChiTietHoaDon cthd = hoaDon.getListChiTietHoaDon().get(i);
-                int gia = cthd.getDonGia();
-                int thanhTien = cthd.getSoLuong() * gia;
+                long gia = cthd.getDonGia();
+                long thanhTien = cthd.getSoLuong() * gia;
                 total += thanhTien;
                 
                 table.addCell(Integer.toString(i + 1));

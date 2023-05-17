@@ -11,6 +11,7 @@ import gui.constraints.GioiTinhConstraints;
 import gui.models.KhachHang.SearchKhachHangModel;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -62,8 +63,14 @@ public class KhachHangRepository {
         query = query.where(predicate);
         
         Query queryResult = session.createQuery(query);
-        KhachHang result = (KhachHang) queryResult.getSingleResult();
-        session.close();
+        KhachHang result = null;
+        try {            
+            result = (KhachHang) queryResult.getSingleResult();
+        } catch (NoResultException ex){
+            System.out.println(ex);
+        } finally {
+            session.close();
+        }
         
         return result;
     }

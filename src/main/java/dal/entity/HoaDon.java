@@ -36,7 +36,7 @@ public class HoaDon implements Serializable{
     @JoinColumn(name = "KH_ID")
     private KhachHang khachHang;
     @Column (name = "HD_NgayGio")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date ngayGio;
     @Column (name = "HD_TongGia")
     private long tongGia;

@@ -111,8 +111,8 @@ public class DatMonController {
         }
         
         int soLuong = Integer.parseInt(view.spnSoLuong.getValue().toString());
-        if(soLuong < 1){
-            JOptionPane.showMessageDialog(view, "Số lượng món phải lớn hơn 0","Error", JOptionPane.ERROR_MESSAGE);
+        if(soLuong < 1 || soLuong > 1000){
+            JOptionPane.showMessageDialog(view, "Số lượng món phải lớn hơn 0 và nhỏ hơn 1000","Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 

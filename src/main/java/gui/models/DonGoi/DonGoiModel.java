@@ -12,12 +12,12 @@ public class DonGoiModel {
     private int gia;
     private int soLuong;
     private String ghiChu;
-    private int thanhTien;
+    private long thanhTien;
 
     public DonGoiModel() {
     }
 
-    public DonGoiModel(int idBan, MonAnModel monAn, int gia, int soLuong, String ghiChu, int thanhTien) {
+    public DonGoiModel(int idBan, MonAnModel monAn, int gia, int soLuong, String ghiChu, long thanhTien) {
         this.idBan = idBan;
         this.monAn = monAn;
         this.gia = gia;
@@ -66,11 +66,11 @@ public class DonGoiModel {
         this.gia = gia;
     }
 
-    public int getThanhTien() {
+    public long getThanhTien() {
         return thanhTien;
     }
 
-    public void setThanhTien(int thanhTien) {
+    public void setThanhTien(long thanhTien) {
         this.thanhTien = thanhTien;
     }
 }
