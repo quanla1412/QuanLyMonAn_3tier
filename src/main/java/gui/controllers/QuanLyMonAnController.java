@@ -204,6 +204,8 @@ public class QuanLyMonAnController {
         String titlePanel = dangThemMonAn ? "Thêm món ăn mới" : "Sửa món ăn";
         view.pnlThemSuaMonAn.setBorder(new TitledBorder(titlePanel));
         view.btnLuu.setEnabled(dangThemMonAn);
+        
+        resetForm();
     }
     
     private void saveMonAn(){

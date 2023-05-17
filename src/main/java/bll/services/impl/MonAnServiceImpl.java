@@ -109,6 +109,10 @@ public class MonAnServiceImpl implements IMonAnService{
 
     @Override
     public boolean delete(int id) {
+        MonAn monAn = monAnRepository.getById(id);
+        if(!monAn.getListDonGoi().isEmpty())
+            return false;
+        
         monAnRepository.delete(id);
         
         return monAnRepository.getById(id) == null;

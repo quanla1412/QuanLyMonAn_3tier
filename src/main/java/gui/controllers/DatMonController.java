@@ -84,7 +84,7 @@ public class DatMonController {
         }
         
         view.lblTinhTrangMonAn.setText(monAn.getTinhTrangMonAnModel().getTen());
-        if(monAn.getTinhTrangMonAnModel().getId() == TinhTrangMonAnConstraints.HET)
+        if(monAn.getTinhTrangMonAnModel().getId() == TinhTrangMonAnConstraints.HET && donGoiModel == null)
             view.btnDatMon.setEnabled(false);
         else
             view.btnDatMon.setEnabled(true);
@@ -134,6 +134,7 @@ public class DatMonController {
                 JOptionPane.showMessageDialog(view, "Thêm món ăn mới thất bại","Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
+            
             UpdateDonGoiModel updateDonGoiModel = new UpdateDonGoiModel(idBan, monAn.getId(), soLuong, ghiChu);
 
             boolean result = donGoiService.update(updateDonGoiModel);

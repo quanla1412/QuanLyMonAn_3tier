@@ -24,20 +24,6 @@ public class QuanLyChucVu_GUI extends javax.swing.JFrame {
             tableModel.addRow(data);
         }
     }
-    
-    
-     public static void main(String args[]) {
-       
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new QuanLyChucVuController();
-            }
-        });
-    }
-    
-   
-
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
