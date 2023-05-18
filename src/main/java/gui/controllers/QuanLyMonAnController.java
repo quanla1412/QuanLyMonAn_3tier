@@ -169,7 +169,7 @@ public class QuanLyMonAnController {
             view.txtTenMonAn.setText("");
             view.cmbLoaiMonAnForm.setSelectedIndex(-1);
             linkHinhAnhForm = null;
-            view.lblTenHinhAnh.setText("Chưa chọn file");
+            view.txaChonHinhAnh.setText("Chưa chọn file");
             view.txtGia.setText("");
             view.txtGiaKhuyenMai.setText("");
             view.cmbTinhTrangMonAnForm.setSelectedIndex(-1);
@@ -182,9 +182,9 @@ public class QuanLyMonAnController {
             view.cmbLoaiMonAnForm.setSelectedIndex(listLoaiMonAnModel.indexOf(monAnSelected.getLoaiMonAnModel()));
             linkHinhAnhForm = monAnSelected.getHinhAnh();
             if(monAnSelected.getHinhAnh() == null)
-                view.lblTenHinhAnh.setText("Chưa chọn file");
+                view.txaChonHinhAnh.setText("Chưa chọn file");
             else
-                view.lblTenHinhAnh.setText(monAnSelected.getHinhAnh());
+                view.txaChonHinhAnh.setText(monAnSelected.getHinhAnh());
             view.txtGia.setText(Integer.toString(monAnSelected.getGia()));
             if(monAnSelected.getGiaKhuyenMai() >= 0)
                 view.txtGiaKhuyenMai.setText(Integer.toString(monAnSelected.getGiaKhuyenMai()));
@@ -328,10 +328,10 @@ public class QuanLyMonAnController {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 //This is where a real application would open the file.
-                view.lblTenHinhAnh.setText(file.getName());
+                view.txaChonHinhAnh.setText(file.getName());
                 linkHinhAnhForm = file.getAbsolutePath();
             } else {
-                view.lblTenHinhAnh.setText("Lỗi khi chọn file");
+                view.txaChonHinhAnh.setText("Lỗi khi chọn file");
             }
     }
     
