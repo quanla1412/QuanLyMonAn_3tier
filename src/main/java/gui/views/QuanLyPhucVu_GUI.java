@@ -10,18 +10,9 @@ import gui.models.DonGoi.DonGoiMasterModel;
 import gui.models.DonGoi.DonGoiModel;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 public class QuanLyPhucVu_GUI extends javax.swing.JPanel {      
     public ArrayList<JButton> listBtnBan;
@@ -42,6 +33,7 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
                     + "<p  style=\"text-align:center\">" + ban.getTinhTrangBan().getTen() + "</p> "
                     + "</html>";
             JButton button = new JButton(title);
+            
             button.setPreferredSize(new Dimension(120, 60));
             button.setMinimumSize(new Dimension(120, 60));
             button.setMaximumSize(new Dimension(120, 60));
@@ -57,7 +49,12 @@ public class QuanLyPhucVu_GUI extends javax.swing.JPanel {
             pnlDanhSachBan.add(button);
             listBtnBan.add(button);
         }
-        
+        int soLuongItem = pnlDanhSachBan.getComponentCount();
+        int soHang = (soLuongItem + 3) / 4;
+        int size = soHang * (60 + 5) - 5 ;
+        pnlDanhSachBan.setPreferredSize(new Dimension(500, size));
+        pnlDanhSachBan.setMinimumSize(new Dimension(260, 600));
+        pnlDanhSachBan.setMaximumSize(new Dimension(500, size));
         pnlDanhSachBan.revalidate();
         pnlDanhSachBan.repaint();
     } 

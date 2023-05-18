@@ -65,7 +65,7 @@ public class ChucVuServiceImpl implements IChucVuService {
        if(!validateUpdate(chucVu))
            return false;
        
-       ChucVu updaChucVu = chucVuRepository.updateChucVu(chucVu);
+       ChucVu updateChucVu = chucVuRepository.updateChucVu(chucVu);
        
        return true;
            
@@ -73,6 +73,13 @@ public class ChucVuServiceImpl implements IChucVuService {
 
     @Override
     public boolean deleteChucVu(int idChucVu) {
+        ChucVu chucVu = chucVuRepository.getById(idChucVu);
+        if (chucVu == null)
+            return false;
+        if (!chucVu.getListNhanVien().isEmpty())
+        {
+            return false;
+        }
         chucVuRepository.deleteChucVu(idChucVu);
         
         return true;

@@ -162,4 +162,8 @@ public class NhanVien implements Serializable{
     public void setListQuyenTaiKhoan(List<QuyenTaiKhoan> listQuyenTaiKhoan) {
         this.listQuyenTaiKhoan = listQuyenTaiKhoan;
     }
+
+    public void setTinhTrangNhanVien(int DA_NGHI) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

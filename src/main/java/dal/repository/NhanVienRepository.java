@@ -9,6 +9,7 @@ import dal.HibernateUtils;
 import dal.entity.ChucVu;
 import dal.entity.NhanVien;
 import dal.entity.TinhTrangNhanVien;
+import gui.constraints.TinhTrangNhanVienConstraint;
 import gui.models.NhanVien.SearchNhanVienModel;
 import gui.models.TaiKhoanModel;
 import java.util.ArrayList;
@@ -111,9 +112,10 @@ public class NhanVienRepository {
         Session session = HibernateUtils.getFACTORY().openSession();
         
         NhanVien nhanVien = session.get(NhanVien.class, ma);
-        
+        TinhTrangNhanVien tinhTrangNhanVien = tinhTrangNhanVienRepository.getById(TinhTrangNhanVienConstraint.DA_NGHI);
         session.getTransaction().begin();
-        session.delete(nhanVien);
+        nhanVien.setTinhTrangNhanVien(tinhTrangNhanVien);
+        session.save(nhanVien);
         session.getTransaction().commit();
         
         session.close();
@@ -176,8 +178,6 @@ public class NhanVienRepository {
         return getByNhieuMa(nma);
     }
     
-    
-    
     public boolean hasMaNV(String ma) {
         Session session = HibernateUtils.getFACTORY().openSession();
         NhanVien nhanVien = null;
@@ -205,4 +205,26 @@ public class NhanVienRepository {
         
         return nhanVien;
     } 
+    
+    public ArrayList<NhanVien> searchByInformation(String ma, String cccd, String sdt, String email) {
+        Session session = HibernateUtils.getFACTORY().openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<NhanVien> query = builder.createQuery(NhanVien.class);
+        Root<NhanVien> nhanVienEntry = query.from(NhanVien.class);
+        query = query.select(nhanVienEntry);
+
+        Predicate pMa = builder.equal(nhanVienEntry.get("ma").as(String.class), ma);
+        Predicate pCccd = builder.equal(nhanVienEntry.get("cccd").as(String.class), cccd);
+        Predicate pSdt = builder.equal(nhanVienEntry.get("sdt").as(String.class), sdt);
+        Predicate pEmail = builder.equal(nhanVienEntry.get("email").as(String.class), email);
+        Predicate all = builder.or(pMa, pCccd, pSdt, pEmail);
+        query = query.where(all);
+
+        Query<NhanVien> queryResult = session.createQuery(query);
+        ArrayList<NhanVien> result = (ArrayList<NhanVien>) queryResult.getResultList(); 
+
+        session.close();
+
+        return result;
+    }
 }

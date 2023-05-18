@@ -160,10 +160,12 @@ public class QuanLyChucVuController {
         boolean result = chucVuService.deleteChucVu(chucVuSelected.getId());
         if(result){
                 JOptionPane.showMessageDialog(view, "Xóa chức vụ thành công","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                chucVuSelected = null;
-        } else
+                loadData();
+                view.loadTableChucVu(listChucVuModel);
+        } 
+        else
             JOptionPane.showMessageDialog(view, "Xóa thất bại","Error", JOptionPane.ERROR_MESSAGE);
-        resetChucVu();
+        
     }
 
     public void show() {

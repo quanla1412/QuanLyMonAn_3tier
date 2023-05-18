@@ -86,6 +86,8 @@ public class NhanVienServiceImpl implements INhanVienService{
    
     @Override
     public boolean createNhanVien(CreateNhanVienModel createNhanVienModel) {
+        if (!validateCreate(createNhanVienModel))
+            return false;
        NhanVien nhanVien = NhanVienMapper.toNhanVien(createNhanVienModel);
        String encryptedpassword = AES.encrypt(nhanVien.getMa(), secretKey);         
        nhanVien.setPassWord(encryptedpassword);
@@ -97,12 +99,17 @@ public class NhanVienServiceImpl implements INhanVienService{
 
     @Override
     public boolean updateNhanVien(UpdateNhanVienModel updateNhanVienModel) {
+       if (!validateUpdate(updateNhanVienModel))
+           return false;
+        
        NhanVien nhanVien = NhanVienMapper.toNhanVien(updateNhanVienModel);
        
        NhanVien updateNhanVien = nhanVienRepository.updateNhanVien(nhanVien);
        
        return true;
     }
+    
+    
 
 
     @Override
@@ -112,6 +119,20 @@ public class NhanVienServiceImpl implements INhanVienService{
        return true;
     }
 
+    
+    private boolean validateCreate(CreateNhanVienModel createNhanVienModel){
+        ArrayList<NhanVien> nhanVien =  nhanVienRepository.searchByInformation(createNhanVienModel.getMa(),createNhanVienModel.getCCCD(),createNhanVienModel.getSoDienThoai(),createNhanVienModel.getEmail());
+        
+        return nhanVien == null;
+    }
+   
+    private boolean validateUpdate (UpdateNhanVienModel updateNhanVienModel){
+        ArrayList<NhanVien> nhanVien =  nhanVienRepository.searchByInformation(updateNhanVienModel.getMa(), updateNhanVienModel.getCCCD(), updateNhanVienModel.getSoDienThoai(), updateNhanVienModel.getEmail());
+        
+        return nhanVien == null;  
+    }
+    
+    
     @Override
     public List<NhanVienModel> search(SearchNhanVienModel searchNhanVienModel) {
        List<NhanVien> listNhanVien = nhanVienRepository.search(searchNhanVienModel);
@@ -446,7 +467,7 @@ public class NhanVienServiceImpl implements INhanVienService{
                     String CCCD = row.getCell(8).getStringCellValue();
                     String diaChi = row.getCell(9).getStringCellValue();
                 
-                if(nhanVienRepository1.hasMaNV(ma)){
+                if(nhanVienRepository1.hasMaNV(ma) ){
                     UpdateNhanVienModel data = new UpdateNhanVienModel(
                             ma,
                             idTinhTrang,
@@ -454,9 +475,13 @@ public class NhanVienServiceImpl implements INhanVienService{
                             hoTen,
                             email, 
                             SDT,
-                            diaChi
+                            diaChi,
+                            CCCD
                         );
-                    result = updateNhanVien(data);
+                    if (validateUpdate(data)){
+                        result = updateNhanVien(data);
+                    } else { result = false;}
+                    
                 } else {
                     CreateNhanVienModel data = new CreateNhanVienModel(
                             ma,
@@ -470,9 +495,11 @@ public class NhanVienServiceImpl implements INhanVienService{
                             diaChi,
                             CCCD
                         );
-                    result = createNhanVien(data);
+                    if (validateCreate(data))
+                    {result = createNhanVien(data);}
+                    else { result = false ;}
                 }
-                
+
                 if(result)
                     totalSuccess++;
                 
