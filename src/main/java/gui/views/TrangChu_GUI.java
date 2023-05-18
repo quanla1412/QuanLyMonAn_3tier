@@ -28,6 +28,7 @@ public class TrangChu_GUI extends javax.swing.JFrame {
         initComponents();
         prepareIcon();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setResizable(false);
     }
 
     class jPanelGradient extends JPanel {
