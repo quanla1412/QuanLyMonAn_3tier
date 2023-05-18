@@ -122,6 +122,7 @@ public class KhachHangRepository {
         
         return listKhachHang;
     }
+    
     public List<KhachHang> search(SearchKhachHangModel searchKhachHangModel){
         Session session = HibernateUtils.getFACTORY().openSession();
         
@@ -145,8 +146,13 @@ public class KhachHangRepository {
             whereSql = " WHERE ";
         String finalSql = sql + whereSql + String.join(" AND ", conditions);
         
-        javax.persistence.Query query = session.createQuery(finalSql)
-                .setParameter("ten", "%" + searchKhachHangModel.getIdOrName() + "%");
+        
+        javax.persistence.Query query;
+                
+        if(searchKhachHangModel.getIdOrName() == null)
+            query = session.createQuery(finalSql);
+        else 
+            query = session.createQuery(finalSql).setParameter("ten", "%" + searchKhachHangModel.getIdOrName() + "%");
         List<Integer> ids = query.getResultList();
         
        session.close();

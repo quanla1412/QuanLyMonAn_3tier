@@ -455,17 +455,17 @@ public class NhanVienServiceImpl implements INhanVienService{
                     continue;
                 }
                 boolean result;
-                
-                String ma = row.getCell(0).getStringCellValue();
-                int idTinhTrang = (int) row.getCell(1).getNumericCellValue();
-                int idChucVu = (int) row.getCell(2).getNumericCellValue();
-                String hoTen = row.getCell(3).getStringCellValue();
-                Date ngaySinh = row.getCell(4).getDateCellValue();
-                boolean gioiTinhNam = row.getCell(5).getBooleanCellValue();
-                String email = row.getCell(6).getStringCellValue();
-                String SDT = row.getCell(7).getStringCellValue();
-                String CCCD = row.getCell(8).getStringCellValue();
-                String diaChi = row.getCell(9).getStringCellValue();
+                try{                    
+                    String ma = row.getCell(0).getStringCellValue();
+                    int idTinhTrang = (int) row.getCell(1).getNumericCellValue();
+                    int idChucVu = (int) row.getCell(2).getNumericCellValue();
+                    String hoTen = row.getCell(3).getStringCellValue();
+                    Date ngaySinh = row.getCell(4).getDateCellValue();
+                    boolean gioiTinhNam = row.getCell(5).getBooleanCellValue();
+                    String email = row.getCell(6).getStringCellValue();
+                    String SDT = row.getCell(7).getStringCellValue();
+                    String CCCD = row.getCell(8).getStringCellValue();
+                    String diaChi = row.getCell(9).getStringCellValue();
                 
                 if(nhanVienRepository1.hasMaNV(ma) ){
                     UpdateNhanVienModel data = new UpdateNhanVienModel(
@@ -502,6 +502,10 @@ public class NhanVienServiceImpl implements INhanVienService{
 
                 if(result)
                     totalSuccess++;
+                
+                } catch(NullPointerException ex1){
+                    System.out.println(ex1);
+                }
             }
 
                 workbook.close();
@@ -622,6 +626,5 @@ public class NhanVienServiceImpl implements INhanVienService{
 
        }
        return result;
-    }
-    
+    }    
 }

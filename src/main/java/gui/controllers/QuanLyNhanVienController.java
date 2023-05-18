@@ -150,7 +150,9 @@ public class QuanLyNhanVienController {
             JOptionPane.showMessageDialog(view, "Cập nhật " + totalSuccess + " nhân viên","Import danh sách nhân viên", JOptionPane.INFORMATION_MESSAGE);
 
             loadData();
-        }else {
+            resetTable();
+            resetNhanVien();
+        } else {
             JOptionPane.showMessageDialog(view, "Import file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -419,8 +421,17 @@ public class QuanLyNhanVienController {
     }
     
     private void showQuanLyChucVu(){
-        if(quanLyChucVuController == null )
+        if(quanLyChucVuController == null ){
             quanLyChucVuController = new QuanLyChucVuController();
+            quanLyChucVuController.getBtnLuu().addActionListener(e -> {
+                quanLyChucVuController.saveChucVu();
+                resetNhanVien();
+            });
+            quanLyChucVuController.getBtnXoa().addActionListener(e -> {
+                quanLyChucVuController.deleteChucVu();
+                resetNhanVien();
+            });
+        }
         else
             quanLyChucVuController.show();
     }

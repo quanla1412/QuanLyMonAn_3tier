@@ -34,6 +34,7 @@ public class QuanLyNhanVien_GUI extends javax.swing.JPanel {
     
     public void loadComboBoxChucVu(ArrayList<ChucVuModel> listChucVu){
         cmbThemChucVu.removeAllItems();
+        cmbTimKiemChucVu.removeAllItems();
     
         for (ChucVuModel cv : listChucVu)
         {

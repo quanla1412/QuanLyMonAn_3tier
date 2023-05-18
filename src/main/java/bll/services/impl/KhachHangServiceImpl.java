@@ -369,42 +369,46 @@ public class KhachHangServiceImpl implements IKhachHangService {
                 // Đọc dữ liệu từ các hàng trong sheet
             boolean firstRow = true;
             for (Row row : sheet) {
-                if (firstRow){
-                    firstRow = false;
-                    continue;
+                try {
+                    if (firstRow){
+                        firstRow = false;
+                        continue;
+                    }
+                    boolean result;
+
+                    int id = (int) row.getCell(0).getNumericCellValue();
+                    String hoTen = row.getCell(1).getStringCellValue();
+                    String SDT = row.getCell(2).getStringCellValue();
+                    String email = row.getCell(3).getStringCellValue();
+                    Date ngaySinh = row.getCell(4).getDateCellValue();
+                    boolean gioiTinhNam = row.getCell(5).getBooleanCellValue();
+
+                    if(khachHangRepository1.hasId(id)){
+                        UpdateKhachHangModel data = new UpdateKhachHangModel(
+                                id,
+                                hoTen,
+                                SDT,
+                                email,
+                                ngaySinh, 
+                                gioiTinhNam
+                            );
+                        result = updateKhachHang(data);
+                    } else {
+                        CreateKhachHangModel data = new CreateKhachHangModel(
+                                hoTen,
+                                SDT,
+                                email,
+                                ngaySinh, 
+                                gioiTinhNam
+                            );
+                        result = createKhachHang(data);
+                    }
+
+                    if(result)
+                        totalSuccess++;
+                } catch(NullPointerException ex1){
+                    System.out.println(ex1);
                 }
-                boolean result;
-                
-                int id = (int) row.getCell(0).getNumericCellValue();
-                String hoTen = row.getCell(1).getStringCellValue();
-                String SDT = row.getCell(2).getStringCellValue();
-                String email = row.getCell(3).getStringCellValue();
-                Date ngaySinh = row.getCell(4).getDateCellValue();
-                boolean gioiTinhNam = row.getCell(5).getBooleanCellValue();
-                
-                if(khachHangRepository1.hasId(id)){
-                    UpdateKhachHangModel data = new UpdateKhachHangModel(
-                            id,
-                            hoTen,
-                            SDT,
-                            email,
-                            ngaySinh, 
-                            gioiTinhNam
-                        );
-                    result = updateKhachHang(data);
-                } else {
-                    CreateKhachHangModel data = new CreateKhachHangModel(
-                            hoTen,
-                            SDT,
-                            email,
-                            ngaySinh, 
-                            gioiTinhNam
-                        );
-                    result = createKhachHang(data);
-                }
-                
-                if(result)
-                    totalSuccess++;
             }
 
                 workbook.close();

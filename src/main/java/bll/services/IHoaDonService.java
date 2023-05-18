@@ -25,9 +25,9 @@ public interface IHoaDonService {
     
     public boolean huyHoaDon(HoaDonFullModel hoaDonSelected);
     
-    public long getDoanhThuTrongNgay(Date ngay);
+    public long getDoanhThuTrongNgay();
     
-    public long getDoanhThuTrong7NgayGanNhat(Date ngayBatDau, Date ngayKetThuc);
+    public long getDoanhThuTrong7NgayGanNhat();
     
     public HoaDonModel create(CreateHoaDonModel createHoaDonModel);
     

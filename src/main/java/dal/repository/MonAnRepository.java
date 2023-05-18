@@ -119,8 +119,13 @@ public class MonAnRepository {
             whereSql = " WHERE ";
         String finalSql = sql + whereSql + String.join(" AND ", conditions);
         
-        javax.persistence.Query query = session.createQuery(finalSql)
-                .setParameter("ten", "%" + searchMonAnModel.getIdOrName() + "%");
+        javax.persistence.Query query;
+                
+        if(searchMonAnModel.getIdOrName() == null)
+            query = session.createQuery(finalSql);
+        else {
+            query = session.createQuery(finalSql).setParameter("ten", "%" + searchMonAnModel.getIdOrName() + "%");
+        }
         List<Integer> ids = query.getResultList();
         
         session.close();           

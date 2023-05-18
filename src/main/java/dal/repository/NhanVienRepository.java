@@ -165,8 +165,12 @@ public class NhanVienRepository {
             whereSql = " WHERE ";
         String finalSql = sql + whereSql + String.join(" AND ", conditions);
         
-        javax.persistence.Query query = session.createQuery(finalSql)
-                .setParameter("ten", "%" + searchNhanVienModel.getMaOrhoTen() + "%");
+         javax.persistence.Query query;
+                
+        if(searchNhanVienModel.getMaOrhoTen()== null)
+            query = session.createQuery(finalSql);
+        else 
+            query = session.createQuery(finalSql).setParameter("ten", "%" + searchNhanVienModel.getMaOrhoTen() + "%");
         List<String> nma = query.getResultList();
         
         session.close();           
@@ -187,8 +191,6 @@ public class NhanVienRepository {
         
         return nhanVien != null;
     }
-    
-    
     
     public NhanVien updateTaiKhoanNhanVien (NhanVien data){
         Session session = HibernateUtils.getFACTORY().openSession();

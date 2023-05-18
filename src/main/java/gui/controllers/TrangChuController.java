@@ -135,6 +135,7 @@ public class TrangChuController {
         if(baoCaoThongKeController == null)
             baoCaoThongKeController = new BaoCaoThongKeController();
         
+        baoCaoThongKeController.showDefault();
         changeButtonChoosed(view.btnBaoCaoThongKe);
         showForm(baoCaoThongKeController.getView());
     }

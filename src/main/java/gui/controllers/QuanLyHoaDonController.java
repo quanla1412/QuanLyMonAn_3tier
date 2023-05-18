@@ -91,7 +91,7 @@ public class QuanLyHoaDonController {
         });
         
         view.btnTimKiem.addActionListener(e -> searchHoaDon());
-        view.btnReset.addActionListener(e -> resetTable());
+        view.btnReset.addActionListener(e -> reset());
         
         view.tblDanhSachHoaDon.addMouseListener(new MouseAdapter(){
             @Override
@@ -207,7 +207,7 @@ public class QuanLyHoaDonController {
             view.txtMaHoaDon.setText("");
             view.txtIdNhanVien.setText("");
             view.txtIdKhachHang.setText("");
-            view.dtcNgayGio.setDate(new Date());
+            view.txtNgayGio.setText("");
             view.txtTinhTrangHoaDon.setText("");
             view.resetTableDonGoi();
             view.txtTongTien.setText("");
@@ -225,7 +225,7 @@ public class QuanLyHoaDonController {
             view.txtIdKhachHang.setText(Integer.toString(hoaDonSelected.getIdKhachHang()));
         else
             view.txtIdKhachHang.setText("");            
-        view.dtcNgayGio.setDate(hoaDonSelected.getNgayGio());
+        view.txtNgayGio.setText(hoaDonSelected.getNgayGio().toString());
         
         if(hoaDonSelected.isDaHuy() == TinhTrangHoaDonConstraints.DA_HUY){
             view.txtTinhTrangHoaDon.setText("Đã huỷ");
@@ -259,11 +259,16 @@ public class QuanLyHoaDonController {
         Date ngayBatDau = java.sql.Date.valueOf(fromDate);
         Date ngayKetThuc = java.sql.Date.valueOf(toDate);
         
-        view.lblDoanhThuTrongNgay.setText("Trong ngày: " + Price.formatPrice(hoaDonService.getDoanhThuTrongNgay(ngayKetThuc)));
-        view.lblDoanhThu7NgayGanNhat.setText("7 ngày gần nhất: " + Price.formatPrice(hoaDonService.getDoanhThuTrong7NgayGanNhat(ngayBatDau,ngayKetThuc)));
+        view.lblDoanhThuTrongNgay.setText("Trong ngày: " + Price.formatPrice(hoaDonService.getDoanhThuTrongNgay()));
+        view.lblDoanhThu7NgayGanNhat.setText("7 ngày gần nhất: " + Price.formatPrice(hoaDonService.getDoanhThuTrong7NgayGanNhat()));
     }
     
     public JButton getBtnHuyHoaDon(){
         return view.btnHuyHoaDon;
+    }
+    
+    private void reset(){
+        resetTable();
+        loadDoanhThu();
     }
 }

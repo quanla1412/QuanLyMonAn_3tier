@@ -222,8 +222,16 @@ public class HoaDonServiceImpl implements IHoaDonService{
     }
 
     @Override
-    public long getDoanhThuTrongNgay(Date ngay) {
-        List<HoaDon> listHoaDon = hoaDonRepository.getListHoaDonTrongNgay(ngay);
+    public long getDoanhThuTrongNgay() {
+        Date startDate = new Date();
+        startDate.setHours(0);
+        startDate.setMinutes(0);
+        startDate.setSeconds(0);
+        Date endDate = new Date();
+        endDate.setHours(23);
+        endDate.setMinutes(59);
+        endDate.setSeconds(59);
+        List<HoaDon> listHoaDon = hoaDonRepository.getListHoaDonbyDates(startDate, endDate);
         long doanhThuTrongNgay = 0;
         
         for(HoaDon hoaDon : listHoaDon) {
@@ -234,8 +242,18 @@ public class HoaDonServiceImpl implements IHoaDonService{
     }
 
     @Override
-    public long getDoanhThuTrong7NgayGanNhat(Date ngayBatDau, Date ngayKetThuc) {
-        List<HoaDon> listHoaDon = hoaDonRepository.getListHoaDonTrong7NgayGanNhat(ngayBatDau, ngayKetThuc);
+    public long getDoanhThuTrong7NgayGanNhat() {
+        LocalDate date = LocalDate.now().minusDays(7);
+        Date startDate = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        startDate.setHours(0);
+        startDate.setMinutes(0);
+        startDate.setSeconds(0);
+        Date endDate = new Date();
+        endDate.setHours(23);
+        endDate.setMinutes(59);
+        endDate.setSeconds(59);
+        
+        List<HoaDon> listHoaDon = hoaDonRepository.getListHoaDonbyDates(startDate, endDate);
         long doanhThuTrong7NgayGanNhat = 0;
         
         for(HoaDon hoaDon : listHoaDon) {

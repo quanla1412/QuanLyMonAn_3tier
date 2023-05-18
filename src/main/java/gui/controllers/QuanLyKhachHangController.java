@@ -131,6 +131,7 @@ public class QuanLyKhachHangController {
             JOptionPane.showMessageDialog(view, "Cập nhật " + totalSuccess + " khách hàng","Import danh sách nhân viên", JOptionPane.INFORMATION_MESSAGE);
 
             loadData();
+            reset();
         }else {
             JOptionPane.showMessageDialog(view, "Import file excel thất bại","Error", JOptionPane.ERROR_MESSAGE);
         }

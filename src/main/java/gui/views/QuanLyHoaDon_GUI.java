@@ -131,13 +131,13 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         txtIdKhachHang = new javax.swing.JTextField();
         txtUuDai = new javax.swing.JTextField();
         txtThanhTien = new javax.swing.JTextField();
-        dtcNgayGio = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         btnHuyHoaDon = new javax.swing.JButton();
         lblQuyen1 = new javax.swing.JLabel();
         txtTinhTrangHoaDon = new javax.swing.JTextField();
         lblID4 = new javax.swing.JLabel();
         txtMaHoaDon = new javax.swing.JTextField();
+        txtNgayGio = new javax.swing.JTextField();
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -563,17 +563,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 20);
         pnlThemTaiKhoanMoi.add(txtThanhTien, gridBagConstraints);
 
-        dtcNgayGio.setEnabled(false);
-        dtcNgayGio.setMinimumSize(new java.awt.Dimension(172, 24));
-        dtcNgayGio.setPreferredSize(new java.awt.Dimension(172, 24));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 20);
-        pnlThemTaiKhoanMoi.add(dtcNgayGio, gridBagConstraints);
-
         jLabel3.setText("Đơn gọi");
         jLabel3.setMaximumSize(new java.awt.Dimension(120, 24));
         jLabel3.setMinimumSize(new java.awt.Dimension(120, 24));
@@ -638,6 +627,17 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 20);
         pnlThemTaiKhoanMoi.add(txtMaHoaDon, gridBagConstraints);
 
+        txtNgayGio.setEnabled(false);
+        txtNgayGio.setMinimumSize(new java.awt.Dimension(172, 24));
+        txtNgayGio.setName(""); // NOI18N
+        txtNgayGio.setPreferredSize(new java.awt.Dimension(172, 24));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 20);
+        pnlThemTaiKhoanMoi.add(txtNgayGio, gridBagConstraints);
+
         jPanel9.add(pnlThemTaiKhoanMoi);
 
         add(jPanel9);
@@ -651,7 +651,6 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
     public javax.swing.JComboBox<String> cmbTTMASearch;
     public com.toedter.calendar.JDateChooser dtcNgayBatDau;
     public com.toedter.calendar.JDateChooser dtcNgayCuoiCung;
-    public com.toedter.calendar.JDateChooser dtcNgayGio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel16;
@@ -688,6 +687,7 @@ public class QuanLyHoaDon_GUI extends javax.swing.JPanel {
     public javax.swing.JTextField txtIdKhachHang;
     public javax.swing.JTextField txtIdNhanVien;
     public javax.swing.JTextField txtMaHoaDon;
+    public javax.swing.JTextField txtNgayGio;
     public javax.swing.JTextField txtSearchID;
     public javax.swing.JTextField txtThanhTien;
     public javax.swing.JTextField txtTinhTrangHoaDon;

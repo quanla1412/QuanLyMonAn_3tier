@@ -85,7 +85,11 @@ public class BaoCaoThongKeController {
 //                case (13) -> showPieChartTieuThuMonAnThangHienTai();
             }
         });
+    }
+    
+    public void showDefault(){
         showPieChartLoaiBanTheoSoLuongBan();
+        
     }
     
     public JPanel getView(){
